@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Resuminator</string>
+    <string name="personalPhone">Phone</string>
+    <string name="personalName">Your Name</string>
+    <string name="personalEmail">Email Address</string>
+    <string name="personalCurrentCity">Current City</string>
+    <string name="personalDescription">A short description of you</string>
+    <string name="personalSkills">Skills</string>
+    <string name="personalHobbies">Hobbies</string>
+    <string name="saveButtonText">Save</string>
+    <string name="educationInstituteName">Institute Name</string>
+    <string name="educationDegree">Degree/Branch/Class</string>
+    <string name="educationYearOfGraduation">Year of graduation</string>
+    <string name="educationPerformance">Percentage/GPA/Performance</string>
+    <string name="saveButtonSaved">Saved</string>
+    <string name="experienceCompanyName">Company Name</string>
+    <string name="experienceJobTitle">Job Title</string>
+    <string name="experienceDuration">Duration</string>
+    <string name="projectName">Project Name</string>
+    <string name="projectRole">Role in project</string>
+    <string name="projectLink">Link</string>
+    <string name="projectDescription">Project Description</string>
+    <string name="save_resume">Save Resume</string>
+    <string name="noResumesText">Create a resume using the add button!</string>
+    <string name="newResumeName">New Resume Name</string>
+    <string name="resumeName">Name This Resume</string>
+</resources>
