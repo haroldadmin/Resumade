@@ -20,8 +20,9 @@
     <string name="projectRole">Role in project</string>
     <string name="projectLink">Link</string>
     <string name="projectDescription">Project Description</string>
-    <string name="save_resume">Save Resume</string>
     <string name="noResumesText">Create a resume using the add button!</string>
-    <string name="newResumeName">New Resume Name</string>
     <string name="resumeName">Name This Resume</string>
+    <string name="deleteResume">Delete Resume</string>
+    <string name="print_resume_as_pdf">Print Resume as PDF</string>
+    <string name="generate">Generate</string>
 </resources>

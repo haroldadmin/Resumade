@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text='My Resume'
+            tools:text="My Resume"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/primaryLightColor"
             android:textSize="28sp"
@@ -43,7 +43,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/resumePrintButton"
             app:layout_constraintTop_toBottomOf="@+id/resumeCardPersonalEmailTextView"
-            app:srcCompat="@drawable/ic_baseline_delete_24px" />
+            app:srcCompat="@drawable/ic_baseline_delete_24px"
+            android:contentDescription="@string/deleteResume" />
 
         <ImageButton
             android:id="@+id/resumePrintButton"
@@ -58,7 +59,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/resumeDeleteButton"
-            app:srcCompat="@drawable/ic_baseline_print_24px" />
+            app:srcCompat="@drawable/ic_baseline_print_24px"
+            android:contentDescription="@string/print_resume_as_pdf"/>
 
         <TextView
             android:id="@+id/resumeCardPersonalNameTextView"

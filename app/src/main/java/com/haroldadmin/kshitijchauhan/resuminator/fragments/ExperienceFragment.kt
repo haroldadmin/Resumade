@@ -8,14 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.educationList
-import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.experienceList
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.ExperienceAdapter
-import com.haroldadmin.kshitijchauhan.resuminator.data.Education
 import com.haroldadmin.kshitijchauhan.resuminator.data.Experience
 import kotlinx.android.synthetic.main.experience_fragment.*
-import kotlinx.android.synthetic.main.experience_fragment.view.*
 
 class ExperienceFragment : Fragment() {
 

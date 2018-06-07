@@ -3,7 +3,7 @@ package com.haroldadmin.kshitijchauhan.resuminator.data
 import android.arch.persistence.room.*
 
 @Dao
-interface resumeDAO {
+interface ResumeDAO {
 
     @Query("SELECT * FROM resumes")
     fun getAllResume(): MutableList<Resume>
@@ -25,7 +25,7 @@ interface resumeDAO {
 }
 
 @Dao
-interface educationDAO {
+interface EducationDAO {
 
     @Query("SELECT * FROM education")
     fun getAllEducation() : MutableList<Education>
@@ -41,7 +41,7 @@ interface educationDAO {
 }
 
 @Dao
-interface experienceDAO {
+interface ExperienceDAO {
 
     @Query("SELECT * FROM experience")
     fun getAllExperience() : MutableList<Experience>
@@ -57,7 +57,7 @@ interface experienceDAO {
 }
 
 @Dao
-interface projectsDAO {
+interface ProjectsDAO {
 
     @Query("SELECT * FROM projects")
     fun getAllProjects() : MutableList<Project>

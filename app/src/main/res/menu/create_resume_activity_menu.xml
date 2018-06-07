@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/generate_resume"
-        android:title="Generate"
+        android:title="@string/generate"
         app:showAsAction="always" />
 </menu>

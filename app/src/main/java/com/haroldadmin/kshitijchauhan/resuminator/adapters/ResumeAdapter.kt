@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.data.Resume
@@ -44,10 +46,10 @@ class ResumeAdapter(var resumeList : MutableList<Resume>?, val context : Context
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val resumeName = view.resumeName
-        val personalNameTextView = view.resumeCardPersonalNameTextView
-        val personalEmailTextView = view.resumeCardPersonalEmailTextView
-        val deleteResumeButton = view.resumeDeleteButton
-        val printResumeButton = view.resumePrintButton
+        val resumeName : TextView = view.resumeName
+        val personalNameTextView : TextView = view.resumeCardPersonalNameTextView
+        val personalEmailTextView : TextView = view.resumeCardPersonalEmailTextView
+        val deleteResumeButton : ImageButton = view.resumeDeleteButton
+        val printResumeButton : ImageButton = view.resumePrintButton
     }
 }

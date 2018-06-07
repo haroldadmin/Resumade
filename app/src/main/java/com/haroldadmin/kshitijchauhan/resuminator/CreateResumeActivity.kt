@@ -1,6 +1,5 @@
 package com.haroldadmin.kshitijchauhan.resuminator
 
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,7 +10,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.resumeId
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.ResumeFragmentsAdapter
 import com.haroldadmin.kshitijchauhan.resuminator.data.*
 import com.haroldadmin.kshitijchauhan.resuminator.fragments.EducationFragment
@@ -35,7 +33,6 @@ class CreateResumeActivity : AppCompatActivity() {
     }
 
     private val LOG_TAG = CreateResumeActivity::class.java.simpleName
-    lateinit var uiHandler : Handler
     lateinit var fragmentAdapter: ResumeFragmentsAdapter
     lateinit var database: ResumeDatabase
 
