@@ -34,6 +34,7 @@ class PersonalFragment : Fragment() {
                 currentCity = personalEmailEditText.text.toString()
                 skills = personalSkillsEditText.text.toString()
                 hobbies = personalHobbiesEditText.text.toString()
+                description = personalDescriptionEditText.text.toString()
             }
             updateResume(CreateResumeActivity.tempResume)
             personalSaveButton.text = resources.getString(R.string.saveButtonSaved)

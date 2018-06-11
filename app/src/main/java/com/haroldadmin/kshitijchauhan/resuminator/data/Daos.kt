@@ -31,7 +31,7 @@ interface EducationDAO {
     fun getAllEducation() : MutableList<Education>
 
     @Query("SELECT * FROM education WHERE resumeId=:resumeId")
-    fun getEducationForResume(resumeId : Long) : MutableList<Education>
+    fun getEducationForResume(resumeId : Long?) : MutableList<Education>
 
     @Query("SELECT count(*) FROM education")
     fun getEducationId() : Long
@@ -47,7 +47,7 @@ interface ExperienceDAO {
     fun getAllExperience() : MutableList<Experience>
 
     @Query("SELECT * FROM experience WHERE resumeId=:resumeId")
-    fun getExperienceForResume(resumeId : Long) : MutableList<Experience>
+    fun getExperienceForResume(resumeId : Long?) : MutableList<Experience>
 
     @Query("SELECT count(*) FROM experience")
     fun getExperienceId() : Long
@@ -63,7 +63,7 @@ interface ProjectsDAO {
     fun getAllProjects() : MutableList<Project>
 
     @Query("SELECT * FROM projects WHERE resumeId=:resumeId")
-    fun getProjectForResume(resumeId: Long) : MutableList<Project>
+    fun getProjectForResume(resumeId: Long?) : MutableList<Project>
 
     @Query("SELECT count(*) FROM projects")
     fun getProjectId() : Long

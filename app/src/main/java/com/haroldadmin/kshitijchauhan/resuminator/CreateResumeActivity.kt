@@ -177,7 +177,7 @@ class CreateResumeActivity : AppCompatActivity() {
 
     private fun createTempResume(resumeId: Long) {
         launch {
-            tempResume = Resume(resumeId, name = "", phone = "", email = "", currentCity = "", skills =  "", hobbies = "")
+            tempResume = Resume(resumeId, name = "", phone = "", email = "", currentCity = "", skills =  "", hobbies = "", description = "")
             database.resumeDAO().insertResume(tempResume)
         }
     }

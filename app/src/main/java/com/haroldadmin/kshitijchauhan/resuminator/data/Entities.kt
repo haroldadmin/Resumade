@@ -17,6 +17,8 @@ data class Resume(
         var email : String,
         @ColumnInfo(name = "currentCity")
         var currentCity : String,
+        @ColumnInfo(name = "description")
+        var description: String,
         @ColumnInfo(name = "skills")
         var skills : String,
         @ColumnInfo(name = "hobbies")
