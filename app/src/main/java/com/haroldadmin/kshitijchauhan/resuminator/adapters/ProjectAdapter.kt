@@ -2,6 +2,7 @@ package com.haroldadmin.kshitijchauhan.resuminator.adapters
 
 import android.content.Context
 import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.data.Project
 import com.haroldadmin.kshitijchauhan.resuminator.data.ResumeDatabase
+import com.haroldadmin.kshitijchauhan.resuminator.utilities.isEmpty
+import kotlinx.android.synthetic.main.personal_fragment.view.*
 import kotlinx.android.synthetic.main.project_card.view.*
 import kotlinx.coroutines.experimental.launch
 
@@ -34,17 +37,33 @@ class ProjectAdapter(val projectsList : MutableList<Project>?, val context : Con
             }
         } else {
             holder.saveButton.setOnClickListener {
-                with(project) {
-                    projectName = holder.projectName.text.toString()
-                    role = holder.projectRole.text.toString()
-                    link = holder.projectLink.text.toString()
-                    description = holder.projectDescription.toString()
-                    resumeId = CreateResumeActivity.resumeId
-                    println(this)
+                //Assume that all details are filled already, therefore the tests will pass
+                var passed = true
+                //If any of the following tests fail, the education details will not be saved.
+                //Intentionally skipping out on the projectLink check.
+                if (holder.projectName.isEmpty()) {
+                    passed = false; holder.projectNameWrapper.error = null
                 }
-                insertProjectIntoDatabase(project)
-                holder.saveButton.isEnabled = false
-                holder.saveButton.text = context?.getString(R.string.saveButtonSaved) ?: "Saved"
+                if (holder.projectRole.isEmpty()) {
+                    passed = false; holder.projectRoleWrapper.error = null
+                }
+                if (holder.projectDescription.isEmpty()) {
+                    passed = false; holder.projectDescriptionWrapper.error = null
+                }
+                //If all tests passed, save the details
+                if (passed) {
+                    with(project) {
+                        projectName = holder.projectName.text.toString()
+                        role = holder.projectRole.text.toString()
+                        link = holder.projectLink.text.toString()
+                        description = holder.projectDescription.text.toString()
+                        resumeId = CreateResumeActivity.resumeId
+                        println(this)
+                        insertProjectIntoDatabase(this)
+                        holder.saveButton.isEnabled = false
+                        holder.saveButton.text = context?.getString(R.string.saveButtonSaved) ?: "Saved"
+                    }
+                }
             }
         }
     }
@@ -54,6 +73,10 @@ class ProjectAdapter(val projectsList : MutableList<Project>?, val context : Con
         val projectRole : TextInputEditText = view.projectRoleEditText
         val projectLink : TextInputEditText = view.projectLinkEditText
         val projectDescription : TextInputEditText = view.projectDescriptionEditText
+        val projectNameWrapper : TextInputLayout = view.projectNameWrapper
+        val projectRoleWrapper : TextInputLayout = view.projectRoleWrapper
+        val projectLinkWrapper : TextInputLayout = view.projectLinkWrapper
+        val projectDescriptionWrapper : TextInputLayout = view.projectDescriptionWrapper
         val saveButton : Button = view.experienceSaveButton
     }
 

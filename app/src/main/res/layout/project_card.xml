@@ -19,10 +19,11 @@
         android:layout_marginTop="16dp">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/projectNameWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/HintAppearance"
-            android:textColorHint="@color/secondaryLightColor">
+            android:textColorHint="@color/secondaryLightColor"
+            app:hintTextAppearance="@style/HintAppearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectNameEditText"
@@ -32,15 +33,16 @@
                 android:hint="@string/projectName"
                 android:inputType="textPersonName"
                 android:textColor="@color/primaryLightColor"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/projectRoleWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/HintAppearance"
-            android:textColorHint="@color/secondaryLightColor">
+            android:textColorHint="@color/secondaryLightColor"
+            app:hintTextAppearance="@style/HintAppearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectRoleEditText"
@@ -50,15 +52,16 @@
                 android:hint="@string/projectRole"
                 android:inputType="textPersonName"
                 android:textColor="@color/primaryLightColor"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/projectLinkWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/HintAppearance"
-            android:textColorHint="@color/secondaryLightColor">
+            android:textColorHint="@color/secondaryLightColor"
+            app:hintTextAppearance="@style/HintAppearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectLinkEditText"
@@ -68,15 +71,16 @@
                 android:hint="@string/projectLink"
                 android:inputType="textUri"
                 android:textColor="@color/primaryLightColor"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/projectDescriptionWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/HintAppearance"
-            android:textColorHint="@color/secondaryLightColor">
+            android:textColorHint="@color/secondaryLightColor"
+            app:hintTextAppearance="@style/HintAppearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectDescriptionEditText"
@@ -86,7 +90,7 @@
                 android:hint="@string/projectDescription"
                 android:inputType="textMultiLine"
                 android:textColor="@color/primaryLightColor"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </android.support.design.widget.TextInputLayout>
 

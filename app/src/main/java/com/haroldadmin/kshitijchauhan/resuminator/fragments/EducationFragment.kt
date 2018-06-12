@@ -11,6 +11,8 @@ import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.EducationAdapter
 import com.haroldadmin.kshitijchauhan.resuminator.data.Education
+import com.haroldadmin.kshitijchauhan.resuminator.utilities.afterTextChanged
+import kotlinx.android.synthetic.main.education_card.*
 import kotlinx.android.synthetic.main.education_fragment.*
 
 class EducationFragment : Fragment() {
@@ -27,6 +29,7 @@ class EducationFragment : Fragment() {
         educationRecyclerView.layoutManager = LinearLayoutManager(context)
         educationRecyclerView.adapter = educationAdapter
         educationRecyclerView.layoutAnimation = animation
+        addEducation(CreateResumeActivity.resumeId)
     }
 
     fun addEducation(resumeId : Long) {

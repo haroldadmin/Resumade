@@ -18,7 +18,7 @@
     <string name="experienceDuration">Duration</string>
     <string name="projectName">Project Name</string>
     <string name="projectRole">Role in project</string>
-    <string name="projectLink">Link</string>
+    <string name="projectLink">Link (optional)</string>
     <string name="projectDescription">Project Description</string>
     <string name="noResumesText">Create a resume using the add button!</string>
     <string name="resumeName">Name This Resume</string>

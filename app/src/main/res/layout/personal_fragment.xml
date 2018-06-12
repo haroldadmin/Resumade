@@ -50,7 +50,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/personalNameTextInputLayout"
+                    android:id="@+id/personalNameWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -75,7 +75,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout2"
+                    android:id="@+id/personalPhoneWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -85,7 +85,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/personalNameTextInputLayout">
+                    app:layout_constraintTop_toBottomOf="@+id/personalNameWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalPhoneEditText"
@@ -100,7 +100,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout3"
+                    android:id="@+id/personalEmailWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -110,7 +110,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                    app:layout_constraintTop_toBottomOf="@+id/personalPhoneWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalEmailEditText"
@@ -125,7 +125,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout4"
+                    android:id="@+id/currentCityWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -135,7 +135,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+                    app:layout_constraintTop_toBottomOf="@+id/personalEmailWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalCityEditText"
@@ -150,7 +150,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout5"
+                    android:id="@+id/skillsWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -160,7 +160,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+                    app:layout_constraintTop_toBottomOf="@+id/currentCityWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalSkillsEditText"
@@ -175,7 +175,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout6"
+                    android:id="@+id/hobbiesWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -185,7 +185,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+                    app:layout_constraintTop_toBottomOf="@+id/skillsWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalHobbiesEditText"
@@ -200,7 +200,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout7"
+                    android:id="@+id/descriptionWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -210,7 +210,7 @@
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+                    app:layout_constraintTop_toBottomOf="@+id/hobbiesWrapper">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/personalDescriptionEditText"
@@ -238,7 +238,7 @@
                     android:textColor="@color/save_button_color_state_list"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+                    app:layout_constraintTop_toBottomOf="@+id/descriptionWrapper" />
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>

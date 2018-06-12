@@ -27,6 +27,7 @@ class ExperienceFragment : Fragment() {
         experienceRecyclerView.layoutManager = LinearLayoutManager(this.context)
         experienceRecyclerView.adapter = experienceAdapter
         experienceRecyclerView.layoutAnimation = animation
+        addExperience(CreateResumeActivity.resumeId)
     }
 
     fun addExperience(resumeId : Long) {

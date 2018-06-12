@@ -25,7 +25,7 @@ import kotlinx.coroutines.experimental.launch
 class CreateResumeActivity : AppCompatActivity() {
 
     companion object {
-        var resumeId: Long = 1
+        var resumeId: Long = 0
         var educationList: MutableList<Education>? = mutableListOf()
         var experienceList: MutableList<Experience>? = mutableListOf()
         var projectsList: MutableList<Project>? = mutableListOf()
@@ -85,14 +85,15 @@ class CreateResumeActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(LOG_TAG, "CR destroyed")
-        if (!SavedState.isSaved) {
-            Log.d(LOG_TAG, "Deleting Temporary Resume")
-            deleteTempResume()
-        }
+
     }
 
     override fun onPause() {
         super.onPause()
+        if (!SavedState.isSaved) {
+            Log.d(LOG_TAG, "Deleting Temporary Resume")
+            deleteTempResume()
+        }
         Log.d(LOG_TAG, "CR activity paused")
     }
 

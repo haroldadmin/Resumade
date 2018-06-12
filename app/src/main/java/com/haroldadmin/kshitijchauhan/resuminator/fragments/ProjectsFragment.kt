@@ -27,6 +27,7 @@ class ProjectsFragment : Fragment() {
         projectsRecyclerView.layoutManager = LinearLayoutManager(context)
         projectsRecyclerView.adapter = projectAdapter
         projectsRecyclerView.layoutAnimation = animation
+        addProject(CreateResumeActivity.resumeId)
     }
 
     fun addProject(resumeId : Long) {
