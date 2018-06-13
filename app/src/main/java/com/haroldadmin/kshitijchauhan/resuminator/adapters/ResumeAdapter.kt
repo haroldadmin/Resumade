@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.ImageButton
 import android.widget.TextView
+import com.crashlytics.android.Crashlytics
 import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.educationList
 import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.experienceList
+import kotlinx.android.synthetic.main.activity_main.*
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.data.*
 import com.haroldadmin.kshitijchauhan.resuminator.utilities.*
@@ -41,7 +43,7 @@ class ResumeAdapter(var resumeList : MutableList<Resume>, val context : Context)
             personalEmailTextView.text = resume.email
             deleteResumeButton.setOnClickListener {
                 async(UI) {
-                    Log.d("Resume Adapter", "Deleting at position $position, resume: $resume")
+                    Crashlytics.log(1, "Resume Adapter", "Deleting at position $position, resume: $resume")
                     val result = bg { database.resumeDAO().deleteResume(resume) }
                     result.await()
                     resumeList.removeAt(position)
@@ -58,11 +60,10 @@ class ResumeAdapter(var resumeList : MutableList<Resume>, val context : Context)
                         educationList = database.educationDAO().getEducationForResume(position.toLong().plus(1))
                         experienceList = database.experienceDAO().getExperienceForResume(position.toLong().plus(1))
                         projectsList = database.projectsDAO().getProjectForResume(position.toLong().plus(1))
-                        Log.d("Resume Adapter", "Lists retrieved for HTML builder: $educationList \n $experienceList \n $projectsList")
+                        Crashlytics.log(1, "Resume Adapter", "Lists retrieved for HTML builder: $educationList \n $experienceList \n $projectsList")
                         html = genHtml(resume, educationList, experienceList, projectsList)
                     }
                     result.await()
-                    Log.d("Resume Adapter", "HTML generated: $html")
                     webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
                     createWebPrintJob(webView)
                 }

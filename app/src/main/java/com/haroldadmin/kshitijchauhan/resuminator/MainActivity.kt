@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
+import com.crashlytics.android.Crashlytics
 import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.resumeId
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.ResumeAdapter
 import com.haroldadmin.kshitijchauhan.resuminator.data.Resume
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(LOG_TAG, "Main acitivity created")
+        Crashlytics.log(0, LOG_TAG, "Main acitivity created")
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         async(UI) {
             var result = bg { database.resumeDAO().getAllResume() }
             resumeList = result.await()
-            Log.d(LOG_TAG, "Resumes retrieved from database: \n $resumeList")
+            Crashlytics.log(2, LOG_TAG, "Resumes retrieved from database: \n $resumeList")
             with(resumeList) {
                 numberOfResume = this?.size
                 if (numberOfResume!! > 0) { noResumesTextView.visibility = View.GONE }
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 resumeId = result.await()
                 // New resume should have an ID one greater than the last resume
                 resumeId++
-                Log.d(LOG_TAG, "New resumeId = $resumeId")
+                Crashlytics.log(1, LOG_TAG, "New resumeId = $resumeId")
                 intent.putExtra("ResumeID", resumeId)
                 startActivity(intent)
             }
@@ -78,6 +79,19 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, AboutActivity::class.java))
                 return true
             }
+            R.id.deleteAllResume -> {
+                async(UI) {
+                    val task = bg {
+                        database.clearAllTables()
+                        resumeList?.clear()
+                    }
+                    task.await()
+                    resumeAdapter.notifyDataSetChanged()
+                    resumesRecyclerView.visibility = View.INVISIBLE
+                    noResumesTextView.visibility = View.VISIBLE
+                }
+                    return true
+                }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -85,22 +99,22 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
 
         super.onResume()
-        Log.d(LOG_TAG, "Main Activity resumed")
-        Log.d(LOG_TAG, "(MA onResume) Number of resume = $numberOfResume")
+        Crashlytics.log(0, LOG_TAG, "Main Activity resumed")
+        Crashlytics.log(1, LOG_TAG, "(MA onResume) Number of resume = $numberOfResume")
 
         if(SavedState.isSaved) {
-            Log.d(LOG_TAG, "New resume added!")
+            Crashlytics.log(1, LOG_TAG, "New resume added!")
             // Resetting Saved State
             SavedState.isSaved = false
             async(UI) {
                 val result = bg {
                     val newResume = database.resumeDAO().getResumeForId(resumeId)
-                    Log.d(LOG_TAG, "New resume retrieved : $newResume")
+                    Crashlytics.log(2, LOG_TAG, "New resume retrieved : $newResume")
                     resumeList?.add(newResume)
                     numberOfResume?.plus(1)
                 }
                 result.await()
-                Log.d(LOG_TAG, "Notifying resume adapter of new resume")
+                Crashlytics.log(1, LOG_TAG, "Notifying resume adapter of new resume")
                 resumeAdapter.notifyItemInserted(resumeId.minus(1).toInt())
                 // If the user proceeds to add another resume, the resumeID should be incremented by one.
                 resumeId++
@@ -109,13 +123,14 @@ class MainActivity : AppCompatActivity() {
                 We can set its visibility to gone.
                  */
                 noResumesTextView.visibility = View.GONE
+                resumesRecyclerView.visibility = View.VISIBLE
             }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(LOG_TAG, "Main Activity destroyed")
+        Crashlytics.log(0, LOG_TAG, "Main Activity destroyed")
     }
 
 }

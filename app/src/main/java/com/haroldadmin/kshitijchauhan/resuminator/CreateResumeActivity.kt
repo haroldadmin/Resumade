@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.crashlytics.android.Crashlytics
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.ResumeFragmentsAdapter
 import com.haroldadmin.kshitijchauhan.resuminator.data.*
 import com.haroldadmin.kshitijchauhan.resuminator.fragments.EducationFragment
@@ -38,12 +39,12 @@ class CreateResumeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Log.d(LOG_TAG, "CR activity created")
+        Crashlytics.log(0, LOG_TAG, "CR activity created")
         super.onCreate(savedInstanceState)
         database = ResumeDatabase.getInstance(this)!!
 
         resumeId = intent.getLongExtra("ResumeID", 1000)
-        Log.d(LOG_TAG, "(CR onCreate) Creating a new resume with id = $resumeId")
+        Crashlytics.log(1, LOG_TAG, "(CR onCreate) Creating a new resume with id = $resumeId")
         createTempResume(resumeId)
 
         setContentView(R.layout.activity_create_resume)
@@ -84,28 +85,28 @@ class CreateResumeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(LOG_TAG, "CR destroyed")
+        Crashlytics.log(0, LOG_TAG, "CR destroyed")
 
     }
 
     override fun onPause() {
         super.onPause()
         if (!SavedState.isSaved) {
-            Log.d(LOG_TAG, "Deleting Temporary Resume")
+            Crashlytics.log(1, LOG_TAG, "Deleting Temporary Resume")
             deleteTempResume()
         }
-        Log.d(LOG_TAG, "CR activity paused")
+        Crashlytics.log(0, LOG_TAG, "CR activity paused")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(LOG_TAG, "CR activity stopped")
+        Crashlytics.log(0, LOG_TAG, "CR activity stopped")
     }
 
     override fun onResume() {
         super.onResume()
         createResumeFab.visibility = View.INVISIBLE // To make sure FAB isn't visible in the personal fragment
-        Log.d(LOG_TAG, "CR activity resumed")
+        Crashlytics.log(0, LOG_TAG, "CR activity resumed")
     }
 
     fun setUpRemainingFragments(resumeId: Long) {
@@ -137,14 +138,12 @@ class CreateResumeActivity : AppCompatActivity() {
     }
 
     private fun fabBehaviourPersonal(fab: FloatingActionButton) {
-        Log.d(LOG_TAG, "FAB in Personal Fragment Mode")
         fab.animate().alpha(0.0f).setDuration(200)
         fab.clearAnimation()
         fab.visibility = View.INVISIBLE
     }
 
     private fun fabBehaviourEducation(fab: FloatingActionButton, vp: ViewPager) {
-        Log.d(LOG_TAG, "FAB in Education Fragment Mode")
         fab.animate().alpha(1.0f).setDuration(200)
         fab.clearAnimation()
         fab.visibility = View.VISIBLE
