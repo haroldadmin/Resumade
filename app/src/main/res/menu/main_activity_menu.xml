@@ -12,9 +12,6 @@
         android:id="@+id/deleteAllResume"
         android:title="Delete All Resume"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/crash"
-        android:title="Force Crash"
-        app:showAsAction="never" />
+
 
 </menu>
