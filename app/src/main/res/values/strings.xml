@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Resuminator</string>
+    <string name="app_name">Resumade</string>
     <string name="personalPhone">Phone</string>
     <string name="personalName">Your Name</string>
     <string name="personalEmail">Email Address</string>
@@ -25,4 +25,5 @@
     <string name="deleteResume">Delete Resume</string>
     <string name="print_resume_as_pdf">Print Resume as PDF</string>
     <string name="generate">Generate</string>
+    <string name="info">Info</string>
 </resources>

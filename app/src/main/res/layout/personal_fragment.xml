@@ -43,9 +43,9 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/secondaryLightColor"
                         android:hint="@string/resumeName"
-                        android:inputType="textPersonName"
+                        android:inputType="text"
                         android:textColor="@color/primaryLightColor"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                 </android.support.design.widget.TextInputLayout>
 

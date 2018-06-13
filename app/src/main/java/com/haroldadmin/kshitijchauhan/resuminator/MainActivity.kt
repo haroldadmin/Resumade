@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.resumeId
@@ -61,6 +63,22 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("ResumeID", resumeId)
                 startActivity(intent)
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
