@@ -39,7 +39,7 @@ class PersonalFragment : Fragment() {
                     name = personalNameEditText.text.toString().trim()
                     phone = personalPhoneEditText.text.toString().trim()
                     email = personalEmailEditText.text.toString().trim()
-                    currentCity = personalEmailEditText.text.toString().trim()
+                    currentCity = personalCityEditText.text.toString().trim()
                     skills = personalSkillsEditText.text.toString().trim()
                     hobbies = personalHobbiesEditText.text.toString().trim()
                     description = personalDescriptionEditText.text.toString().trim()
