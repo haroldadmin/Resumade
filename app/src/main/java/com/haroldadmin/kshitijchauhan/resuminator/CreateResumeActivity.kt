@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.util.Log
@@ -11,18 +12,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.crashlytics.android.Crashlytics
+import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.educationList
+import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.experienceList
+import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.projectsList
+import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.resumeId
+import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity.Companion.tempResume
+import com.haroldadmin.kshitijchauhan.resuminator.R.id.createResumeFab
 import com.haroldadmin.kshitijchauhan.resuminator.adapters.ResumeFragmentsAdapter
 import com.haroldadmin.kshitijchauhan.resuminator.data.*
-import com.haroldadmin.kshitijchauhan.resuminator.fragments.EducationFragment
-import com.haroldadmin.kshitijchauhan.resuminator.fragments.ExperienceFragment
-import com.haroldadmin.kshitijchauhan.resuminator.fragments.PersonalFragment
-import com.haroldadmin.kshitijchauhan.resuminator.fragments.ProjectsFragment
+import com.haroldadmin.kshitijchauhan.resuminator.fragments.*
 import com.haroldadmin.kshitijchauhan.resuminator.utilities.SavedState
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class CreateResumeActivity : AppCompatActivity() {
 
@@ -31,7 +38,7 @@ class CreateResumeActivity : AppCompatActivity() {
         var educationList: MutableList<Education>? = mutableListOf()
         var experienceList: MutableList<Experience>? = mutableListOf()
         var projectsList: MutableList<Project>? = mutableListOf()
-        lateinit var tempResume : Resume
+        lateinit var tempResume: Resume
     }
 
     private val LOG_TAG = CreateResumeActivity::class.java.simpleName
@@ -91,10 +98,16 @@ class CreateResumeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (!SavedState.isSaved) {
-            Crashlytics.log(1, LOG_TAG, "Deleting Temporary Resume")
-            deleteTempResume()
+            alert("Unsaved Resume Reminder") {
+                title = "Delete unsaved resume?"
+                positiveButton("Yes") {
+                    Crashlytics.log(1, LOG_TAG, "Deleting Temporary Resume")
+                    deleteTempResume()
+                    super.onBackPressed()
+                }
+                negativeButton("No") { }
+            }.show()
         }
-        super.onBackPressed()
     }
 
     override fun onPause() {
@@ -181,7 +194,7 @@ class CreateResumeActivity : AppCompatActivity() {
 
     private fun createTempResume(resumeId: Long) {
         launch {
-            tempResume = Resume(resumeId, name = "", phone = "", email = "", currentCity = "", skills =  "", hobbies = "", description = "")
+            tempResume = Resume(resumeId, name = "", phone = "", email = "", currentCity = "", skills = "", hobbies = "", description = "")
             database.resumeDAO().insertResume(tempResume)
         }
     }
@@ -193,4 +206,5 @@ class CreateResumeActivity : AppCompatActivity() {
             Crashlytics.log(2, LOG_TAG, "Deleted temp resume")
         }
     }
+
 }
