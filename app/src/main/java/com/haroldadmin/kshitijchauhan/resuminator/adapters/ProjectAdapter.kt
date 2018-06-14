@@ -12,6 +12,7 @@ import com.haroldadmin.kshitijchauhan.resuminator.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resuminator.R
 import com.haroldadmin.kshitijchauhan.resuminator.data.Project
 import com.haroldadmin.kshitijchauhan.resuminator.data.ResumeDatabase
+import com.haroldadmin.kshitijchauhan.resuminator.utilities.afterTextChanged
 import com.haroldadmin.kshitijchauhan.resuminator.utilities.isEmpty
 import kotlinx.android.synthetic.main.personal_fragment.view.*
 import kotlinx.android.synthetic.main.project_card.view.*
@@ -42,14 +43,19 @@ class ProjectAdapter(val projectsList : MutableList<Project>?, val context : Con
                 //If any of the following tests fail, the education details will not be saved.
                 //Intentionally skipping out on the projectLink check.
                 if (holder.projectName.isEmpty()) {
-                    passed = false; holder.projectNameWrapper.error = null
+                    passed = false; holder.projectNameWrapper.error = "Can't be empty"
                 }
                 if (holder.projectRole.isEmpty()) {
-                    passed = false; holder.projectRoleWrapper.error = null
+                    passed = false; holder.projectRoleWrapper.error = "Can't be empty"
                 }
                 if (holder.projectDescription.isEmpty()) {
-                    passed = false; holder.projectDescriptionWrapper.error = null
+                    passed = false; holder.projectDescriptionWrapper.error = "Can't be empty"
                 }
+                //Clear errors when the user starts typing again
+                holder.projectName.afterTextChanged { holder.projectNameWrapper.error = null }
+                holder.projectRole.afterTextChanged { holder.projectRoleWrapper.error = null }
+                holder.projectDescription.afterTextChanged { holder.projectDescriptionWrapper.error = null }
+                
                 //If all tests passed, save the details
                 if (passed) {
                     with(project) {
