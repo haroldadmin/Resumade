@@ -44,7 +44,7 @@ class PersonalFragment : Fragment() {
                     hobbies = personalHobbiesEditText.text.toString().trim()
                     description = personalDescriptionEditText.text.toString().trim()
                 }
-                updateResume(CreateResumeActivity.tempResume)
+                updateResume()
                 personalSaveButton.text = resources.getString(R.string.saveButtonSaved)
                 personalSaveButton.isEnabled = false
             }
@@ -59,7 +59,7 @@ class PersonalFragment : Fragment() {
         personalDescriptionEditText.afterTextChanged { descriptionWrapper.error = null }
     }
 
-    fun updateResume(resume : Resume) {
+    fun updateResume() {
         launch {
             database.resumeDAO().updateResume(CreateResumeActivity.tempResume)
             println(CreateResumeActivity.tempResume)

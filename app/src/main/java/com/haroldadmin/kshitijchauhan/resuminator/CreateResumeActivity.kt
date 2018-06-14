@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_create_resume.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.coroutines.experimental.bg
 
 class CreateResumeActivity : AppCompatActivity() {
 
@@ -86,15 +87,18 @@ class CreateResumeActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Crashlytics.log(0, LOG_TAG, "CR destroyed")
-
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onBackPressed() {
         if (!SavedState.isSaved) {
             Crashlytics.log(1, LOG_TAG, "Deleting Temporary Resume")
             deleteTempResume()
         }
+        super.onBackPressed()
+    }
+
+    override fun onPause() {
+        super.onPause()
         Crashlytics.log(0, LOG_TAG, "CR activity paused")
     }
 
@@ -183,8 +187,10 @@ class CreateResumeActivity : AppCompatActivity() {
     }
 
     private fun deleteTempResume() {
-        launch {
-            database.resumeDAO().deleteResume(tempResume)
+        async(UI) {
+            val task = bg { database.resumeDAO().deleteResume(tempResume) }
+            task.await()
+            Crashlytics.log(2, LOG_TAG, "Deleted temp resume")
         }
     }
 }
