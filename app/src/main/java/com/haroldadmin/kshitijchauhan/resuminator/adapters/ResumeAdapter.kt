@@ -94,7 +94,7 @@ class ResumeAdapter(var resumeList : MutableList<Resume>, val context : Context)
 
     fun createWebPrintJob(webview: WebView) {
         val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
-        val printAdapter = webview.createPrintDocumentAdapter()
+        val printAdapter = webview.createPrintDocumentAdapter("Resume Document")
         val printJob = printManager.print("Resuminator Job", printAdapter, PrintAttributes.Builder().build())
     }
 }
