@@ -1,2 +1,4 @@
 # Resumade
 An Android app with beautiful, minimal material design that generates a gorgeous resume for you. Written in Kotlin.
+
+<img src="https://user-images.githubusercontent.com/24315306/41407729-f56b552a-6fed-11e8-86f1-24f3c5f5e25a.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/24315306/41407732-f62acbd0-6fed-11e8-9f64-c4d503e3c3ee.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/24315306/41407728-f4fb3b28-6fed-11e8-98ea-deeb88c38518.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/24315306/41407731-f5d13642-6fed-11e8-9737-1a2c510d5234.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/24315306/41407727-f4b81690-6fed-11e8-941e-778c6ea5d714.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/24315306/41407726-f4565ce8-6fed-11e8-86bc-79d5e81d94e3.png" width="30%"></img> 
