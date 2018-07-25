@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Resumade</string>
+    <string name="no_resumes_text">No Resumes yet.\nCreate one!</string>
+    <string name="resumeName">Resume Name</string>
+    <string name="personalName">Name</string>
+    <string name="personalPhone">Phone</string>
+    <string name="personalEmail">Email Address</string>
+    <string name="personalCurrentCity">Current City</string>
+    <string name="personalDescription">Description</string>
+    <string name="personalSkills">Skills</string>
+    <string name="personalHobbies">Hobbies</string>
+    <string name="saveButtonText">Save</string>
+    <string name="educationInstituteName">Institute Name</string>
+    <string name="educationDegree">Degree/Branch/Class</string>
+    <string name="educationYearOfGraduation">Year of graduation</string>
+    <string name="educationPerformance">Percentage/GPA/Performance</string>
+    <string name="saveButtonSaved">Saved</string>
+    <string name="experienceCompanyName">Company Name</string>
+    <string name="experienceJobTitle">Job Title</string>
+    <string name="experienceDuration">Duration</string>
+    <string name="projectName">Project Name</string>
+    <string name="projectRole">Role in project</string>
+    <string name="projectLink">Link (optional)</string>
+    <string name="projectDescription">Project Description</string>
+    <string name="phoneHelperText">Should be 10 digits</string>
+    <string name="skillsHelperText">E.g: Graphic Designing, Animation</string>
+    <string name="hobbiesHelperText">E.g: Running, Swimming</string>
+    <string name="resumeNameHelperText">Give this resume a fun name!</string>
+    <string name="deleteButtonText">Delete</string>
+    <string name="noProjectsString">No Project added yet!\nTap the add button below to get started.</string>
+    <string name="noExperienceText">No Experience added yet!\nTap the add button below to get started.</string>
+    <string name="noEducationText">No Education added yet!\nTap the add button below to get started.</string>
 </resources>
