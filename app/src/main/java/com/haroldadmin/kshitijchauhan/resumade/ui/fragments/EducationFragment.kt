@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
+import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
@@ -62,15 +63,16 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 
 	override fun <Education> onDeleteButtonClick(item: Education) {
 		createResumeViewModel.deleteEducation(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Education)
+		(activity as CreateResumeActivity).displaySnackbar("Education deleted.")
 	}
 
 	private fun toggleNoEducationLayout(size : Int) {
 		if (size > 0) {
 			educationRecyclerView.visibility = View.VISIBLE
-			noEducationTextView.visibility = View.INVISIBLE
+			noEducationView.visibility = View.INVISIBLE
 		} else {
 			educationRecyclerView.visibility = View.INVISIBLE
-			noEducationTextView.visibility = View.VISIBLE
+			noEducationView.visibility = View.VISIBLE
 		}
 	}
 }

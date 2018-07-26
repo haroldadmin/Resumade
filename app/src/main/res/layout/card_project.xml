@@ -31,7 +31,8 @@
                 android:id="@+id/projectName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +54,8 @@
                 android:id="@+id/projectRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -74,7 +76,8 @@
                 android:id="@+id/projectLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +99,8 @@
                 android:id="@+id/projectDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 

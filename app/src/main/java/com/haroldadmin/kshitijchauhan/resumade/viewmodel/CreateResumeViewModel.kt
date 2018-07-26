@@ -3,12 +3,12 @@ package com.haroldadmin.kshitijchauhan.resumade.viewmodel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.repository.LocalRepository
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
+import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 
 class CreateResumeViewModel(application: Application) : AndroidViewModel(application) {
 

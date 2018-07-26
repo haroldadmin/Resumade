@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ProjectAdapter
+import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
@@ -62,15 +63,16 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 
 	override fun <Project> onDeleteButtonClick(item: Project) {
 		createResumeViewModel.deleteProject(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Project)
+		(activity as CreateResumeActivity).displaySnackbar("Project deleted.")
 	}
 
 	private fun toggleNoProjectsLayout(size : Int) {
 		if (size > 0) {
 			projectRecyclerView.visibility = View.VISIBLE
-			noProjectTextView.visibility = View.INVISIBLE
+			noProjectsView.visibility = View.INVISIBLE
 		} else {
 			projectRecyclerView.visibility = View.INVISIBLE
-			noProjectTextView.visibility = View.VISIBLE
+			noProjectsView.visibility = View.VISIBLE
 		}
 	}
 

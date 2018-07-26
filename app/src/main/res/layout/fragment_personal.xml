@@ -33,7 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalName"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -58,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalPhone"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -82,7 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalEmail"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -106,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalCurrentCity"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -131,7 +135,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalSkills"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -156,7 +161,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/personalHobbies"
-                android:textColor="@color/secondaryTextColor"/>
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -182,7 +188,8 @@
                 android:layout_height="150dp"
                 android:hint="@string/personalDescription"
                 android:gravity="top"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -208,21 +215,24 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/resumeName"
                 android:gravity="top"
-                android:textColor="@color/secondaryTextColor" />
+                android:textColor="@color/secondaryTextColor"
+                android:textCursorDrawable="@color/secondaryTextColor"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.button.MaterialButton
             android:id="@+id/personalSaveButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/saveButtonText"
             app:backgroundTint="@color/primaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/resumeNameWrapper" />
 
     </android.support.constraint.ConstraintLayout>

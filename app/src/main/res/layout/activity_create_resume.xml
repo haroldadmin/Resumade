@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/rootCoordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,8 +18,7 @@
             android:id="@+id/createResumeToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/primaryColor"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
+            android:background="@color/primaryColor"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/createResumeTabs"
@@ -25,8 +26,7 @@
             android:layout_height="wrap_content"
             android:background="@color/primaryColor"
             app:tabMode="scrollable"
-            app:tabGravity="fill"
-            app:layout_scrollFlags="enterAlwaysCollapsed"/>
+            app:tabGravity="fill"/>
 
     </android.support.design.widget.AppBarLayout>
 

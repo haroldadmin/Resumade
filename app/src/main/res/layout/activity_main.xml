@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/mainActivityAppbarLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:fitsSystemWindows="true"
@@ -36,27 +37,20 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/noResumesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/no_resumes_text"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+    <include layout="@layout/no_items_view"
+        android:id="@+id/noResumesView"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/resumesListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/card_resume"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addResumeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_round_add_24px"
         app:backgroundTint="@color/primaryDarkColor"

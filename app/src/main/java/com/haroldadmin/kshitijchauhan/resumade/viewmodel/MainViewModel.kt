@@ -4,9 +4,6 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import com.haroldadmin.kshitijchauhan.resumade.repository.LocalRepository
-import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
-import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
-import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 
 /*
@@ -27,11 +24,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 	var resumesList: LiveData<List<Resume>>
 		private set
 
-	lateinit var educationList : List<Education>
-	lateinit var experienceList : List<Experience>
-	lateinit var projectList : List<Project>
-	lateinit var resume: Resume
-
 	/*
 	The main view model extends AndroidViewModel,
 	so it gets an instance of application in its constructor.
@@ -46,13 +38,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 	fun deleteResume(resume : Resume) {
 		repository.deleteResume(resume)
-	}
-
-	fun getListsAndResume(resumeId : Long) {
-		resume = repository.getResumeForId(resumeId).value ?: Resume("", "", "", "", "", "", "", "")
-		educationList = repository.getAllEducationForResume(resumeId).value ?: emptyList()
-		experienceList = repository.getAllExperienceForResume(resumeId).value ?: emptyList()
-		projectList = repository.getAllProjectsForResume(resumeId).value ?: emptyList()
 	}
 
 }

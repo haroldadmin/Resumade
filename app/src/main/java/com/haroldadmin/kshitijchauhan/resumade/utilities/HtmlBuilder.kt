@@ -7,7 +7,7 @@ import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 
 fun createBaseHTML() : String {
 	var html = ""
-	html += "<!DOCTYPE <!DOCTYPE html>\n" +
+	html += "<!DOCTYPE html>\n" +
 			"<html>\n" +
 			"<head>\n" +
 			"    <title>Resume</title>\n" +
@@ -200,43 +200,51 @@ fun addProjectInfo(projectsList : List<Project>) : String {
 }
 
 fun addSkills(resume : Resume) : String {
-	val skills = resume.skills.split(",")
-	skills.map { it -> it.trim() }
 	var html = ""
-	html += "    <div class=\"skills\">\n" +
-			"        <div class=\"skills-header\">\n" +
-			"            <h2>Skills</h2>\n" +
-			"        </div>\n" +
-			"        <div class=\"skills-text\">\n" +
-			"            <ul class=\"skills-list\">"
-	for (skill in skills) {
-		html += "<li>$skill</li>"
-	}
+	if (resume.skills != "") {
+		val skills = resume.skills.split(",")
+		skills.map { it -> it.trim() }
+		if (skills.isNotEmpty()) {
+			html += "    <div class=\"skills\">\n" +
+					"        <div class=\"skills-header\">\n" +
+					"            <h2>Skills</h2>\n" +
+					"        </div>\n" +
+					"        <div class=\"skills-text\">\n" +
+					"            <ul class=\"skills-list\">"
+			for (skill in skills) {
+				html += "<li>$skill</li>"
+			}
 
-	html += "            </ul>\n" +
-			"        </div>\n" +
-			"    </div>\n" +
-			"    <br>"
+			html += "            </ul>\n" +
+					"        </div>\n" +
+					"    </div>\n" +
+					"    <br>"
+		}
+	}
 	return html
 }
 
 fun addHobbies(resume : Resume) : String {
-	val hobbies = resume.hobbies.split(",")
-	hobbies.map { it -> it.trim() }
 	var html = ""
-	html + "    <div class=\"hobbies\">\n" +
-			"        <div class=\"hobbies-header\">\n" +
-			"            <h2>Hobbies</h2>\n" +
-			"        </div>\n" +
-			"        <div class=\"hobbies-text\">\n" +
-			"            <ul>"
-	for (hobby in hobbies) {
-		html + "<li>$hobby</li>"
-	}
+	if (resume.hobbies != "") {
+		val hobbies = resume.hobbies.split(",")
+		hobbies.map { it -> it.trim() }
+		if (hobbies.isNotEmpty()) {
+			html += "    <div class=\"hobbies\">\n" +
+					"        <div class=\"hobbies-header\">\n" +
+					"            <h2>Hobbies</h2>\n" +
+					"        </div>\n" +
+					"        <div class=\"hobbies-text\">\n" +
+					"            <ul>"
+			for (hobby in hobbies) {
+				html += "<li>$hobby</li>"
+			}
 
-	html + "            </ul>\n" +
-			"        </div>\n" +
-			"    </div>"
+			html += "            </ul>\n" +
+					"        </div>\n" +
+					"    </div>"
+		}
+	}
 	return html
 }
 
@@ -244,5 +252,18 @@ fun closeHtmlFile() : String {
 	var html = ""
 	html += "</body>\n" +
 			"</html>"
+	return html
+}
+
+fun buildHtml(resume : Resume, educationList: List<Education>, experienceList: List<Experience>, projectList: List<Project>) : String {
+	var html = ""
+	html += createBaseHTML()
+	html += addPersonalInfo(resume)
+	html += addEducationInfo(educationList)
+	html += addExperienceInfo(experienceList)
+	html += addProjectInfo(projectList)
+	html += addSkills(resume)
+	html += addHobbies(resume)
+	html += closeHtmlFile()
 	return html
 }

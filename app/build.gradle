@@ -15,7 +15,7 @@ android {
         applicationId "com.haroldadmin.kshitijchauhan.resumade"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
+        versionCode 2
         versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

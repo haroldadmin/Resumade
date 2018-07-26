@@ -1,15 +1,23 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Companion.EXTRA_RESUME_ID
+import com.haroldadmin.kshitijchauhan.resumade.ui.fragments.PreviewFragment
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import org.jetbrains.anko.alert
@@ -21,6 +29,9 @@ class CreateResumeActivity : AppCompatActivity() {
 	private lateinit var createResumeViewModel: CreateResumeViewModel
 	private lateinit var resumeFragmentAdapter: FragmentAdapter
 	private lateinit var createResumeFab : FloatingActionButton
+	private lateinit var webview: WebView
+	private var addIcon : Drawable? = null
+	private var doneIcon : Drawable? = null
 
 	companion object {
 		var currentResumeId : Long = -1L
@@ -34,6 +45,8 @@ class CreateResumeActivity : AppCompatActivity() {
 		createResumeToolbar.title = "Create Resume"
 
 		createResumeFab = findViewById(R.id.createResumeFab)
+		addIcon = ContextCompat.getDrawable(this, R.drawable.ic_round_add_24px)
+		doneIcon = ContextCompat.getDrawable(this, R.drawable.ic_round_done_24px)
 
 		val intent = intent
 		if (intent != null && intent.hasExtra(EXTRA_RESUME_ID)) {
@@ -102,6 +115,12 @@ class CreateResumeActivity : AppCompatActivity() {
 				createResumeViewModel.saved = true
 				true
 				}
+			R.id.print -> run {
+				webview = WebView(this)
+				webview.loadDataWithBaseURL(null, PreviewFragment.html, "text/html", "UTF-8", null)
+				createWebPrintJob(webview)
+				true
+			}
 			else -> super.onOptionsItemSelected(item)
 		}
 	}
@@ -112,6 +131,7 @@ class CreateResumeActivity : AppCompatActivity() {
 			1 -> fabBehaviourEducationFragment()
 			2 -> fabBehaviourExperienceFragment()
 			3 -> fabBehaviourProjectFragment()
+			4 -> fabBehaviourPreviewFragment()
 		}
 	}
 
@@ -121,6 +141,8 @@ class CreateResumeActivity : AppCompatActivity() {
 
 	private fun fabBehaviourEducationFragment() {
 		createResumeFab.apply {
+			hide()
+			setImageDrawable(addIcon)
 			show()
 			setOnClickListener {
 				createResumeViewModel.insertBlankEducation()
@@ -130,6 +152,8 @@ class CreateResumeActivity : AppCompatActivity() {
 
 	private fun fabBehaviourExperienceFragment() {
 		createResumeFab.apply {
+			hide()
+			setImageDrawable(addIcon)
 			show()
 			setOnClickListener {
 				createResumeViewModel.insertBlankExperience()
@@ -139,11 +163,34 @@ class CreateResumeActivity : AppCompatActivity() {
 
 	private fun fabBehaviourProjectFragment() {
 		createResumeFab.apply {
+			hide()
+			setImageDrawable(addIcon)
 			show()
 			setOnClickListener {
 				createResumeViewModel.insertBlankProject()
 			}
 		}
+	}
+
+	private fun fabBehaviourPreviewFragment() {
+		createResumeFab.apply {
+			hide()
+			setImageDrawable(doneIcon)
+			show()
+			setOnClickListener {
+				finish()
+			}
+		}
+	}
+
+	fun displaySnackbar(text : String) {
+		Snackbar.make(rootCoordinatorLayout, text, Snackbar.LENGTH_SHORT).show()
+	}
+
+	private fun createWebPrintJob(webview: WebView) {
+		val printManager = this.getSystemService(Context.PRINT_SERVICE) as PrintManager
+		val printAdapter = webview.createPrintDocumentAdapter("Resume Document")
+		val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
 	}
 }
 

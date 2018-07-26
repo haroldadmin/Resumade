@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
+import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
@@ -55,15 +56,16 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 
 	override fun <Experience> onDeleteButtonClick(item: Experience) {
 		createResumeViewModel.deleteExperience(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience)
+		(activity as CreateResumeActivity).displaySnackbar("Experience deleted.")
 	}
 
 	private fun toggleNoExperienceLayout(size : Int) {
 		if (size > 0) {
 			experienceRecyclerView.visibility = View.VISIBLE
-			noExperienceTextView.visibility = View.INVISIBLE
+			noExperienceView.visibility = View.INVISIBLE
 		} else {
 			experienceRecyclerView.visibility = View.INVISIBLE
-			noExperienceTextView.visibility = View.VISIBLE
+			noExperienceView.visibility = View.VISIBLE
 		}
 	}
 }

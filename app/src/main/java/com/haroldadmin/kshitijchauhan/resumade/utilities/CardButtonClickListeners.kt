@@ -11,7 +11,3 @@ interface DeleteButtonClickListener {
 interface ResumeCardClickListener {
 	fun onResumeCardClick(resumeId : Long)
 }
-
-interface PrintButtonClickListener {
-	fun onPrintButtonClick(resumeId : Long)
-}
