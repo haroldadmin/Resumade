@@ -14,23 +14,4 @@
         <item name="android:colorControlActivated">@color/secondaryLightColor</item>
     </style>
 
-    <!--<style name="TextInputLayoutInBlueCard" parent="Widget.MaterialComponents.TextInputEditText.FilledBox.Dense">-->
-        <!--<item name="boxBackgroundColor">@color/primaryLightColor</item>-->
-        <!--<item name="android:colorControlNormal">@color/secondaryLightColor</item>-->
-        <!--<item name="colorAccent">@color/secondaryLightColor</item>-->
-        <!--<item name="android:textColor">@color/secondaryLightColor</item>-->
-        <!--<item name="android:textColorHint">@color/primaryLightColor</item>-->
-        <!--<item name="android:alpha">0.5</item>-->
-    <!--</style>-->
-
-    <!--<style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">-->
-        <!--<item name="android:textColor">@color/secondaryLightColor</item>-->
-    <!--</style>-->
-
-    <!--<style name="TextAppearance.App.TextInputEditText" parent="@android:style/TextAppearance">-->
-        <!--<item name="android:colorControlNormal">@color/secondaryLightColor</item>-->
-        <!--<item name="android:colorAccent">@color/secondaryLightColor</item>-->
-        <!--<item name="android:textColor">@color/secondaryLightColor</item>-->
-    <!--</style>-->
-
 </resources>

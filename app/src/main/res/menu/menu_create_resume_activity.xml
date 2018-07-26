@@ -5,11 +5,11 @@
     <item
         android:id="@+id/done"
         android:icon="@drawable/ic_round_done_24px"
-        android:title="Done"
-        app:showAsAction="always" />
+        android:title="@string/done"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/print"
         android:icon="@drawable/ic_round_print_24px"
-        android:title="Print"
-        app:showAsAction="always" />
+        android:title="@string/print"
+        app:showAsAction="ifRoom" />
 </menu>
