@@ -119,6 +119,8 @@ class CreateResumeActivity : AppCompatActivity() {
 				webview = WebView(this)
 				webview.loadDataWithBaseURL(null, PreviewFragment.html, "text/html", "UTF-8", null)
 				createWebPrintJob(webview)
+				createResumeViewModel.saved = true
+				finish()
 				true
 			}
 			else -> super.onOptionsItemSelected(item)
