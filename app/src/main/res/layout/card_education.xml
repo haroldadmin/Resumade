@@ -35,6 +35,7 @@
                 android:id="@+id/educationInstituteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor"
                 android:textSize="18sp" />
@@ -62,6 +63,7 @@
                 android:id="@+id/educationDegree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor"
                 android:textSize="18sp" />
@@ -89,6 +91,8 @@
                 android:id="@+id/educationPerformance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor"
                 android:textSize="18sp" />
@@ -117,6 +121,8 @@
                 android:id="@+id/educationYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="date"
+                android:singleLine="true"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor"
                 android:textSize="18sp" />

@@ -32,8 +32,9 @@
                 android:id="@+id/experienceCompanyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -57,6 +58,8 @@
                 android:id="@+id/experienceJobTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor" />
         </android.support.design.widget.TextInputLayout>
@@ -81,6 +84,8 @@
                 android:id="@+id/experienceDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/secondaryTextColor"
                 android:textCursorDrawable="@color/secondaryTextColor" />
 
