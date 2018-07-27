@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Resumade</string>
     <string name="no_items_text">Nothing here.\nTap the add button!</string>
+    <string name="createResumeTitle">Create Resume</string>
     <string name="resumeName">Resume Name</string>
     <string name="personalName">Name</string>
     <string name="personalPhone">Phone</string>
@@ -29,4 +30,7 @@
     <string name="deleteButtonText">Delete</string>
     <string name="done">Done</string>
     <string name="print">Print</string>
+    <string name="aboutUsText">This project is completely open source.
+This app was created with first year engineering students as its target audience.
+You should check out Standard Resume if you need something more professional.</string>
 </resources>

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -42,7 +43,7 @@ class CreateResumeActivity : AppCompatActivity() {
 		setContentView(R.layout.activity_create_resume)
 
 		setSupportActionBar(createResumeToolbar)
-		createResumeToolbar.title = "Create Resume"
+		supportActionBar?.title = resources.getString(R.string.createResumeTitle)
 
 		createResumeFab = findViewById(R.id.createResumeFab)
 		addIcon = ContextCompat.getDrawable(this, R.drawable.ic_round_add_24px)

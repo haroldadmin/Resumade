@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.CreateResumeActivity"></activity>
+        <activity android:name=".ui.activities.CreateResumeActivity" />
+        <activity android:name=".ui.activities.AboutUsActivity"></activity>
     </application>
 
 </manifest>

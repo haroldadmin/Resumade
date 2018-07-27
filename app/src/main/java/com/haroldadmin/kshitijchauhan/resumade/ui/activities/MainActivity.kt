@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.webkit.WebView
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 		setContentView(R.layout.activity_main)
 
 		setSupportActionBar(mainActivityToolbar)
-		collapsingToolbarLayout.title = "Resumade"
+		collapsingToolbarLayout.title = resources.getString(R.string.app_name)
 
 		mainViewModel = ViewModelProviders
 				.of(this)
@@ -58,6 +60,22 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 			intent.putExtra(EXTRA_RESUME_ID, newResumeId)
 			startActivity(intent)
 		}
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+		menuInflater.inflate(R.menu.menu_main_activity, menu)
+		return true
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+		return when(item?.itemId) {
+			R.id.about -> {
+				startActivity(Intent(this, AboutUsActivity::class.java))
+				true
+			}
+			else -> super.onOptionsItemSelected(item)
+		}
+
 	}
 
 	override fun onResumeCardClick(resumeId: Long) {
