@@ -190,11 +190,6 @@ class CreateResumeActivity : AppCompatActivity() {
 	private fun fabBehaviourPreviewFragment() {
 		createResumeFab.apply {
 			hide()
-			setImageDrawable(doneIcon)
-			show()
-			setOnClickListener {
-				finish()
-			}
 		}
 	}
 

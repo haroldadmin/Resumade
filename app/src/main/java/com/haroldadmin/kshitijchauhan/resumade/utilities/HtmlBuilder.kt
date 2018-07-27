@@ -95,43 +95,47 @@ fun createBaseHTML() : String {
 
 fun addPersonalInfo(resume: Resume) : String {
 	var html = ""
-	html += "<div class=\"personal-info\">\n" +
-			"        <div class=\"name-container\">\n" +
-			"            <h1 class=\"name\">${resume.name.toUpperCase()}</h1>\n" +
-			"        </div>\n" +
-			"        <div class=\"contact-info-container\">\n" +
-			"            <p id=\"phone-number\">+${resume.phone}</p> \n" +
-			"            <p id=\"email-address\">${resume.email}</p>\n" +
-			"            <p id=\"current-city\">${resume.currentCity}</p>\n" +
-			"        </div>\n" +
-			"        <br>\n" +
-			"        <div class=\"description\">\n" +
-			"            <p id=\"description\">${resume.description}</p>\n" +
-			"        </div>\n" +
-			"        <br>\n" +
-			"    </div>"
+	if (resume.isNotEmpty()) {
+		html += "<div class=\"personal-info\">\n" +
+				"        <div class=\"name-container\">\n" +
+				"            <h1 class=\"name\">${resume.name.toUpperCase()}</h1>\n" +
+				"        </div>\n" +
+				"        <div class=\"contact-info-container\">\n" +
+				"            <p id=\"phone-number\">+${resume.phone}</p> \n" +
+				"            <p id=\"email-address\">${resume.email}</p>\n" +
+				"            <p id=\"current-city\">${resume.currentCity}</p>\n" +
+				"        </div>\n" +
+				"        <br>\n" +
+				"        <div class=\"description\">\n" +
+				"            <p id=\"description\">${resume.description}</p>\n" +
+				"        </div>\n" +
+				"        <br>\n" +
+				"    </div>"
+	}
 	return html
 }
 
 fun addEducationInfo(educationList: List<Education>) : String {
 	var html = ""
-	if (!educationList.isEmpty()) {
+	if (!educationList.isEmpty() && educationList.first().isNotEmpty()) {
 		html += "<div class=\"education-info\">\n" +
 				"        <h2>Education</h2>\n" +
 				"        <div class=\"cards-list\">"
 		for (education in educationList) {
-			html += "<div class=\"card education-card\">\n" +
-					"                <div class=\"card-container\">\n" +
-					"                    <div class=\"card-title\">\n" +
-					"                        <p class=\"card-title-text\" id=\"institute-name\">${education.instituteName}</p>\n" +
-					"                    </div>\n" +
-					"                    <div class=\"card-content\">\n" +
-					"                        <p id=\"degree\">${education.degree}</p>\n" +
-					"                        <p id=\"performance\">${education.performance}</p>\n" +
-					"                        <p id=\"year-of-graduation\">${education.year}</p>\n" +
-					"                    </div>\n" +
-					"                </div>\n" +
-					"            </div>"
+			if (education.isNotEmpty()) {
+				html += "<div class=\"card education-card\">\n" +
+						"                <div class=\"card-container\">\n" +
+						"                    <div class=\"card-title\">\n" +
+						"                        <p class=\"card-title-text\" id=\"institute-name\">${education.instituteName}</p>\n" +
+						"                    </div>\n" +
+						"                    <div class=\"card-content\">\n" +
+						"                        <p id=\"degree\">${education.degree}</p>\n" +
+						"                        <p id=\"performance\">${education.performance}</p>\n" +
+						"                        <p id=\"year-of-graduation\">${education.year}</p>\n" +
+						"                    </div>\n" +
+						"                </div>\n" +
+						"            </div>"
+			}
 		}
 		html += "</div>\n" +
 				"    </div>"
@@ -141,23 +145,25 @@ fun addEducationInfo(educationList: List<Education>) : String {
 
 fun addExperienceInfo(experienceList : List<Experience>) : String {
 	var html = ""
-	if (!experienceList.isEmpty()) {
+	if (!experienceList.isEmpty() && experienceList.first().isNotEmpty()) {
 		html += "<br>\n" +
 				"    <div class=\"experience-info\">\n" +
 				"        <h2>Experience</h2>\n" +
 				"        <div class=\"cards-list\">"
 		for (experience in experienceList) {
-			html += "<div class=\"card experience-card\">\n" +
-					"                <div class=\"card-container\">\n" +
-					"                    <div class=\"card-title\">\n" +
-					"                        <p class=\"card-title-text\" id=\"experience-name\">${experience.companyName}</p>\n" +
-					"                    </div>\n" +
-					"                    <div class=\"card-content\">\n" +
-					"                        <p id=\"experience-jobTitle\">${experience.jobTitle}</p>\n" +
-					"                        <p id=\"experience-duration\">${experience.duration}</p>\n" +
-					"                    </div>\n" +
-					"                </div>\n" +
-					"            </div>"
+			if (experience.isNotEmpty()) {
+				html += "<div class=\"card experience-card\">\n" +
+						"                <div class=\"card-container\">\n" +
+						"                    <div class=\"card-title\">\n" +
+						"                        <p class=\"card-title-text\" id=\"experience-name\">${experience.companyName}</p>\n" +
+						"                    </div>\n" +
+						"                    <div class=\"card-content\">\n" +
+						"                        <p id=\"experience-jobTitle\">${experience.jobTitle}</p>\n" +
+						"                        <p id=\"experience-duration\">${experience.duration}</p>\n" +
+						"                    </div>\n" +
+						"                </div>\n" +
+						"            </div>"
+			}
 		}
 
 		html += "</div>\n" +
@@ -169,32 +175,34 @@ fun addExperienceInfo(experienceList : List<Experience>) : String {
 
 fun addProjectInfo(projectsList : List<Project>) : String {
 	var html = ""
-	if (!projectsList.isEmpty()) {
+	if (!projectsList.isEmpty() && projectsList.first().isNotEmpty()) {
 		html += "<div class=\"projects-info\">\n" +
 				"        <h2>Projects</h2>\n" +
 				"        <div class=\"cards-list\">"
 		for (project in projectsList) {
-			html += "<div class=\"card project-card\">\n" +
-					"                <div class=\"card-container\">\n" +
-					"                    <div class=\"card-title\">\n" +
-					"                        <p class=\"card-title-text\" id=\"project-name\">${project.projectName}</p>\n" +
-					"                    </div>\n" +
-					"                    <div class=\"card-content\">\n" +
-					"                        <p id=\"project-role\">${project.role}</p>\n"
-			// We need to add this check because projectLink might be empty
-			if (!project.link.isEmpty()) {
-				html += "<p id=\"project-link\"><a href=\"${project.link}\">${project.link}</a></p>\n"
+			if (project.isNotEmpty()) {
+				html += "<div class=\"card project-card\">\n" +
+						"                <div class=\"card-container\">\n" +
+						"                    <div class=\"card-title\">\n" +
+						"                        <p class=\"card-title-text\" id=\"project-name\">${project.projectName}</p>\n" +
+						"                    </div>\n" +
+						"                    <div class=\"card-content\">\n" +
+						"                        <p id=\"project-role\">${project.role}</p>\n"
+				// We need to add this check because projectLink might be empty
+				if (!project.link.isEmpty()) {
+					html += "<p id=\"project-link\"><a href=\"${project.link}\">${project.link}</a></p>\n"
+				}
+				html +=
+						"                        <p id=\"project-description\">${project.description}</p>\n" +
+						"                    </div>\n" +
+						"                </div>\n" +
+						"            </div>"
 			}
-			html +=
-					"                        <p id=\"project-description\">${project.description}</p>\n" +
-					"                    </div>\n" +
-					"                </div>\n" +
-					"            </div>"
-		}
 
-		html += "</div>\n" +
-				"    </div>\n" +
-				"    <br>"
+			html += "</div>\n" +
+					"    </div>\n" +
+					"    <br>"
+		}
 	}
 	return html
 }
@@ -202,16 +210,16 @@ fun addProjectInfo(projectsList : List<Project>) : String {
 fun addSkills(resume : Resume) : String {
 	var html = ""
 	if (resume.skills != "") {
-		val skills = resume.skills.split(",")
-		skills.map { it -> it.trim() }
-		if (skills.isNotEmpty()) {
+		val skillsList = resume.skills.split(",")
+		skillsList.map { it -> it.trim() }
+		if (skillsList.isNotEmpty()) {
 			html += "    <div class=\"skills\">\n" +
 					"        <div class=\"skills-header\">\n" +
 					"            <h2>Skills</h2>\n" +
 					"        </div>\n" +
 					"        <div class=\"skills-text\">\n" +
 					"            <ul class=\"skills-list\">"
-			for (skill in skills) {
+			for (skill in skillsList) {
 				html += "<li>$skill</li>"
 			}
 
@@ -227,16 +235,16 @@ fun addSkills(resume : Resume) : String {
 fun addHobbies(resume : Resume) : String {
 	var html = ""
 	if (resume.hobbies != "") {
-		val hobbies = resume.hobbies.split(",")
-		hobbies.map { it -> it.trim() }
-		if (hobbies.isNotEmpty()) {
+		val hobbiesList = resume.hobbies.split(",")
+		hobbiesList.map { it -> it.trim() }
+		if (hobbiesList.isNotEmpty()) {
 			html += "    <div class=\"hobbies\">\n" +
 					"        <div class=\"hobbies-header\">\n" +
 					"            <h2>Hobbies</h2>\n" +
 					"        </div>\n" +
 					"        <div class=\"hobbies-text\">\n" +
 					"            <ul>"
-			for (hobby in hobbies) {
+			for (hobby in hobbiesList) {
 				html += "<li>$hobby</li>"
 			}
 
