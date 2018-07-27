@@ -25,7 +25,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:helperText="@string/projectNameHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectName"
@@ -42,20 +44,22 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/projectRole"
             android:textColorHint="@color/secondaryDarkColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/projectNameWrapper">
+            app:layout_constraintTop_toBottomOf="@id/projectNameWrapper"
+            app:helperText="@string/projectRoleHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -64,20 +68,22 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/projectLink"
             android:textColorHint="@color/secondaryDarkColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/projectRoleWrapper">
+            app:layout_constraintTop_toBottomOf="@+id/projectRoleWrapper"
+            app:helperText="@string/projectLinkHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -87,20 +93,22 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/projectDescription"
             android:textColorHint="@color/secondaryDarkColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/projectLinkWrapper">
+            app:layout_constraintTop_toBottomOf="@+id/projectLinkWrapper"
+            app:helperText="@string/projectDescriptionHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/projectDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -127,7 +135,7 @@
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/deleteButtonText"
-            app:backgroundTint="@color/primaryColor"
+            app:backgroundTint="@color/errorColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/projectDescriptionWrapper" />

@@ -12,17 +12,17 @@
     <string name="personalHobbies">Hobbies</string>
     <string name="saveButtonText">Save</string>
     <string name="educationInstituteName">Institute Name</string>
-    <string name="educationDegree">Degree/Branch/Class</string>
-    <string name="educationYearOfGraduation">Year of graduation</string>
-    <string name="educationPerformance">Percentage/GPA/Performance</string>
+    <string name="educationDegree">Degree</string>
+    <string name="educationYearOfGraduation">Year</string>
+    <string name="educationPerformance">Performance</string>
     <string name="saveButtonSaved">Saved</string>
-    <string name="experienceCompanyName">Company Name</string>
+    <string name="experienceCompanyName">Company</string>
     <string name="experienceJobTitle">Job Title</string>
     <string name="experienceDuration">Duration</string>
-    <string name="projectName">Project Name</string>
-    <string name="projectRole">Role in project</string>
+    <string name="projectName">Name</string>
+    <string name="projectRole">Role</string>
     <string name="projectLink">Link (optional)</string>
-    <string name="projectDescription">Project Description</string>
+    <string name="projectDescription">Description</string>
     <string name="phoneHelperText">Should be 10 digits</string>
     <string name="skillsHelperText">E.g: Graphic Designing, Animation</string>
     <string name="hobbiesHelperText">E.g: Running, Swimming</string>
@@ -33,4 +33,16 @@
     <string name="aboutUsText">This project is completely open source.
 This app was created with first year engineering students as its target audience.
 You should check out Standard Resume if you need something more professional.</string>
+    <string name="descriptionHelperText">Tell us about you!</string>
+    <string name="instituteNameHelperText">Name of the school or college</string>
+    <string name="qualificationHelperText">Your degree, branch, or class from this institute</string>
+    <string name="performanceHelperText">GPA, percentage, or grade</string>
+    <string name="educationYearHelperText">Year of graduation</string>
+    <string name="companyNameHelperText">Name of the copmany where you worked</string>
+    <string name="jobTitleHelperText">Eg. Backend Web Developer</string>
+    <string name="experienceDurationHelperText">Time period of this job</string>
+    <string name="projectNameHelperText">Name of the project</string>
+    <string name="projectRoleHelperText">Your role in the project</string>
+    <string name="projectLinkHelperText">A website for the project</string>
+    <string name="projectDescriptionHelperText">Describe the project</string>
 </resources>

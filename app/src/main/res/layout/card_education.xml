@@ -27,14 +27,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:helperText="@string/instituteNameHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/educationInstituteName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor"
+                android:textSize="18sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -44,11 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/educationDegree"
             android:textColorHint="@color/secondaryDarkColor"
             app:boxCornerRadiusTopEnd="4dp"
             app:boxCornerRadiusTopStart="4dp"
+            app:helperText="@string/qualificationHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/educationInstituteNameWrapper">
@@ -58,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor"
+                android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -67,11 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/educationPerformance"
             android:textColorHint="@color/secondaryDarkColor"
             app:boxCornerRadiusTopEnd="4dp"
             app:boxCornerRadiusTopStart="4dp"
+            app:helperText="@string/performanceHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor"
+                android:textSize="18sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -92,11 +101,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:hint="@string/educationYearOfGraduation"
             android:textColorHint="@color/secondaryDarkColor"
             app:boxCornerRadiusTopEnd="4dp"
             app:boxCornerRadiusTopStart="4dp"
+            app:helperText="@string/educationYearHelperText"
+            app:helperTextTextAppearance="@style/helper_text_appearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +118,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"/>
+                android:textCursorDrawable="@color/secondaryTextColor"
+                android:textSize="18sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.button.MaterialButton
@@ -134,7 +146,7 @@
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/deleteButtonText"
-            app:backgroundTint="@color/primaryColor"
+            app:backgroundTint="@color/errorColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/educationYearWrapper" />

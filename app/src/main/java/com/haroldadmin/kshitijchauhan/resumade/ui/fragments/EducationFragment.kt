@@ -48,6 +48,14 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		}
 	}
 
+	/*
+	While observing the list from the viewmodel,
+	we check if the list is empty to set saved status
+	in the viewmodel. We do this because otherwise
+	the user encounters an unsaved message if he adds
+	items to the list, and deletes them all before
+	saving the resume.
+	 */
 	override fun onStart() {
 		super.onStart()
 		createResumeViewModel.educationList

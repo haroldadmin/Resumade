@@ -11,4 +11,5 @@
     <color name="secondaryTextColor">#000000</color>
     <color name="primaryLightColorTranslucent">#807eb8ff</color>
     <color name="secondaryLightColorTranslucent">#80ffffff</color>
+    <color name="errorColor">#D32F2F</color>
 </resources>

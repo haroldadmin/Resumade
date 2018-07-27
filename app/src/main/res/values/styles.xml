@@ -14,4 +14,9 @@
         <item name="android:colorControlActivated">@color/secondaryLightColor</item>
     </style>
 
+    <style name="helper_text_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#616161</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
