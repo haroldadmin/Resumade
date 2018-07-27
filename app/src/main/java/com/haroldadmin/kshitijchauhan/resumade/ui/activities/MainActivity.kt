@@ -49,8 +49,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
 		mainViewModel.resumesList
 				.observe(this, Observer {
-					resumeAdapter.resumesList = it ?: emptyList()
-					resumeAdapter.notifyDataSetChanged()
+					resumeAdapter.updateResumesList(it ?: emptyList())
 					toggleNoResumesLayout(it?.size ?: 0)
 				})
 
@@ -104,9 +103,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 		resumesRecyclerView.apply {
 			adapter = resumeAdapter
 			layoutManager = LinearLayoutManager(this@MainActivity)
-			layoutAnimation = AnimationUtils.loadLayoutAnimation(this@MainActivity, R.anim.layout_animation_fall_down)
 		}
-
 		/*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,

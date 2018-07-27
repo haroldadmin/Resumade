@@ -1,5 +1,6 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.haroldadmin.kshitijchauhan.resumade.R
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
 import kotlinx.android.synthetic.main.card_resume.view.*
 
 class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder>() {
 
-	var resumesList : List<Resume> = emptyList()
+	private var resumesList : List<Resume> = emptyList()
 
 	override fun onCreateViewHolder(parent : ViewGroup, position : Int): ResumeViewHolder = ResumeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_resume, parent, false))
 
@@ -47,4 +49,10 @@ class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : Recy
 
 	fun getResumeAtPosition(position: Int) = resumesList[position]
 
+	fun updateResumesList(newResumesList : List<Resume>) {
+		val resumeDiffUtilCallback = DiffUtilCallback(this.resumesList, newResumesList)
+		val diffResult = DiffUtil.calculateDiff(resumeDiffUtilCallback)
+		this.resumesList = newResumesList
+		diffResult.dispatchUpdatesTo(this)
+	}
 }
