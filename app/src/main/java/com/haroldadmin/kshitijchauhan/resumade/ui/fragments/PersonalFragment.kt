@@ -13,11 +13,21 @@ import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_personal.*
+import java.util.regex.Pattern
 
 class PersonalFragment : Fragment(), SaveButtonClickListener {
 
 	private lateinit var createResumeViewModel: CreateResumeViewModel
-	private lateinit var personalSaveButton : MaterialButton
+	private lateinit var personalSaveButton: MaterialButton
+
+	private lateinit var resumeName: String
+	private lateinit var name: String
+	private lateinit var email: String
+	private lateinit var phone: String
+	private lateinit var city: String
+	private lateinit var skills: String
+	private lateinit var hobbies: String
+	private lateinit var description: String
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_personal, container, false)
@@ -36,9 +46,11 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 		personalSaveButton = view.findViewById(R.id.personalSaveButton)
 		personalSaveButton.apply {
 			setOnClickListener {
-				onSaveButtonClick(null)
-				isEnabled = false
-				text = "Saved"
+				if (runChecks()) {
+					onSaveButtonClick(null)
+					isEnabled = false
+					text = "Saved"
+				}
 			}
 		}
 	}
@@ -65,15 +77,87 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 	}
 
 	override fun <Any> onSaveButtonClick(item: Any) {
-		val resumeName = resumeNameEditText.text.toString()
-		val name = personalNameEditText.text.toString()
-		val phone = personalPhoneEditText.text.toString()
-		val email = personalEmailEditText.text.toString()
-		val city = personalCityEditText.text.toString()
-		val skills = personalSkillsEditText.text.toString()
-		val hobbies = personalHobbiesEditText.text.toString()
-		val description =  personalDescriptionEditText.text.toString()
-		val resume = Resume(resumeName, name, phone, email, city, description, skills, hobbies)
-		createResumeViewModel.updateResume(resume)
+		createResumeViewModel.apply {
+			val resume = Resume(resumeName, name, phone, email, city, description, skills, hobbies)
+			updateResume(resume)
+			personalDetailsSaved = true
+		}
+	}
+
+	private fun isEmailValid(email: String): Boolean {
+		val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
+		val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
+		val matcher = pattern.matcher(email.trim())
+		return matcher.matches()
+	}
+
+	private fun runChecks(): Boolean {
+		resumeName = resumeNameEditText.text.toString()
+		name = personalNameEditText.text.toString()
+		phone = personalPhoneEditText.text.toString()
+		email = personalEmailEditText.text.toString()
+		city = personalCityEditText.text.toString()
+		skills = personalSkillsEditText.text.toString()
+		hobbies = personalHobbiesEditText.text.toString()
+		description = personalDescriptionEditText.text.toString()
+
+		var passed = true
+
+		when {
+			name.isEmpty() -> {
+				personalNameWrapper.error = "Can't be empty"
+				passed = false
+			}
+			else -> personalNameWrapper.isErrorEnabled = false
+		}
+		when {
+			phone.isEmpty() -> {
+				personalPhoneWrapper.error = "Can't be empty"
+				passed = false
+			}
+			phone.trim().length < 10 -> {
+				personalPhoneWrapper.error = "Phone number should be 10 digits"
+				passed = false
+			}
+			else -> personalPhoneWrapper.isErrorEnabled = false
+		}
+		when {
+			email.isEmpty() -> {
+				personalEmailWrapper.error = "Please enter an email"
+				passed = false
+			}
+			!isEmailValid(email) -> personalEmailWrapper.error = "Not a valid email"
+			else -> personalEmailWrapper.isErrorEnabled = false
+		}
+		if (city.isEmpty()) {
+			personalCityWrapper.error = "Please enter a city"
+			passed = false
+		} else {
+			personalCityWrapper.isErrorEnabled = false
+		}
+		if (hobbies.isEmpty()) {
+			personalHobbiesWrapper.error = "Please enter some hobbies"
+			passed = false
+		} else {
+			personalHobbiesWrapper.isErrorEnabled = false
+		}
+		if (skills.isEmpty()) {
+			personalSkillsWrapper.error = "Please enter some skills"
+			passed = false
+		} else {
+			personalSkillsWrapper.isErrorEnabled = false
+		}
+		if (description.isEmpty()) {
+			personalDescriptionWrapper.error = "Please describe yourself"
+			passed = false
+		} else {
+			personalDescriptionWrapper.isErrorEnabled = false
+		}
+		if (resumeName.isEmpty()) {
+			resumeNameWrapper.error = "Please enter a name for this resume"
+		} else {
+			resumeNameWrapper.isErrorEnabled = false
+		}
+		return passed
 	}
 }

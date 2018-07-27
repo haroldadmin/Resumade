@@ -58,7 +58,10 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 	}
 
 	override fun <Education> onSaveButtonClick(item: Education) {
-		createResumeViewModel.updateEducation(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Education)
+		createResumeViewModel.apply {
+			updateEducation(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Education)
+			educationDetailsSaved = true
+		}
 	}
 
 	override fun <Education> onDeleteButtonClick(item: Education) {

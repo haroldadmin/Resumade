@@ -58,7 +58,10 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 	}
 
 	override fun <Project> onSaveButtonClick(item: Project) {
-		createResumeViewModel.updateProject(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Project)
+		createResumeViewModel.apply {
+			updateProject(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Project)
+			projectDetailsSaved = true
+		}
 	}
 
 	override fun <Project> onDeleteButtonClick(item: Project) {

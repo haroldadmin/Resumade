@@ -20,6 +20,20 @@ class CreateResumeViewModel(application: Application) : AndroidViewModel(applica
 	var projectsList: LiveData<List<Project>>
 	var saved: Boolean = true
 
+	/*
+	Initializing these values as true because
+	the user might not want to add any of these
+	details at all. These will be set to false
+	upon the creation of an item in the respective
+	categories, and then back to true when the item
+	is saved. This also ensures that no empty item
+	is saved too.
+	 */
+	var personalDetailsSaved : Boolean = true
+	var educationDetailsSaved : Boolean = true
+	var experienceDetailsSaved : Boolean = true
+	var projectDetailsSaved : Boolean = true
+
 	private var repository: LocalRepository = LocalRepository(getApplication())
 
 	init {
@@ -36,6 +50,7 @@ class CreateResumeViewModel(application: Application) : AndroidViewModel(applica
 			any time when it actually matters.
 			 */
 			resumeId = repository.insertResume(Resume("My Resume", "", "", "", "", "", "", ""))
+			personalDetailsSaved = false
 			saved = false
 		}
 		resume = repository.getResumeForId(resumeId)

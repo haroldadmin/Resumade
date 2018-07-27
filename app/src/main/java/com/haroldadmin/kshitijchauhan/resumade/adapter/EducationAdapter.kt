@@ -2,6 +2,7 @@ package com.haroldadmin.kshitijchauhan.resumade.adapter
 
 import android.support.design.button.MaterialButton
 import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
                        val deleteButtonClickListener: DeleteButtonClickListener) : RecyclerView.Adapter<EducationAdapter.ViewHolder>() {
 
-	private var educationList : List<Education> = emptyList()
+	private var educationList: List<Education> = emptyList()
 
 	override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
 		return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_education, parent, false))
@@ -34,23 +35,64 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 	}
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		val instituteName : TextInputEditText = itemView.findViewById(R.id.educationInstituteName)
-		val degree : TextInputEditText = itemView.findViewById(R.id.educationDegree)
-		val performance : TextInputEditText = itemView.findViewById(R.id.educationPerformance)
-		val yearOfGraduation : TextInputEditText = itemView.findViewById(R.id.educationYear)
-		val saveButton : MaterialButton = itemView.findViewById(R.id.educationSaveButton)
-		val deleteButton : MaterialButton = itemView.findViewById(R.id.educationDeleteButton)
+		val instituteNameWrapper: TextInputLayout = itemView.findViewById(R.id.educationInstituteNameWrapper)
+		val instituteName: TextInputEditText = itemView.findViewById(R.id.educationInstituteName)
+		val degreeWrapper: TextInputLayout = itemView.findViewById(R.id.educationDegreeWrapper)
+		val degree: TextInputEditText = itemView.findViewById(R.id.educationDegree)
+		val performanceWrapper: TextInputLayout = itemView.findViewById(R.id.educationPerformanceWrapper)
+		val performance: TextInputEditText = itemView.findViewById(R.id.educationPerformance)
+		val yearWrapper: TextInputLayout = itemView.findViewById(R.id.educationYearWrapper)
+		val yearOfGraduation: TextInputEditText = itemView.findViewById(R.id.educationYear)
+		val saveButton: MaterialButton = itemView.findViewById(R.id.educationSaveButton)
+		val deleteButton: MaterialButton = itemView.findViewById(R.id.educationDeleteButton)
 
-		fun bindClick(education : Education) {
+		fun bindClick(education: Education) {
 			saveButton.apply {
 				setOnClickListener {
-					education.instituteName = this@ViewHolder.instituteName.text?.toString() ?: ""
-					education.degree = this@ViewHolder.degree.text?.toString() ?: ""
-					education.performance = this@ViewHolder.performance.text?.toString() ?: ""
-					education.year = this@ViewHolder.yearOfGraduation.text?.toString() ?: ""
-					saveButtonClickListener.onSaveButtonClick(education)
-					isEnabled = false
-					text = "Saved"
+					val instituteName = this@ViewHolder.instituteName.text?.toString() ?: ""
+					val degree = this@ViewHolder.degree.text?.toString() ?: ""
+					val performance = this@ViewHolder.performance.text?.toString() ?: ""
+					val year = this@ViewHolder.yearOfGraduation.text?.toString() ?: ""
+
+					var passed = true
+
+					if (instituteName.trim().isEmpty()) {
+						instituteNameWrapper.error = "Please enter an institute name"
+						passed = false
+					} else {
+						instituteNameWrapper.isErrorEnabled = false
+					}
+					if (degree.trim().isEmpty()) {
+						degreeWrapper.error = "Can't be empty"
+						passed = false
+					} else {
+						degreeWrapper.isErrorEnabled = false
+					}
+					if (performance.trim().isEmpty()) {
+						performanceWrapper.error = "Can't be empty"
+						passed = false
+					} else {
+						performanceWrapper.isErrorEnabled = false
+					}
+					if (year.trim().toLongOrNull() == null) {
+						yearWrapper.error = "Year must contain numbers only"
+						passed = false
+					} else if (year.trim().isEmpty()) {
+						yearWrapper.error = "Please enter the graduation year"
+						passed = false
+					} else {
+						yearWrapper.isErrorEnabled = false
+					}
+
+					if (passed) {
+						education.instituteName = instituteName
+						education.degree = degree
+						education.performance = performance
+						education.year = year
+						saveButtonClickListener.onSaveButtonClick(education)
+						isEnabled = false
+						text = context.getString(R.string.saveButtonSaved)
+					}
 				}
 			}
 			deleteButton.setOnClickListener {
@@ -59,7 +101,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	fun setEducationList(items : List<Education>) {
+	fun setEducationList(items: List<Education>) {
 		educationList = items
 		notifyDataSetChanged()
 	}

@@ -51,7 +51,10 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 	}
 
 	override fun <Experience> onSaveButtonClick(item: Experience) {
-		createResumeViewModel.updateExperience(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience)
+		createResumeViewModel.apply {
+			updateExperience(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience)
+			experienceDetailsSaved = true
+		}
 	}
 
 	override fun <Experience> onDeleteButtonClick(item: Experience) {
