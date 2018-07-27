@@ -52,7 +52,8 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		super.onStart()
 		createResumeViewModel.educationList
 				.observe(this, Observer {
-					educationAdapter.setEducationList(it ?: emptyList())
+					educationAdapter.updateEducationList(it ?: emptyList())
+					if (it == null || it.isEmpty()) { createResumeViewModel.educationDetailsSaved = true }
 					toggleNoEducationLayout(it?.size ?: 0)
 				})
 	}

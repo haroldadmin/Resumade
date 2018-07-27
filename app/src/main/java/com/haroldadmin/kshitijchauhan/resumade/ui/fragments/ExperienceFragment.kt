@@ -45,7 +45,8 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		super.onStart()
 		createResumeViewModel.experienceList
 				.observe(this, Observer {
-					experienceAdapter.setItems(it ?: emptyList())
+					experienceAdapter.updateExperienceList(it ?: emptyList())
+					if (it == null || it.isEmpty()) { createResumeViewModel.experienceDetailsSaved = true }
 					toggleNoExperienceLayout(it?.size ?: 0)
 				})
 	}

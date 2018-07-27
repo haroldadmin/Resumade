@@ -3,6 +3,7 @@ package com.haroldadmin.kshitijchauhan.resumade.adapter
 import android.support.design.button.MaterialButton
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -95,5 +96,12 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 			}
 
 		}
+	}
+
+	fun updateProjectList(newProjectList : List<Project>) {
+		val projectDiffUtilCallback = DiffUtilCallback(this.projectList, newProjectList)
+		val diffResult = DiffUtil.calculateDiff(projectDiffUtilCallback)
+		this.projectList = newProjectList
+		diffResult.dispatchUpdatesTo(this)
 	}
 }

@@ -3,6 +3,7 @@ package com.haroldadmin.kshitijchauhan.resumade.adapter
 import android.support.design.button.MaterialButton
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -104,6 +105,13 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 	fun setEducationList(items: List<Education>) {
 		educationList = items
 		notifyDataSetChanged()
+	}
+
+	fun updateEducationList(newEducationList : List<Education>) {
+		val educationDiffUtilCallback = DiffUtilCallback(this.educationList, newEducationList)
+		val diffResult = DiffUtil.calculateDiff(educationDiffUtilCallback)
+		educationList = newEducationList
+		diffResult.dispatchUpdatesTo(this)
 	}
 
 }

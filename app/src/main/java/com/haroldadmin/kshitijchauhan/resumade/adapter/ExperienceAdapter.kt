@@ -3,6 +3,7 @@ package com.haroldadmin.kshitijchauhan.resumade.adapter
 import android.support.design.button.MaterialButton
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -91,5 +92,12 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				}
 			}
 		}
+	}
+
+	fun updateExperienceList(newExperienceList : List<Experience>) {
+		val experienceDiffUtilCallback = DiffUtilCallback(this.experienceList, newExperienceList)
+		val diffResult = DiffUtil.calculateDiff(experienceDiffUtilCallback)
+		this.experienceList = newExperienceList
+		diffResult.dispatchUpdatesTo(this)
 	}
 }

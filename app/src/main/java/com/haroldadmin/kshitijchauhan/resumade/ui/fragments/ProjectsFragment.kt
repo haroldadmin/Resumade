@@ -52,7 +52,8 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 		super.onStart()
 		createResumeViewModel.projectsList
 				.observe(this, Observer {
-					projectAdapter.setItems(it ?: emptyList())
+					projectAdapter.updateProjectList(it ?: emptyList())
+					if (it == null || it.isEmpty()) { createResumeViewModel.projectDetailsSaved = true }
 					toggleNoProjectsLayout(it?.size ?: 0)
 				})
 	}

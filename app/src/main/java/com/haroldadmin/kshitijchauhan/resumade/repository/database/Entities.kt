@@ -5,7 +5,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
-open class ResumeEntity
+open class ResumeEntity {
+	@PrimaryKey(autoGenerate = true)
+	var id : Long = 0L
+}
 
 @Entity(tableName = "resumes")
 data class Resume(@ColumnInfo(name = "resumeName") var resumeName: String = "My Resume",
@@ -15,12 +18,7 @@ data class Resume(@ColumnInfo(name = "resumeName") var resumeName: String = "My 
              @ColumnInfo(name = "currentCity") var currentCity: String,
              @ColumnInfo(name = "description") var description: String,
              @ColumnInfo(name = "skills") var skills: String,
-             @ColumnInfo(name = "hobbies") var hobbies: String) : ResumeEntity() {
-
-	@PrimaryKey(autoGenerate = true)
-	var id: Long = 0L
-
-}
+             @ColumnInfo(name = "hobbies") var hobbies: String) : ResumeEntity()
 
 @Entity(tableName = "education",
 		foreignKeys = [(ForeignKey(entity = Resume::class,
@@ -37,11 +35,7 @@ data class Education (
 		@ColumnInfo(name = "performance")
 		var performance: String,
 		@ColumnInfo(name = "resumeId")
-		var resumeId: Long) : ResumeEntity() {
-
-	@PrimaryKey(autoGenerate = true)
-	var id: Long = 0L
-}
+		var resumeId: Long) : ResumeEntity()
 
 @Entity(tableName = "experience",
 		foreignKeys = [(ForeignKey(entity = Resume::class,
@@ -57,11 +51,7 @@ data class Experience (
 		@ColumnInfo(name = "duration")
 		var duration: String,
 		@ColumnInfo(name = "resumeId")
-		var resumeId: Long) : ResumeEntity() {
-
-	@PrimaryKey(autoGenerate = true)
-	var id: Long = 0L
-}
+		var resumeId: Long) : ResumeEntity()
 
 @Entity(tableName = "projects",
 		foreignKeys = [(ForeignKey(entity = Resume::class,
@@ -79,8 +69,4 @@ data class Project (
 		@ColumnInfo(name = "description")
 		var description: String,
 		@ColumnInfo(name = "resumeId")
-		var resumeId: Long) : ResumeEntity() {
-
-	@PrimaryKey(autoGenerate = true)
-	var id: Long = 0L
-}
+		var resumeId: Long) : ResumeEntity()
