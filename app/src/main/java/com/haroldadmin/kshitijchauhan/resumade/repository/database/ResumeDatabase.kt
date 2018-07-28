@@ -18,6 +18,7 @@ abstract class ResumeDatabase : RoomDatabase() {
 				Room.databaseBuilder(it.applicationContext,
 						ResumeDatabase::class.java,
 						"resumes")
+						.fallbackToDestructiveMigration()
 						.build()
 			}
 	)

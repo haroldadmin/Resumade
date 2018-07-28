@@ -10,13 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
-class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener {
+class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private lateinit var experienceAdapter : ExperienceAdapter
 	private lateinit var createResumeViewModel : CreateResumeViewModel
@@ -34,7 +37,7 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		experienceAdapter = ExperienceAdapter(this, this)
+		experienceAdapter = ExperienceAdapter(this, this, this)
 		experienceRecyclerView.apply {
 			adapter = experienceAdapter
 			layoutManager = LinearLayoutManager(context)
@@ -59,16 +62,25 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 				})
 	}
 
-	override fun <Experience> onSaveButtonClick(item: Experience) {
+	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
+		item.saved = true
 		createResumeViewModel.apply {
-			updateExperience(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience)
+			updateExperience(item as Experience)
 			experienceDetailsSaved = true
 		}
 	}
 
-	override fun <Experience> onDeleteButtonClick(item: Experience) {
-		createResumeViewModel.deleteExperience(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience)
+	override fun <T : ResumeEntity> onDeleteButtonClick(item: T) {
+		createResumeViewModel.deleteExperience(item as Experience)
 		(activity as CreateResumeActivity).displaySnackbar("Experience deleted.")
+	}
+
+	override fun <T : ResumeEntity> onEditButtonClicked(item: T) {
+		item.saved = false
+		createResumeViewModel.apply {
+			updateExperience(item as Experience)
+			experienceDetailsSaved = false
+		}
 	}
 
 	private fun toggleNoExperienceLayout(size : Int) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -96,13 +97,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/saveButtonText"
             app:backgroundTint="@color/primaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/experienceDeleteButton"
+            app:layout_constraintEnd_toStartOf="@+id/experienceEditButton"
+            app:layout_constraintTop_toBottomOf="@+id/experienceDurationWrapper"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/experienceEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/primaryColor"
+            android:elevation="4dp"
+            android:text="@string/editButtonText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/experienceDurationWrapper" />
 
         <android.support.design.button.MaterialButton
@@ -110,14 +126,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/deleteButtonText"
             app:backgroundTint="@color/errorColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/experienceDurationWrapper" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experienceDurationWrapper"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 

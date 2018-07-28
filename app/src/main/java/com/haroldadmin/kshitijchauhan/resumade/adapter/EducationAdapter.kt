@@ -11,49 +11,83 @@ import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.appcompat.v7.Appcompat
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
-                       val deleteButtonClickListener: DeleteButtonClickListener) : RecyclerView.Adapter<EducationAdapter.ViewHolder>() {
+                       val deleteButtonClickListener: DeleteButtonClickListener,
+                       val editButtonClickListener: EditButtonClickListener) : RecyclerView.Adapter<EducationAdapter.EducationViewHolder>() {
 
 	private var educationList: List<Education> = emptyList()
 
-	override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-		return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_education, parent, false))
+	override fun onCreateViewHolder(parent: ViewGroup, position: Int): EducationViewHolder {
+		return EducationViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_education, parent, false))
 	}
 
 	override fun getItemCount(): Int = educationList.size
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+	override fun onBindViewHolder(holder: EducationViewHolder, position: Int) {
 		val education = educationList[position]
 		holder.apply {
-			instituteName.setText(education.instituteName)
-			degree.setText(education.degree)
-			performance.setText(education.performance)
-			yearOfGraduation.setText(education.year)
-			bindClick(education)
+			setItem(education)
+			bindClick()
 		}
 	}
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		val instituteNameWrapper: TextInputLayout = itemView.findViewById(R.id.educationInstituteNameWrapper)
-		val instituteName: TextInputEditText = itemView.findViewById(R.id.educationInstituteName)
-		val degreeWrapper: TextInputLayout = itemView.findViewById(R.id.educationDegreeWrapper)
-		val degree: TextInputEditText = itemView.findViewById(R.id.educationDegree)
-		val performanceWrapper: TextInputLayout = itemView.findViewById(R.id.educationPerformanceWrapper)
-		val performance: TextInputEditText = itemView.findViewById(R.id.educationPerformance)
-		val yearWrapper: TextInputLayout = itemView.findViewById(R.id.educationYearWrapper)
-		val yearOfGraduation: TextInputEditText = itemView.findViewById(R.id.educationYear)
-		val saveButton: MaterialButton = itemView.findViewById(R.id.educationSaveButton)
-		val deleteButton: MaterialButton = itemView.findViewById(R.id.educationDeleteButton)
+	inner class EducationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-		fun bindClick(education: Education) {
+		private lateinit var mEducation: Education
+
+		private val instituteNameWrapper: TextInputLayout = itemView.findViewById(R.id.educationInstituteNameWrapper)
+		private val instituteName: TextInputEditText = itemView.findViewById(R.id.educationInstituteName)
+		private val degreeWrapper: TextInputLayout = itemView.findViewById(R.id.educationDegreeWrapper)
+		private val degree: TextInputEditText = itemView.findViewById(R.id.educationDegree)
+		private val performanceWrapper: TextInputLayout = itemView.findViewById(R.id.educationPerformanceWrapper)
+		private val performance: TextInputEditText = itemView.findViewById(R.id.educationPerformance)
+		private val yearWrapper: TextInputLayout = itemView.findViewById(R.id.educationYearWrapper)
+		private val yearOfGraduation: TextInputEditText = itemView.findViewById(R.id.educationYear)
+		private val saveButton: MaterialButton = itemView.findViewById(R.id.educationSaveButton)
+		private val deleteButton: MaterialButton = itemView.findViewById(R.id.educationDeleteButton)
+		private val editButton: MaterialButton = itemView.findViewById(R.id.educationEditButton)
+
+		fun setItem(education: Education) {
+			mEducation = education
+			this.apply {
+				instituteName.setText(mEducation.instituteName)
+				degree.setText(mEducation.degree)
+				performance.setText(mEducation.performance)
+				yearOfGraduation.setText(mEducation.year)
+				saveButton.apply {
+					if (mEducation.saved) {
+						isEnabled = false
+						text = "Saved"
+					} else {
+						isEnabled = true
+						text = "Save"
+					}
+				}
+				editButton.isEnabled = mEducation.saved
+
+				instituteNameWrapper.isEnabled = !mEducation.saved
+				degreeWrapper.isEnabled = !mEducation.saved
+				performanceWrapper.isEnabled = !mEducation.saved
+				yearWrapper.isEnabled = !mEducation.saved
+			}
+		}
+
+		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					val instituteName = this@ViewHolder.instituteName.text?.toString() ?: ""
-					val degree = this@ViewHolder.degree.text?.toString() ?: ""
-					val performance = this@ViewHolder.performance.text?.toString() ?: ""
-					val year = this@ViewHolder.yearOfGraduation.text?.toString() ?: ""
+					val instituteName = this@EducationViewHolder.instituteName.text?.toString()
+							?: ""
+					val degree = this@EducationViewHolder.degree.text?.toString() ?: ""
+					val performance = this@EducationViewHolder.performance.text?.toString() ?: ""
+					val year = this@EducationViewHolder.yearOfGraduation.text?.toString() ?: ""
 
 					var passed = true
 
@@ -86,28 +120,59 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 					}
 
 					if (passed) {
-						education.instituteName = instituteName
-						education.degree = degree
-						education.performance = performance
-						education.year = year
-						saveButtonClickListener.onSaveButtonClick(education)
+						// Save the new values into the member variable
+						mEducation.instituteName = instituteName
+						mEducation.degree = degree
+						mEducation.performance = performance
+						mEducation.year = year
+						saveButtonClickListener.onSaveButtonClick(mEducation)
+
+						// Enable edit button and disable save button
 						isEnabled = false
-						text = context.getString(R.string.saveButtonSaved)
+						text = "Saved"
+						editButton.isEnabled = true
+
+						// Disable text fields
+						instituteNameWrapper.isEnabled = false
+						degreeWrapper.isEnabled = false
+						performanceWrapper.isEnabled = false
+						yearWrapper.isEnabled = false
 					}
 				}
 			}
 			deleteButton.setOnClickListener {
-				deleteButtonClickListener.onDeleteButtonClick(education)
+				/*
+				I love anko-dialogs.
+				 */
+				itemView.context.alert(Appcompat, "Are you sure you want to delete this education card?") {
+					yesButton {
+						deleteButtonClickListener.onDeleteButtonClick(mEducation)
+					}
+					noButton { /* Do Nothing */ }
+				}.show()
+			}
+
+			editButton.setOnClickListener {
+				editButtonClickListener.onEditButtonClicked(mEducation)
+
+				// Enable text fields
+				instituteNameWrapper.apply {
+					isEnabled = true
+					requestFocus()
+					showKeyboard(itemView.context)
+				}
+				degreeWrapper.isEnabled = true
+				performanceWrapper.isEnabled = true
+				yearWrapper.isEnabled = true
+
+				it.isEnabled = false
+				saveButton.isEnabled = true
+				saveButton.text = "Save"
 			}
 		}
 	}
 
-	fun setEducationList(items: List<Education>) {
-		educationList = items
-		notifyDataSetChanged()
-	}
-
-	fun updateEducationList(newEducationList : List<Education>) {
+	fun updateEducationList(newEducationList: List<Education>) {
 		val educationDiffUtilCallback = DiffUtilCallback(this.educationList, newEducationList)
 		val diffResult = DiffUtil.calculateDiff(educationDiffUtilCallback)
 		educationList = newEducationList

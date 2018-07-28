@@ -11,13 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ProjectAdapter
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_projects.*
 
-class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener {
+class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private lateinit var projectAdapter: ProjectAdapter
 	private lateinit var linearLayoutManager: LinearLayoutManager
@@ -38,7 +41,7 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		projectAdapter = ProjectAdapter(this, this)
+		projectAdapter = ProjectAdapter(this, this, this)
 		linearLayoutManager = LinearLayoutManager(context)
 
 		projectRecyclerView = view.findViewById(R.id.projectsRecyclerView)
@@ -66,16 +69,25 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 				})
 	}
 
-	override fun <Project> onSaveButtonClick(item: Project) {
+	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
+		item.saved = true
 		createResumeViewModel.apply {
-			updateProject(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Project)
+			updateProject(item as Project)
 			projectDetailsSaved = true
 		}
 	}
 
-	override fun <Project> onDeleteButtonClick(item: Project) {
-		createResumeViewModel.deleteProject(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Project)
+	override fun <T : ResumeEntity> onDeleteButtonClick(item: T) {
+		createResumeViewModel.deleteProject(item as Project)
 		(activity as CreateResumeActivity).displaySnackbar("Project deleted.")
+	}
+
+	override fun <T : ResumeEntity> onEditButtonClicked(item: T) {
+		item.saved = false
+		createResumeViewModel.apply {
+			updateProject(item as Project)
+			projectDetailsSaved = false
+		}
 	}
 
 	private fun toggleNoProjectsLayout(size : Int) {

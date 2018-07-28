@@ -9,6 +9,9 @@ abstract class ResumeEntity {
 	@PrimaryKey(autoGenerate = true)
 	var id : Long = 0L
 
+	@ColumnInfo(name = "saved")
+	var saved : Boolean = false
+
 	abstract fun isEmpty() : Boolean
 
 	fun isNotEmpty() : Boolean = !isEmpty()

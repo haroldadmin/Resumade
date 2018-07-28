@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_personal.*
@@ -47,7 +48,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 		personalSaveButton.apply {
 			setOnClickListener {
 				if (runChecks()) {
-					onSaveButtonClick(null)
+					onSaveButtonClick(Resume(resumeName, name, phone, email, city, description, skills, hobbies))
 					isEnabled = false
 					text = "Saved"
 				}
@@ -76,10 +77,9 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 		}
 	}
 
-	override fun <Any> onSaveButtonClick(item: Any) {
+	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
 		createResumeViewModel.apply {
-			val resume = Resume(resumeName, name, phone, email, city, description, skills, hobbies)
-			updateResume(resume)
+			updateResume(item as Resume)
 			personalDetailsSaved = true
 		}
 	}
@@ -126,7 +126,10 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 				personalEmailWrapper.error = "Please enter an email"
 				passed = false
 			}
-			!isEmailValid(email) -> personalEmailWrapper.error = "Not a valid email"
+			!isEmailValid(email) -> {
+				personalEmailWrapper.error = "Not a valid email"
+				passed = false
+			}
 			else -> personalEmailWrapper.isErrorEnabled = false
 		}
 		if (city.isEmpty()) {

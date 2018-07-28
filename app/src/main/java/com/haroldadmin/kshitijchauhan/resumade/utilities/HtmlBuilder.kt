@@ -101,7 +101,7 @@ fun addPersonalInfo(resume: Resume) : String {
 				"            <h1 class=\"name\">${resume.name.toUpperCase()}</h1>\n" +
 				"        </div>\n" +
 				"        <div class=\"contact-info-container\">\n" +
-				"            <p id=\"phone-number\">+${resume.phone}</p> \n" +
+				"            <p id=\"phone-number\">${resume.phone}</p> \n" +
 				"            <p id=\"email-address\">${resume.email}</p>\n" +
 				"            <p id=\"current-city\">${resume.currentCity}</p>\n" +
 				"        </div>\n" +

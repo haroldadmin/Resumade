@@ -11,50 +11,76 @@ import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.appcompat.v7.Appcompat
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
-                        val deleteButtonClickListener: DeleteButtonClickListener) : RecyclerView.Adapter<ExperienceAdapter.ViewHolder>() {
+                        val deleteButtonClickListener: DeleteButtonClickListener,
+                        val editButtonClickListener: EditButtonClickListener) : RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
 
 	private var experienceList: List<Experience> = emptyList()
 
-	override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-		return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_experience, parent, false))
+	override fun onCreateViewHolder(parent: ViewGroup, position: Int): ExperienceViewHolder {
+		return ExperienceViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_experience, parent, false))
 	}
 
 	override fun getItemCount(): Int = experienceList.size
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+	override fun onBindViewHolder(holder: ExperienceViewHolder, position: Int) {
 		val experience = experienceList[position]
 		holder.apply {
-			companyName.setText(experience.companyName)
-			jobTitle.setText(experience.jobTitle)
-			duration.setText(experience.duration)
-			bindClick(experience)
+			setItem(experience)
+			bindClick()
 		}
 	}
 
-	fun setItems(items: List<Experience>) {
-		experienceList = items
-		notifyDataSetChanged()
-	}
+	inner class ExperienceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		val companyNameWrapper: TextInputLayout = itemView.findViewById(R.id.experienceCompanyNameWrapper)
-		val companyName: TextInputEditText = itemView.findViewById(R.id.experienceCompanyName)
-		val jobTitleWrapper: TextInputLayout = itemView.findViewById(R.id.experienceJobTitleWrapper)
-		val jobTitle: TextInputEditText = itemView.findViewById(R.id.experienceJobTitle)
-		val durationWrapper: TextInputLayout = itemView.findViewById(R.id.experienceDurationWrapper)
-		val duration: TextInputEditText = itemView.findViewById(R.id.experienceDuration)
-		val saveButton: MaterialButton = itemView.findViewById(R.id.experienceSaveButton)
-		val deleteButton: MaterialButton = itemView.findViewById(R.id.experienceDeleteButton)
+		private lateinit var mExperience: Experience
 
-		fun bindClick(experience: Experience) {
+		private val companyNameWrapper: TextInputLayout = itemView.findViewById(R.id.experienceCompanyNameWrapper)
+		private val companyName: TextInputEditText = itemView.findViewById(R.id.experienceCompanyName)
+		private val jobTitleWrapper: TextInputLayout = itemView.findViewById(R.id.experienceJobTitleWrapper)
+		private val jobTitle: TextInputEditText = itemView.findViewById(R.id.experienceJobTitle)
+		private val durationWrapper: TextInputLayout = itemView.findViewById(R.id.experienceDurationWrapper)
+		private val duration: TextInputEditText = itemView.findViewById(R.id.experienceDuration)
+		private val saveButton: MaterialButton = itemView.findViewById(R.id.experienceSaveButton)
+		private val deleteButton: MaterialButton = itemView.findViewById(R.id.experienceDeleteButton)
+		private val editButton: MaterialButton = itemView.findViewById(R.id.experienceEditButton)
+
+		fun setItem(experience: Experience) {
+			mExperience = experience
+			this.apply {
+				companyName.setText(mExperience.companyName)
+				jobTitle.setText(mExperience.jobTitle)
+				duration.setText(mExperience.duration)
+				saveButton.apply {
+					if (mExperience.saved) {
+						isEnabled = false
+						text = "Saved"
+					} else {
+						isEnabled = true
+						text = "Save"
+					}
+				}
+				companyNameWrapper.isEnabled = !mExperience.saved
+				jobTitleWrapper.isEnabled = !mExperience.saved
+				durationWrapper.isEnabled = !mExperience.saved
+				editButton.isEnabled = mExperience.saved
+			}
+		}
+
+		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					val companyName = this@ViewHolder.companyName.text?.toString() ?: ""
-					val duration = this@ViewHolder.duration.text?.toString() ?: ""
-					val jobTitle = this@ViewHolder.jobTitle.text?.toString() ?: ""
+					val companyName = this@ExperienceViewHolder.companyName.text?.toString() ?: ""
+					val duration = this@ExperienceViewHolder.duration.text?.toString() ?: ""
+					val jobTitle = this@ExperienceViewHolder.jobTitle.text?.toString() ?: ""
 
 					var passed = true
 					if (companyName.trim().isEmpty()) {
@@ -77,27 +103,59 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 					}
 
 					if (passed) {
-						experience.companyName = companyName
-						experience.duration = duration
-						experience.jobTitle = jobTitle
-						saveButtonClickListener.onSaveButtonClick(experience)
+						// Save the new values into the member variable
+						mExperience.companyName = companyName
+						mExperience.duration = duration
+						mExperience.jobTitle = jobTitle
+						saveButtonClickListener.onSaveButtonClick(mExperience)
+
+						// Enable edit button and disable save button
 						isEnabled = false
 						text = "Saved"
+						editButton.isEnabled = true
+
+						// Disable text fields
+						companyNameWrapper.isEnabled = false
+						jobTitleWrapper.isEnabled = false
+						durationWrapper.isEnabled = false
 					}
 				}
 			}
-			deleteButton.apply {
-				setOnClickListener {
-					deleteButtonClickListener.onDeleteButtonClick(experience)
+			deleteButton.setOnClickListener {
+				/*
+				I love anko-dialogs.
+				 */
+				itemView.context.alert(Appcompat, "Are you sure you want to delete this experience card?") {
+					yesButton {
+						deleteButtonClickListener.onDeleteButtonClick(mExperience)
+					}
+					noButton { /* Do Nothing */ }
+				}.show()
+			}
+
+			editButton.setOnClickListener {
+				editButtonClickListener.onEditButtonClicked(mExperience)
+
+				// Enable text fields
+				companyNameWrapper.apply {
+					isEnabled = true
+					requestFocus()
+					showKeyboard(itemView.context)
 				}
+				jobTitleWrapper.isEnabled = true
+				durationWrapper.isEnabled = true
+
+				it.isEnabled = false
+				saveButton.isEnabled = true
+				saveButton.text = "Save"
 			}
 		}
 	}
 
-	fun updateExperienceList(newExperienceList : List<Experience>) {
-		val experienceDiffUtilCallback = DiffUtilCallback(this.experienceList, newExperienceList)
-		val diffResult = DiffUtil.calculateDiff(experienceDiffUtilCallback)
-		this.experienceList = newExperienceList
-		diffResult.dispatchUpdatesTo(this)
-	}
+fun updateExperienceList(newExperienceList: List<Experience>) {
+	val experienceDiffUtilCallback = DiffUtilCallback(this.experienceList, newExperienceList)
+	val diffResult = DiffUtil.calculateDiff(experienceDiffUtilCallback)
+	this.experienceList = newExperienceList
+	diffResult.dispatchUpdatesTo(this)
+}
 }

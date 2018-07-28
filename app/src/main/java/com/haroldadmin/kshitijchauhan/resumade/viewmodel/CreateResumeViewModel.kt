@@ -79,7 +79,9 @@ class CreateResumeViewModel(application: Application) : AndroidViewModel(applica
 		repository.updateResume(resume)
 	}
 
-	fun updateEducation(education: Education) = repository.updateEducation(education)
+	fun updateEducation(education: Education) {
+		repository.updateEducation(education)
+	}
 
 	fun updateExperience(experience: Experience) = repository.updateExperience(experience)
 

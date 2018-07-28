@@ -30,7 +30,7 @@ class CreateResumeActivity : AppCompatActivity() {
 	private lateinit var resumeFragmentAdapter: FragmentAdapter
 	private lateinit var createResumeFab: FloatingActionButton
 	private lateinit var viewPager : ViewPager
-	private lateinit var webview: WebView
+	private lateinit var webView: WebView
 	private var addIcon: Drawable? = null
 	private var doneIcon: Drawable? = null
 
@@ -122,9 +122,9 @@ class CreateResumeActivity : AppCompatActivity() {
 				return true
 			}
 			R.id.print -> run {
-				webview = WebView(this)
-				webview.loadDataWithBaseURL(null, PreviewFragment.html, "text/html", "UTF-8", null)
-				createWebPrintJob(webview)
+				webView = WebView(this)
+				webView.loadDataWithBaseURL(null, PreviewFragment.html, "text/html", "UTF-8", null)
+				createWebPrintJob(webView)
 				true
 			}
 			else -> super.onOptionsItemSelected(item)

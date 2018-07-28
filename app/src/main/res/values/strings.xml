@@ -45,4 +45,5 @@ You should check out Standard Resume if you need something more professional.</s
     <string name="projectRoleHelperText">Your role in the project</string>
     <string name="projectLinkHelperText">A website for the project</string>
     <string name="projectDescriptionHelperText">Describe the project</string>
+    <string name="editButtonText">Edit</string>
 </resources>

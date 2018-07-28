@@ -11,18 +11,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_education.*
 
-class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener {
+class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private lateinit var educationAdapter: EducationAdapter
-	private lateinit var linearLayoutManager : LinearLayoutManager
-	private lateinit var createResumeViewModel : CreateResumeViewModel
-	private lateinit var educationRecyclerView : RecyclerView
+	private lateinit var linearLayoutManager: LinearLayoutManager
+	private lateinit var createResumeViewModel: CreateResumeViewModel
+	private lateinit var educationRecyclerView: RecyclerView
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_education, container, false)
@@ -38,7 +41,7 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		educationAdapter = EducationAdapter(this, this)
+		educationAdapter = EducationAdapter(this, this, this)
 		linearLayoutManager = LinearLayoutManager(context)
 		educationRecyclerView = view.findViewById(R.id.educationRecyclerView)
 
@@ -66,19 +69,28 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 				})
 	}
 
-	override fun <Education> onSaveButtonClick(item: Education) {
+	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
+		item.saved = true
 		createResumeViewModel.apply {
-			updateEducation(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Education)
+			updateEducation(item as Education)
 			educationDetailsSaved = true
 		}
 	}
 
-	override fun <Education> onDeleteButtonClick(item: Education) {
-		createResumeViewModel.deleteEducation(item as com.haroldadmin.kshitijchauhan.resumade.repository.database.Education)
+	override fun <T : ResumeEntity> onDeleteButtonClick(item: T) {
+		createResumeViewModel.deleteEducation(item as Education)
 		(activity as CreateResumeActivity).displaySnackbar("Education deleted.")
 	}
 
-	private fun toggleNoEducationLayout(size : Int) {
+	override fun <T : ResumeEntity> onEditButtonClicked(item: T) {
+		item.saved = false
+		createResumeViewModel.apply {
+			updateEducation(item as Education)
+			educationDetailsSaved = false
+		}
+	}
+
+	private fun toggleNoEducationLayout(size: Int) {
 		if (size > 0) {
 			educationRecyclerView.visibility = View.VISIBLE
 			noEducationView.visibility = View.INVISIBLE

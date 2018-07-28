@@ -3,7 +3,7 @@ package com.haroldadmin.kshitijchauhan.resumade.adapter
 import android.support.v7.util.DiffUtil
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 
-class DiffUtilCallback<out T : ResumeEntity> (
+class DiffUtilCallback<T : ResumeEntity> (
 		val oldList : List<T>,
 		val newList : List<T>): DiffUtil.Callback() {
 

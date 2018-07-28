@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 		}
 		/*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
+         An ItemTouchHelper enables touch behavior (like swipe and move) on each EducationViewHolder,
          and uses callbacks to signal when a user is performing these actions.
          */
 		ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 				return false
 			}
 
-			// Called when a user swipes left or right on a ViewHolder
+			// Called when a user swipes left or right on a EducationViewHolder
 			override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
 				mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(viewHolder.adapterPosition))
 			}
