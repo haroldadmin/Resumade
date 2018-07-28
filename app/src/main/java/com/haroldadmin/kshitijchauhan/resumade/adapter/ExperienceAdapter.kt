@@ -51,7 +51,6 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		private val duration: TextInputEditText = itemView.findViewById(R.id.experienceDuration)
 		private val saveButton: MaterialButton = itemView.findViewById(R.id.experienceSaveButton)
 		private val deleteButton: MaterialButton = itemView.findViewById(R.id.experienceDeleteButton)
-		private val editButton: MaterialButton = itemView.findViewById(R.id.experienceEditButton)
 
 		fun setItem(experience: Experience) {
 			mExperience = experience
@@ -60,65 +59,79 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				jobTitle.setText(mExperience.jobTitle)
 				duration.setText(mExperience.duration)
 				saveButton.apply {
-					if (mExperience.saved) {
-						isEnabled = false
-						text = "Saved"
+					this.text = if (mExperience.saved) {
+						this.context.getString(R.string.editButtonText)
 					} else {
-						isEnabled = true
-						text = "Save"
+						this.context.getString(R.string.saveButtonText)
 					}
 				}
 				companyNameWrapper.isEnabled = !mExperience.saved
 				jobTitleWrapper.isEnabled = !mExperience.saved
 				durationWrapper.isEnabled = !mExperience.saved
-				editButton.isEnabled = mExperience.saved
 			}
 		}
 
 		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					val companyName = this@ExperienceViewHolder.companyName.text?.toString() ?: ""
-					val duration = this@ExperienceViewHolder.duration.text?.toString() ?: ""
-					val jobTitle = this@ExperienceViewHolder.jobTitle.text?.toString() ?: ""
+					if (mExperience.saved) {
+						// Edit Mode
+						editButtonClickListener.onEditButtonClicked(mExperience)
 
-					var passed = true
-					if (companyName.trim().isEmpty()) {
-						companyNameWrapper.error = "Please enter the company name"
-						passed = false
+						// Enable text fields
+						companyNameWrapper.apply {
+							isEnabled = true
+							requestFocus()
+							showKeyboard(itemView.context)
+						}
+						jobTitleWrapper.isEnabled = true
+						durationWrapper.isEnabled = true
+						this.text = this.context.getString(R.string.saveButtonText)
 					} else {
-						companyNameWrapper.isErrorEnabled = false
-					}
-					if (jobTitle.trim().isEmpty()) {
-						jobTitleWrapper.error = "Please enter your job title"
-						passed = false
-					} else {
-						jobTitleWrapper.isErrorEnabled = false
-					}
-					if (duration.trim().isEmpty()) {
-						durationWrapper.error = "Please enter the duration of your job"
-						passed = false
-					} else {
-						durationWrapper.isErrorEnabled = false
+						// Save Mode
+
+						// Save text from text fields and run checks
+						val tempCompanyName = this@ExperienceViewHolder.companyName.text?.toString()
+								?: ""
+						val tempDuration = this@ExperienceViewHolder.duration.text?.toString() ?: ""
+						val tempJobTitle = this@ExperienceViewHolder.jobTitle.text?.toString() ?: ""
+
+						var passed = true
+						if (tempCompanyName.trim().isEmpty()) {
+							companyNameWrapper.error = "Please enter the company name"
+							passed = false
+						} else {
+							companyNameWrapper.isErrorEnabled = false
+						}
+						if (tempJobTitle.trim().isEmpty()) {
+							jobTitleWrapper.error = "Please enter your job title"
+							passed = false
+						} else {
+							jobTitleWrapper.isErrorEnabled = false
+						}
+						if (tempDuration.trim().isEmpty()) {
+							durationWrapper.error = "Please enter the duration of your job"
+							passed = false
+						} else {
+							durationWrapper.isErrorEnabled = false
+						}
+
+						if (passed) {
+							// Save the new values into the member variable
+							mExperience.companyName = tempCompanyName.trim()
+							mExperience.duration = tempDuration.trim()
+							mExperience.jobTitle = tempJobTitle.trim()
+							saveButtonClickListener.onSaveButtonClick(mExperience)
+
+							this.text = this.context.getString(R.string.editButtonText)
+
+							// Disable text fields
+							companyNameWrapper.isEnabled = false
+							jobTitleWrapper.isEnabled = false
+							durationWrapper.isEnabled = false
+						}
 					}
 
-					if (passed) {
-						// Save the new values into the member variable
-						mExperience.companyName = companyName
-						mExperience.duration = duration
-						mExperience.jobTitle = jobTitle
-						saveButtonClickListener.onSaveButtonClick(mExperience)
-
-						// Enable edit button and disable save button
-						isEnabled = false
-						text = "Saved"
-						editButton.isEnabled = true
-
-						// Disable text fields
-						companyNameWrapper.isEnabled = false
-						jobTitleWrapper.isEnabled = false
-						durationWrapper.isEnabled = false
-					}
 				}
 			}
 			deleteButton.setOnClickListener {
@@ -132,30 +145,13 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 					noButton { /* Do Nothing */ }
 				}.show()
 			}
-
-			editButton.setOnClickListener {
-				editButtonClickListener.onEditButtonClicked(mExperience)
-
-				// Enable text fields
-				companyNameWrapper.apply {
-					isEnabled = true
-					requestFocus()
-					showKeyboard(itemView.context)
-				}
-				jobTitleWrapper.isEnabled = true
-				durationWrapper.isEnabled = true
-
-				it.isEnabled = false
-				saveButton.isEnabled = true
-				saveButton.text = "Save"
-			}
 		}
 	}
 
-fun updateExperienceList(newExperienceList: List<Experience>) {
-	val experienceDiffUtilCallback = DiffUtilCallback(this.experienceList, newExperienceList)
-	val diffResult = DiffUtil.calculateDiff(experienceDiffUtilCallback)
-	this.experienceList = newExperienceList
-	diffResult.dispatchUpdatesTo(this)
-}
+	fun updateExperienceList(newExperienceList: List<Experience>) {
+		val experienceDiffUtilCallback = DiffUtilCallback(this.experienceList, newExperienceList)
+		val diffResult = DiffUtil.calculateDiff(experienceDiffUtilCallback)
+		this.experienceList = newExperienceList
+		diffResult.dispatchUpdatesTo(this)
+	}
 }

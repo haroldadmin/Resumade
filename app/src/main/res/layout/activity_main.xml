@@ -49,13 +49,13 @@
         android:id="@+id/addResumeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_round_add_24px"
-        app:backgroundTint="@color/primaryDarkColor"
+        app:backgroundTint="@color/primaryColor"
         app:elevation="8dp"
         app:fabSize="normal"
         app:layout_anchor="@id/resumesListRecyclerView"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|center"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -47,10 +47,9 @@
         android:tint="@android:color/white"
         app:backgroundTint="@color/primaryColor"
         app:elevation="8dp"
-        app:fabSize="normal"
         app:layout_anchor="@id/createResumeViewpager"
         app:layout_anchorGravity="bottom|center"
-        app:rippleColor="@color/primaryColor"
+        app:rippleColor="@color/primaryLightColor"
         android:animateLayoutChanges="true"/>
 
 </android.support.design.widget.CoordinatorLayout>

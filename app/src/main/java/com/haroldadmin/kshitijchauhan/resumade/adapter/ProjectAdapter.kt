@@ -43,17 +43,16 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 
 		private lateinit var mProject: Project
 
-		val projectNameWrapper: TextInputLayout = itemView.findViewById(R.id.projectNameWrapper)
-		val projectName: TextInputEditText = itemView.findViewById(R.id.projectName)
-		val projectRoleWrapper: TextInputLayout = itemView.findViewById(R.id.projectRoleWrapper)
-		val projectRole: TextInputEditText = itemView.findViewById(R.id.projectRole)
-		val projectLinkWrapper: TextInputLayout = itemView.findViewById(R.id.projectLinkWrapper)
-		val projectLink: TextInputEditText = itemView.findViewById(R.id.projectLink)
-		val projectDescriptionWrapper: TextInputLayout = itemView.findViewById(R.id.projectDescriptionWrapper)
-		val projectDescription: TextInputEditText = itemView.findViewById(R.id.projectDescription)
-		val saveButton: MaterialButton = itemView.findViewById(R.id.projectSaveButton)
-		val deleteButton: MaterialButton = itemView.findViewById(R.id.projectDeleteButton)
-		val editButton: MaterialButton = itemView.findViewById(R.id.projectEditButton)
+		private val projectNameWrapper: TextInputLayout = itemView.findViewById(R.id.projectNameWrapper)
+		private val projectName: TextInputEditText = itemView.findViewById(R.id.projectName)
+		private val projectRoleWrapper: TextInputLayout = itemView.findViewById(R.id.projectRoleWrapper)
+		private val projectRole: TextInputEditText = itemView.findViewById(R.id.projectRole)
+		private val projectLinkWrapper: TextInputLayout = itemView.findViewById(R.id.projectLinkWrapper)
+		private val projectLink: TextInputEditText = itemView.findViewById(R.id.projectLink)
+		private val projectDescriptionWrapper: TextInputLayout = itemView.findViewById(R.id.projectDescriptionWrapper)
+		private val projectDescription: TextInputEditText = itemView.findViewById(R.id.projectDescription)
+		private val saveButton: MaterialButton = itemView.findViewById(R.id.projectSaveButton)
+		private val deleteButton: MaterialButton = itemView.findViewById(R.id.projectDeleteButton)
 
 		fun setItem(project: Project) {
 			mProject = project
@@ -63,16 +62,12 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				projectLink.setText(mProject.link)
 				projectDescription.setText(mProject.description)
 				saveButton.apply {
-					if (mProject.saved) {
-						isEnabled = false
-						text = "Saved"
+					text = if (mProject.saved) {
+						this.context.getString(R.string.editButtonText)
 					} else {
-						isEnabled = true
-						text = "Save"
+						this.context.getString(R.string.saveButtonText)
 					}
 				}
-				editButton.isEnabled = mProject.saved
-
 				projectNameWrapper.isEnabled = !mProject.saved
 				projectRoleWrapper.isEnabled = !mProject.saved
 				projectLinkWrapper.isEnabled = !mProject.saved
@@ -83,51 +78,69 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					val projectName = this@ProjectViewHolder.projectName.text?.toString() ?: ""
-					val projectRole = this@ProjectViewHolder.projectRole.text?.toString() ?: ""
-					val projectLink = this@ProjectViewHolder.projectLink.text?.toString() ?: ""
-					val projectDescription = this@ProjectViewHolder.projectDescription.text?.toString()
-							?: ""
+					if (mProject.saved) {
+						// Edit Mode
 
-					var passed = true
+						editButtonClickListener.onEditButtonClicked(mProject)
 
-					if (projectName.trim().isEmpty()) {
-						projectNameWrapper.error = "Please enter the project name"
-						passed = false
+						// Enable text fields
+						projectNameWrapper.apply {
+							isEnabled = true
+							requestFocus()
+							showKeyboard(itemView.context)
+						}
+						projectRoleWrapper.isEnabled = true
+						projectLinkWrapper.isEnabled = true
+						projectDescriptionWrapper.isEnabled = true
+						this.text = this.context.getString(R.string.saveButtonText)
 					} else {
-						projectNameWrapper.isErrorEnabled = false
-					}
-					if (projectRole.trim().isEmpty()) {
-						projectRoleWrapper.error = "Please enter your role in the project"
-						passed = false
-					} else {
-						projectRoleWrapper.isErrorEnabled = false
-					}
-					if (projectDescription.trim().isEmpty()) {
-						projectDescriptionWrapper.error = "Please provide a short description of the project"
-						passed = false
-					} else {
-						projectDescriptionWrapper.isErrorEnabled = false
-					}
+						// Save Mode
+						val tempProjectName = this@ProjectViewHolder.projectName.text?.toString()
+								?: ""
+						val tempProjectRole = this@ProjectViewHolder.projectRole.text?.toString()
+								?: ""
+						val tempProjectLink = this@ProjectViewHolder.projectLink.text?.toString()
+								?: ""
+						val tempProjectDescription = this@ProjectViewHolder.projectDescription.text?.toString()
+								?: ""
 
-					if (passed) {
-						// Save the new values into the member variable
-						mProject.projectName = projectName
-						mProject.role = projectRole
-						mProject.link = projectLink
-						mProject.description = projectDescription
-						saveButtonClickListener.onSaveButtonClick(mProject)
+						var passed = true
 
-						// Enable edit button and disable save button
-						isEnabled = false
-						text = "Saved"
-						editButton.isEnabled = true
+						if (tempProjectName.trim().isEmpty()) {
+							projectNameWrapper.error = "Please enter the project name"
+							passed = false
+						} else {
+							projectNameWrapper.isErrorEnabled = false
+						}
+						if (tempProjectRole.trim().isEmpty()) {
+							projectRoleWrapper.error = "Please enter your role in the project"
+							passed = false
+						} else {
+							projectRoleWrapper.isErrorEnabled = false
+						}
+						if (tempProjectDescription.trim().isEmpty()) {
+							projectDescriptionWrapper.error = "Please provide a short description of the project"
+							passed = false
+						} else {
+							projectDescriptionWrapper.isErrorEnabled = false
+						}
 
-						// Disable text fields
-						projectNameWrapper.isEnabled = false
-						projectRoleWrapper.isEnabled = false
-						projectLinkWrapper.isEnabled = false
-						projectDescriptionWrapper.isEnabled = false
+						if (passed) {
+							// Save the new values into the member variable
+							mProject.projectName = tempProjectName
+							mProject.role = tempProjectRole
+							mProject.link = tempProjectLink
+							mProject.description = tempProjectDescription
+							saveButtonClickListener.onSaveButtonClick(mProject)
+
+							this.text = this.context.getString(R.string.editButtonText)
+
+							// Disable text fields
+							projectNameWrapper.isEnabled = false
+							projectRoleWrapper.isEnabled = false
+							projectLinkWrapper.isEnabled = false
+							projectDescriptionWrapper.isEnabled = false
+						}
 					}
 				}
 			}
@@ -142,25 +155,6 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 					noButton { /* Do Nothing */ }
 				}.show()
 			}
-
-			editButton.setOnClickListener {
-				editButtonClickListener.onEditButtonClicked(mProject)
-
-				// Enable text fields
-				projectNameWrapper.apply {
-					isEnabled = true
-					requestFocus()
-					showKeyboard(itemView.context)
-				}
-				projectRoleWrapper.isEnabled = true
-				projectLinkWrapper.isEnabled = true
-				projectDescriptionWrapper.isEnabled = true
-
-				it.isEnabled = false
-				saveButton.isEnabled = true
-				saveButton.text = "Save"
-			}
-
 		}
 	}
 

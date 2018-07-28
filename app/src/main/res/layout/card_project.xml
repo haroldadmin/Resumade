@@ -124,42 +124,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/saveButtonText"
             app:backgroundTint="@color/primaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/projectEditButton"
+            app:layout_constraintEnd_toStartOf="@+id/projectDeleteButton"
             app:layout_constraintTop_toBottomOf="@+id/projectDescriptionWrapper"
             app:layout_constraintVertical_bias="1.0" />
-
-        <android.support.design.button.MaterialButton
-            android:id="@+id/projectEditButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/primaryColor"
-            android:elevation="4dp"
-            android:text="@string/editButtonText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/projectDescriptionWrapper" />
 
         <android.support.design.button.MaterialButton
             android:id="@+id/projectDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:elevation="4dp"
             android:text="@string/deleteButtonText"
             app:backgroundTint="@color/errorColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/projectDescriptionWrapper" />
 
     </android.support.constraint.ConstraintLayout>
