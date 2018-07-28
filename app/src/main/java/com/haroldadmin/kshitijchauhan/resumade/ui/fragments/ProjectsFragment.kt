@@ -17,6 +17,7 @@ import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivit
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_projects.*
 
@@ -64,7 +65,7 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 		createResumeViewModel.projectsList
 				.observe(this, Observer {
 					projectAdapter.updateProjectList(it ?: emptyList())
-					if (it == null || it.isEmpty()) { createResumeViewModel.projectDetailsSaved = true }
+					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.projectDetailsSaved = true }
 					toggleNoProjectsLayout(it?.size ?: 0)
 				})
 	}

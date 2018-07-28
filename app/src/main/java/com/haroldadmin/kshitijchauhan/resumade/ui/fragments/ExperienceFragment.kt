@@ -16,6 +16,7 @@ import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivit
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
@@ -57,7 +58,7 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		createResumeViewModel.experienceList
 				.observe(this, Observer {
 					experienceAdapter.updateExperienceList(it ?: emptyList())
-					if (it == null || it.isEmpty()) { createResumeViewModel.experienceDetailsSaved = true }
+					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.experienceDetailsSaved = true }
 					toggleNoExperienceLayout(it?.size ?: 0)
 				})
 	}

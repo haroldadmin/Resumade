@@ -14,9 +14,7 @@ import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_education.*
 
@@ -64,7 +62,7 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		createResumeViewModel.educationList
 				.observe(this, Observer {
 					educationAdapter.updateEducationList(it ?: emptyList())
-					if (it == null || it.isEmpty()) { createResumeViewModel.educationDetailsSaved = true }
+					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.educationDetailsSaved = true }
 					toggleNoEducationLayout(it?.size ?: 0)
 				})
 	}
