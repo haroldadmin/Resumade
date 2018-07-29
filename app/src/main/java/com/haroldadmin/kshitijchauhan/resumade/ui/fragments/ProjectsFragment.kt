@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +15,13 @@ import com.haroldadmin.kshitijchauhan.resumade.adapter.ProjectAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_projects.*
 
 class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
+	private val TAG : String = this::class.java.simpleName
 	private lateinit var projectAdapter: ProjectAdapter
 	private lateinit var linearLayoutManager: LinearLayoutManager
 	private lateinit var createResumeViewModel: CreateResumeViewModel
@@ -34,9 +33,11 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		createResumeViewModel = ViewModelProviders
-				.of(activity!!)
-				.get(CreateResumeViewModel::class.java)
+		activity?.let {
+			createResumeViewModel = ViewModelProviders
+					.of(it)
+					.get(CreateResumeViewModel::class.java)
+		}
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,8 +65,9 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 		super.onStart()
 		createResumeViewModel.projectsList
 				.observe(this, Observer {
+					Log.d(TAG, "Refreshing projects list")
 					projectAdapter.updateProjectList(it ?: emptyList())
-					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.projectDetailsSaved = true }
+					createResumeViewModel.projectDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
 					toggleNoProjectsLayout(it?.size ?: 0)
 				})
 	}

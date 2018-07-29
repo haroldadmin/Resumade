@@ -31,9 +31,11 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		createResumeViewModel = ViewModelProviders
-				.of(activity!!)
+		activity?.let {
+			createResumeViewModel = ViewModelProviders
+				.of(it)
 				.get(CreateResumeViewModel::class.java)
+		}
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +64,7 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		createResumeViewModel.educationList
 				.observe(this, Observer {
 					educationAdapter.updateEducationList(it ?: emptyList())
-					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.educationDetailsSaved = true }
+					createResumeViewModel.educationDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
 					toggleNoEducationLayout(it?.size ?: 0)
 				})
 	}
@@ -71,7 +73,6 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		item.saved = true
 		createResumeViewModel.apply {
 			updateEducation(item as Education)
-			educationDetailsSaved = true
 		}
 	}
 
@@ -84,7 +85,6 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		item.saved = false
 		createResumeViewModel.apply {
 			updateEducation(item as Education)
-			educationDetailsSaved = false
 		}
 	}
 

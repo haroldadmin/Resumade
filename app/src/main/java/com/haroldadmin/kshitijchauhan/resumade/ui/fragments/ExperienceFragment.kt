@@ -13,10 +13,7 @@ import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
@@ -31,9 +28,11 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		createResumeViewModel = ViewModelProviders
-				.of(activity!!)
-				.get(CreateResumeViewModel::class.java)
+		activity?.let {
+			createResumeViewModel = ViewModelProviders
+					.of(it)
+					.get(CreateResumeViewModel::class.java)
+		}
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		createResumeViewModel.experienceList
 				.observe(this, Observer {
 					experienceAdapter.updateExperienceList(it ?: emptyList())
-					if (it == null || it.isEmpty() || it.areAllItemsSaved()) { createResumeViewModel.experienceDetailsSaved = true }
+					createResumeViewModel.experienceDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
 					toggleNoExperienceLayout(it?.size ?: 0)
 				})
 	}
@@ -67,7 +66,6 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		item.saved = true
 		createResumeViewModel.apply {
 			updateExperience(item as Experience)
-			experienceDetailsSaved = true
 		}
 	}
 
@@ -80,7 +78,6 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		item.saved = false
 		createResumeViewModel.apply {
 			updateExperience(item as Experience)
-			experienceDetailsSaved = false
 		}
 	}
 

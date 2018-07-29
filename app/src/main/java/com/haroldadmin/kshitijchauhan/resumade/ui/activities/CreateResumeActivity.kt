@@ -29,7 +29,7 @@ class CreateResumeActivity : AppCompatActivity() {
 	private lateinit var createResumeViewModel: CreateResumeViewModel
 	private lateinit var resumeFragmentAdapter: FragmentAdapter
 	private lateinit var createResumeFab: FloatingActionButton
-	private lateinit var viewPager : ViewPager
+	private lateinit var viewPager: ViewPager
 	private lateinit var webView: WebView
 	private var addIcon: Drawable? = null
 	private var doneIcon: Drawable? = null
@@ -92,11 +92,11 @@ class CreateResumeActivity : AppCompatActivity() {
 		on every configuration change. It should only be used
 		once: while initializing the viewmodel.
 		 */
-		if (!createResumeViewModel.saved) {
+		if (!createResumeViewModel.saved || !createResumeViewModel.educationDetailsSaved || !createResumeViewModel.experienceDetailsSaved || !createResumeViewModel.projectDetailsSaved) {
 			// Using Appcompat to ensure that the dialogs don't look weird
-			alert(Appcompat, "You haven't saved your resume yet") {
-				title = "Unsaved Resume"
-				positiveButton("Cancel") { /* Do nothing */ }
+			alert(Appcompat, "Some details remain unsaved. Stay to view them.") {
+				title = "Unsaved details"
+				positiveButton("Stay") { checkIfDetailsSaved() }
 				negativeButton("Delete") {
 					createResumeViewModel.deleteTempResume()
 					super.onBackPressed()

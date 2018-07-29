@@ -50,7 +50,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener {
 				if (runChecks()) {
 					onSaveButtonClick(Resume(resumeName, name, phone, email, city, description, skills, hobbies))
 					isEnabled = false
-					text = "Saved"
+					text = "Edit"
 				}
 			}
 		}
