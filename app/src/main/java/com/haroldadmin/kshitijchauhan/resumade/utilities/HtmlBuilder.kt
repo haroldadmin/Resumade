@@ -212,7 +212,7 @@ fun addSkills(resume : Resume) : String {
 	if (resume.skills != "") {
 		val skillsList = resume.skills.split(",")
 		skillsList.map { it -> it.trim() }
-		if (skillsList.isNotEmpty()) {
+		if (skillsList.isNotEmpty() && skillsList.first().isNotBlank()) {
 			html += "    <div class=\"skills\">\n" +
 					"        <div class=\"skills-header\">\n" +
 					"            <h2>Skills</h2>\n" +
@@ -220,7 +220,9 @@ fun addSkills(resume : Resume) : String {
 					"        <div class=\"skills-text\">\n" +
 					"            <ul class=\"skills-list\">"
 			for (skill in skillsList) {
-				html += "<li>$skill</li>"
+				if (skill.isNotBlank()) {
+					html += "<li>$skill</li>"
+				}
 			}
 
 			html += "            </ul>\n" +
@@ -237,7 +239,7 @@ fun addHobbies(resume : Resume) : String {
 	if (resume.hobbies != "") {
 		val hobbiesList = resume.hobbies.split(",")
 		hobbiesList.map { it -> it.trim() }
-		if (hobbiesList.isNotEmpty()) {
+		if (hobbiesList.isNotEmpty() && hobbiesList.first().isNotBlank()) {
 			html += "    <div class=\"hobbies\">\n" +
 					"        <div class=\"hobbies-header\">\n" +
 					"            <h2>Hobbies</h2>\n" +
@@ -245,7 +247,9 @@ fun addHobbies(resume : Resume) : String {
 					"        <div class=\"hobbies-text\">\n" +
 					"            <ul>"
 			for (hobby in hobbiesList) {
-				html += "<li>$hobby</li>"
+				if (hobby.isNotBlank()) {
+					html += "<li>$hobby</li>"
+				}
 			}
 
 			html += "            </ul>\n" +
