@@ -92,7 +92,7 @@ class CreateResumeActivity : AppCompatActivity() {
 		on every configuration change. It should only be used
 		once: while initializing the viewmodel.
 		 */
-		if (!createResumeViewModel.saved || !createResumeViewModel.educationDetailsSaved || !createResumeViewModel.experienceDetailsSaved || !createResumeViewModel.projectDetailsSaved) {
+		if (!createResumeViewModel.personalDetailsSaved || !createResumeViewModel.educationDetailsSaved || !createResumeViewModel.experienceDetailsSaved || !createResumeViewModel.projectDetailsSaved) {
 			// Using Appcompat to ensure that the dialogs don't look weird
 			alert(Appcompat, "Some details remain unsaved. Stay to view them.") {
 				title = "Unsaved details"
@@ -117,7 +117,6 @@ class CreateResumeActivity : AppCompatActivity() {
 			R.id.done -> run {
 				if (checkIfDetailsSaved()) {
 					finish()
-					createResumeViewModel.saved = true
 				}
 				return true
 			}

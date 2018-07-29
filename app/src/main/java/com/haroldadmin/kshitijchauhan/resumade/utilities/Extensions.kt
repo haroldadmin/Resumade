@@ -5,9 +5,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 
-fun View.showKeyboard(context: Context) {
+fun View.showKeyboard(context: Context?) {
 	this.requestFocus()
-	val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+	val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 	inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 }
 

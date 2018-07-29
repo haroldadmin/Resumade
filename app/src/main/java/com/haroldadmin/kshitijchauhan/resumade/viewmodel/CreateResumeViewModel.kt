@@ -18,7 +18,6 @@ class CreateResumeViewModel(application: Application) : AndroidViewModel(applica
 	var educationList: LiveData<List<Education>>
 	var experienceList: LiveData<List<Experience>>
 	var projectsList: LiveData<List<Project>>
-	var saved: Boolean = true
 
 	/*
 	Initializing these values as true because
@@ -50,8 +49,6 @@ class CreateResumeViewModel(application: Application) : AndroidViewModel(applica
 			any time when it actually matters.
 			 */
 			resumeId = repository.insertResume(Resume("My Resume", "", "", "", "", "", "", ""))
-			personalDetailsSaved = false
-			saved = false
 		}
 		resume = repository.getResumeForId(resumeId)
 		educationList = repository.getAllEducationForResume(resumeId)
