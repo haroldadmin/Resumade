@@ -12,4 +12,9 @@
         android:icon="@drawable/ic_round_print_24px"
         android:title="@string/print"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/preview"
+        android:icon="@drawable/ic_round_preview_24px"
+        android:title="Preview"
+        app:showAsAction="ifRoom" />
 </menu>

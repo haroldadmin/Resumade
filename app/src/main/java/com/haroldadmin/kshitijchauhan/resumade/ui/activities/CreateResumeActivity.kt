@@ -2,6 +2,7 @@ package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.print.PrintAttributes
@@ -17,8 +18,10 @@ import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Companion.EXTRA_RESUME_ID
-import com.haroldadmin.kshitijchauhan.resumade.ui.fragments.PreviewFragment
+import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
+import com.haroldadmin.kshitijchauhan.resumade.utilities.HtmlGeneratedListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
+import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
@@ -26,6 +29,7 @@ import org.jetbrains.anko.appcompat.v7.Appcompat
 class CreateResumeActivity : AppCompatActivity() {
 
 	private val TAG: String = this::class.java.simpleName
+	private val EXTRA_HTML: String = "html"
 	private lateinit var createResumeViewModel: CreateResumeViewModel
 	private lateinit var resumeFragmentAdapter: FragmentAdapter
 	private lateinit var createResumeFab: FloatingActionButton
@@ -122,9 +126,25 @@ class CreateResumeActivity : AppCompatActivity() {
 			}
 			R.id.print -> run {
 				if (checkIfDetailsSaved()) {
-					webView = WebView(this)
-					webView.loadDataWithBaseURL(null, PreviewFragment.html, "text/html", "UTF-8", null)
-					createWebPrintJob(webView)
+					AppExecutors.backgroundProcessor.execute {
+						val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
+						AppExecutors.mainThreadExecutor.execute {
+							webView = WebView(this)
+							webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
+							createWebPrintJob(webView)
+						}
+					}
+				}
+				true
+			}
+			R.id.preview -> run {
+				AppExecutors.backgroundProcessor.execute {
+					val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
+					AppExecutors.mainThreadExecutor.execute {
+						val intent = Intent(this, PreviewActivity::class.java)
+						intent.putExtra(EXTRA_HTML, html)
+						startActivity(intent)
+					}
 				}
 				true
 			}
@@ -138,7 +158,6 @@ class CreateResumeActivity : AppCompatActivity() {
 			1 -> fabBehaviourEducationFragment()
 			2 -> fabBehaviourExperienceFragment()
 			3 -> fabBehaviourProjectFragment()
-			4 -> fabBehaviourPreviewFragment()
 		}
 	}
 
@@ -185,12 +204,6 @@ class CreateResumeActivity : AppCompatActivity() {
 					projectDetailsSaved = false
 				}
 			}
-		}
-	}
-
-	private fun fabBehaviourPreviewFragment() {
-		createResumeFab.apply {
-			hide()
 		}
 	}
 

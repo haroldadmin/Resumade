@@ -24,8 +24,9 @@ object AppExecutors {
 		override fun execute(task: Runnable) {
 			mainThreadHandler.post(task)
 		}
-
 	}
+
+	val backgroundProcessor : ExecutorService = Executors.newFixedThreadPool(4)
 
 }
 

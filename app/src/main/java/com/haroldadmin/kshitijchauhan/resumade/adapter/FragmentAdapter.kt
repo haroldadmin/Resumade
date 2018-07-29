@@ -7,8 +7,8 @@ import com.haroldadmin.kshitijchauhan.resumade.ui.fragments.*
 
 class FragmentAdapter(manager : FragmentManager) : FragmentPagerAdapter(manager) {
 
-	private val listOfFragments = listOf(PersonalFragment(), EducationFragment(), ExperienceFragment(), ProjectsFragment(), PreviewFragment())
-	private val listOfTitles = listOf("Personal", "Education", "Experience", "Projects", "Preview")
+	private val listOfFragments: List<Fragment> = listOf(PersonalFragment(), EducationFragment(), ExperienceFragment(), ProjectsFragment())
+	private val listOfTitles: List<String> = listOf("Personal", "Education", "Experience", "Projects")
 
 	override fun getItem(position: Int): Fragment = listOfFragments[position]
 
