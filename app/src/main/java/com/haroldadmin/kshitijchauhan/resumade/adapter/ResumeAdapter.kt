@@ -1,17 +1,14 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
 import android.support.v7.util.DiffUtil
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.haroldadmin.kshitijchauhan.resumade.R
-import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
-import kotlinx.android.synthetic.main.card_resume.view.*
 
 class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder>() {
 
@@ -33,11 +30,11 @@ class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : Recy
 	}
 
 	inner class ResumeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-		val resumeCard : CardView = itemView.resumeCard
-		val resumeNameTextView : TextView = itemView.resumeNameTextView
-		val personNameTextView : TextView = itemView.personNameTextView
-		val personPhoneTextView : TextView = itemView.personPhoneTextView
-		val personEmailTextView : TextView = itemView.personEmailTextView
+		val resumeCard : View = itemView.findViewById(R.id.resumeItemView)
+		val resumeNameTextView : TextView = itemView.findViewById(R.id.resumeNameTextView)
+		val personNameTextView : TextView = itemView.findViewById(R.id.personalNameTextView)
+		val personPhoneTextView : TextView = itemView.findViewById(R.id.personalPhoneTextView)
+		val personEmailTextView : TextView = itemView.findViewById(R.id.personalEmailTextView)
 
 		fun bindClickListener() {
 			val resumeId = resumesList[adapterPosition].id

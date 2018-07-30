@@ -19,7 +19,6 @@ import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Companion.EXTRA_RESUME_ID
 import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
-import com.haroldadmin.kshitijchauhan.resumade.utilities.HtmlGeneratedListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
 import kotlinx.android.synthetic.main.activity_create_resume.*

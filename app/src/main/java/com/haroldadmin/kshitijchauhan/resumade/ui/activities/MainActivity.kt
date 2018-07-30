@@ -5,30 +5,37 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ResumeAdapter
+import com.haroldadmin.kshitijchauhan.resumade.adapter.SwipeToDeleteCallback
 import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.appcompat.v7.Appcompat
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
 	private val TAG = this::class.java.simpleName
-	private lateinit var mainViewModel : MainViewModel
+	private lateinit var mainViewModel: MainViewModel
 	private lateinit var resumeAdapter: ResumeAdapter
+	private lateinit var linearLayoutManager: LinearLayoutManager
 	private lateinit var resumesRecyclerView: RecyclerView
 	private lateinit var webView: WebView
 
+
 	companion object {
-		const val EXTRA_RESUME_ID : String = "resumeId"
+		const val EXTRA_RESUME_ID: String = "resumeId"
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +61,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 				})
 
 		addResumeFab.setOnClickListener {
-			val newResumeId  : Long = -1
+			val newResumeId: Long = -1
 			val intent = Intent(this, CreateResumeActivity::class.java)
 			intent.putExtra(EXTRA_RESUME_ID, newResumeId)
 			startActivity(intent)
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		return when(item?.itemId) {
+		return when (item?.itemId) {
 			R.id.about -> {
 				startActivity(Intent(this, AboutUsActivity::class.java))
 				true
@@ -87,7 +94,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 		startActivity(intent)
 	}
 
-	private fun toggleNoResumesLayout(size : Int) {
+	private fun toggleNoResumesLayout(size: Int) {
 		if (size > 0) {
 			resumesListRecyclerView.visibility = View.VISIBLE
 			noResumesView.visibility = View.INVISIBLE
@@ -100,25 +107,27 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
 	private fun setupRecyclerView() {
 		resumeAdapter = ResumeAdapter(this)
+		linearLayoutManager = LinearLayoutManager(this)
+		val dividerItemDecoration = DividerItemDecoration(resumesRecyclerView.context, linearLayoutManager.orientation)
+		dividerItemDecoration.setDrawable(this.getDrawable(R.drawable.list_divider))
 		resumesRecyclerView.apply {
 			adapter = resumeAdapter
-			layoutManager = LinearLayoutManager(this@MainActivity)
+			layoutManager = linearLayoutManager
+			addItemDecoration(dividerItemDecoration)
 		}
-		/*
-         Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-         An ItemTouchHelper enables touch behavior (like swipe and move) on each EducationViewHolder,
-         and uses callbacks to signal when a user is performing these actions.
-         */
-		ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-
-			override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-				return false
+		val itemTouchHelper = ItemTouchHelper(object : SwipeToDeleteCallback(this) {
+			override fun onSwiped(viewholder: RecyclerView.ViewHolder, direction: Int) {
+				val position = viewholder.adapterPosition
+					alert(Appcompat, "Are you sure you want to delete this resume?") {
+						yesButton {
+							mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(position))
+						}
+						noButton {
+							resumeAdapter.notifyItemChanged(position)
+						}
+					}.show()
 			}
-
-			// Called when a user swipes left or right on a EducationViewHolder
-			override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-				mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(viewHolder.adapterPosition))
-			}
-		}).attachToRecyclerView(resumesListRecyclerView)
+		})
+		itemTouchHelper.attachToRecyclerView(resumesRecyclerView)
 	}
 }
