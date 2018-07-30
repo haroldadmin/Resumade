@@ -15,8 +15,8 @@ android {
         applicationId "com.haroldadmin.kshitijchauhan.resumade"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
-        versionName "0.4"
+        versionCode 6
+        versionName "0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,7 +30,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    implementation 'com.android.support:appcompat-v7:28.0.0-beta01'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -40,9 +40,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
-    implementation 'com.android.support:recyclerview-v7:28.0.0-alpha3'
-    implementation 'com.android.support:cardview-v7:28.0.0-alpha3'
-    implementation 'com.android.support:design:28.0.0-alpha3'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-beta01'
+    implementation 'com.android.support:cardview-v7:28.0.0-beta01'
+    implementation 'com.android.support:design:28.0.0-beta01'
     implementation "org.jetbrains.anko:anko:$anko_version"
     compile 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
