@@ -33,6 +33,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 	private lateinit var personalSkillsWrapper: TextInputLayout
 	private lateinit var personalHobbiesWrapper: TextInputLayout
 	private lateinit var personalDescriptionWrapper: TextInputLayout
+	private lateinit var resumeNameWrapper : TextInputLayout
 
 	private var tempResumeName = ""
 	private var tempName = ""
@@ -64,7 +65,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 		personalSkillsWrapper = view.findViewById(R.id.personalSkillsWrapper)
 		personalHobbiesWrapper = view.findViewById(R.id.personalHobbiesWrapper)
 		personalDescriptionWrapper = view.findViewById(R.id.personalDescriptionWrapper)
-
+		resumeNameWrapper = view.findViewById(R.id.resumeNameWrapper)
 		personalSaveButton = view.findViewById(R.id.personalSaveButton)
 
 	}
@@ -231,6 +232,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 		personalSkillsWrapper.isEnabled = value
 		personalHobbiesWrapper.isEnabled = value
 		personalDescriptionWrapper.isEnabled = value
+		resumeNameWrapper.isEnabled = value
 	}
 
 	private fun enableTextFields() {
