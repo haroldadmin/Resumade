@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
@@ -22,6 +23,7 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
 import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
+import com.haroldadmin.kshitijchauhan.resumade.utilities.hideKeyboard
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
@@ -119,12 +121,14 @@ class CreateResumeActivity : AppCompatActivity() {
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 		return when (item?.itemId) {
 			R.id.done -> run {
+				this@CreateResumeActivity.hideKeyboard()
 				if (checkIfDetailsSaved()) {
 					finish()
 				}
 				return true
 			}
 			R.id.print -> run {
+				this@CreateResumeActivity.hideKeyboard()
 				if (checkIfDetailsSaved()) {
 					AppExecutors.backgroundProcessor.execute {
 						val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
@@ -138,6 +142,7 @@ class CreateResumeActivity : AppCompatActivity() {
 				true
 			}
 			R.id.preview -> run {
+				this@CreateResumeActivity.hideKeyboard()
 				if (checkIfDetailsSaved()) {
 					AppExecutors.backgroundProcessor.execute {
 						val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
