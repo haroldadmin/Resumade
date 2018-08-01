@@ -26,6 +26,9 @@ interface ResumeDAO {
 
 	@Update
 	fun updateResume(resume : Resume)
+
+	@Query("SELECT * FROM resumes WHERE id=:resumeId")
+	fun getSingleResume(resumeId: Long) : Resume
 }
 
 @Dao
@@ -36,6 +39,9 @@ interface EducationDAO {
 
 	@Query("SELECT * FROM education WHERE resumeId=:resumeId")
 	fun getEducationForResume(resumeId : Long) : LiveData<List<Education>>
+
+	@Query("SELECT * FROM education WHERE resumeId=:resumeId")
+	fun getEducationForResumeOnce(resumeId : Long) : List<Education>
 
 	@Query("SELECT count(*) FROM education")
 	fun getEducationId() : Long
@@ -59,6 +65,9 @@ interface ExperienceDAO {
 	@Query("SELECT * FROM experience WHERE resumeId=:resumeId")
 	fun getExperienceForResume(resumeId : Long) : LiveData<List<Experience>>
 
+	@Query("SELECT * FROM experience WHERE resumeId=:resumeId")
+	fun getExperienceForResumeOnce(resumeId : Long) : List<Experience>
+
 	@Query("SELECT count(*) FROM experience")
 	fun getExperienceId() : Long
 
@@ -80,6 +89,9 @@ interface ProjectsDAO {
 
 	@Query("SELECT * FROM projects WHERE resumeId=:resumeId")
 	fun getProjectsForResume(resumeId: Long) : LiveData<List<Project>>
+
+	@Query("SELECT * FROM projects WHERE resumeId=:resumeId")
+	fun getProjectsForResumeOnce(resumeId: Long) : List<Project>
 
 	@Query("SELECT count(*) FROM projects")
 	fun getProjectId() : Long

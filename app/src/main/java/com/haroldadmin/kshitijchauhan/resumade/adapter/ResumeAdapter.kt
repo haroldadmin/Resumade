@@ -52,4 +52,5 @@ class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : Recy
 		this.resumesList = newResumesList
 		diffResult.dispatchUpdatesTo(this)
 	}
+
 }

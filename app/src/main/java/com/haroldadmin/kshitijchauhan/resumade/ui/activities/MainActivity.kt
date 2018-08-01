@@ -16,7 +16,7 @@ import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ResumeAdapter
 import com.haroldadmin.kshitijchauhan.resumade.adapter.SwipeToDeleteCallback
-import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
@@ -118,6 +118,8 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 		val itemTouchHelper = ItemTouchHelper(object : SwipeToDeleteCallback(this) {
 			override fun onSwiped(viewholder: RecyclerView.ViewHolder, direction: Int) {
 				val position = viewholder.adapterPosition
+				val id: Long = resumeAdapter.getResumeAtPosition(position).id
+				if (direction == ItemTouchHelper.LEFT) {
 					alert(Appcompat, "Are you sure you want to delete this resume?") {
 						yesButton {
 							mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(position))
@@ -126,6 +128,22 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 							resumeAdapter.notifyItemChanged(position)
 						}
 					}.show()
+				} else {
+					AppExecutors.diskIO.execute {
+						val resume = mainViewModel.getResumeForId(id)
+						val educationList = mainViewModel.getEducationForResume(id)
+						val experienceList = mainViewModel.getExperienceForResume(id)
+						val projectList = mainViewModel.getProjectForResume(id)
+						AppExecutors.backgroundProcessor.execute {
+							val html = buildHtml(resume, educationList, experienceList, projectList)
+							AppExecutors.mainThreadExecutor.execute {
+								webView = WebView(this@MainActivity)
+								webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
+								webView.createPrintJob(this@MainActivity)
+							}
+						}
+					}
+				}
 			}
 		})
 		itemTouchHelper.attachToRecyclerView(resumesRecyclerView)

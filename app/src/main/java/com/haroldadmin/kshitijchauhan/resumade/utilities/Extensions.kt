@@ -1,8 +1,11 @@
 package com.haroldadmin.kshitijchauhan.resumade.utilities
 
 import android.content.Context
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 
 fun View.showKeyboard(context: Context?) {
@@ -21,3 +24,9 @@ fun <T : ResumeEntity> List<T>.isAnyItemUnsaved() : Boolean {
 }
 
 fun <T : ResumeEntity> List<T>.areAllItemsSaved() : Boolean = !this.isAnyItemUnsaved()
+
+fun WebView.createPrintJob(context: Context) {
+	val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+	val printAdapter = this.createPrintDocumentAdapter("Resumade document")
+	val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
+}

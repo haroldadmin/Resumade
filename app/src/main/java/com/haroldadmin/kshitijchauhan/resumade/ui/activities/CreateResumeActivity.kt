@@ -21,6 +21,7 @@ import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Compan
 import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
+import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat
@@ -130,19 +131,21 @@ class CreateResumeActivity : AppCompatActivity() {
 						AppExecutors.mainThreadExecutor.execute {
 							webView = WebView(this)
 							webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
-							createWebPrintJob(webView)
+							webView.createPrintJob(this)
 						}
 					}
 				}
 				true
 			}
 			R.id.preview -> run {
-				AppExecutors.backgroundProcessor.execute {
-					val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
-					AppExecutors.mainThreadExecutor.execute {
-						val intent = Intent(this, PreviewActivity::class.java)
-						intent.putExtra(EXTRA_HTML, html)
-						startActivity(intent)
+				if (checkIfDetailsSaved()) {
+					AppExecutors.backgroundProcessor.execute {
+						val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
+						AppExecutors.mainThreadExecutor.execute {
+							val intent = Intent(this, PreviewActivity::class.java)
+							intent.putExtra(EXTRA_HTML, html)
+							startActivity(intent)
+						}
 					}
 				}
 				true
@@ -210,11 +213,11 @@ class CreateResumeActivity : AppCompatActivity() {
 		Snackbar.make(rootCoordinatorLayout, text, Snackbar.LENGTH_SHORT).show()
 	}
 
-	private fun createWebPrintJob(webview: WebView) {
-		val printManager = this.getSystemService(Context.PRINT_SERVICE) as PrintManager
-		val printAdapter = webview.createPrintDocumentAdapter("Resume Document")
-		val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
-	}
+//	private fun createWebPrintJob(webview: WebView) {
+//		val printManager = this.getSystemService(Context.PRINT_SERVICE) as PrintManager
+//		val printAdapter = webview.createPrintDocumentAdapter("Resume Document")
+//		val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
+//	}
 
 	private fun checkIfDetailsSaved(): Boolean {
 		with(createResumeViewModel) {

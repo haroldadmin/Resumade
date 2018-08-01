@@ -16,6 +16,7 @@ interface Repository {
 	// Tasks related to resume-list
 	fun getAllResume() : LiveData<List<Resume>>
 	fun getResumeForId(resumeId: Long): LiveData<Resume>
+	fun getSingleResumeForId(resumeId : Long) : Resume
 	fun insertResume(resume: Resume): Long
 	fun deleteResume(resume : Resume)
 	fun updateResume(resume : Resume)
@@ -24,18 +25,21 @@ interface Repository {
 
 	// Tasks related to education-list
 	fun getAllEducationForResume(resumeId: Long) : LiveData<List<Education>>
+	fun getAllEducationForResumeOnce(resumeId: Long) : List<Education>
 	fun insertEducation(education: Education): Long
 	fun deleteEducation(education: Education)
 	fun updateEducation(education: Education)
 
 	// Tasks related to experience-list
 	fun getAllExperienceForResume(resumeId: Long) : LiveData<List<Experience>>
+	fun getAllExperienceForResumeOnce(resumeId: Long) : List<Experience>
 	fun insertExperience(experience: Experience): Long
 	fun deleteExperience(experience: Experience)
 	fun updateExperience(experience: Experience)
 
 	// Tasks related to projects-list
 	fun getAllProjectsForResume(resumeId: Long) : LiveData<List<Project>>
+	fun getAllProjectsForResumeOnce(resumeId : Long) : List<Project>
 	fun insertProject(project: Project): Long
 	fun deleteProject(project: Project)
 	fun updateProject(project: Project)

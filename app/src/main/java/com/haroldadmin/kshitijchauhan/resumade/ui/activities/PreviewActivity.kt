@@ -19,10 +19,7 @@ class PreviewActivity : AppCompatActivity() {
 		toolbar = findViewById(R.id.previewActivityToolbar)
 
 		setSupportActionBar(toolbar)
-		supportActionBar?.apply {
-			title = "Preview"
-			setDisplayHomeAsUpEnabled(true)
-		}
+		supportActionBar?.title = "Preview"
 
 		val receivedIntent = intent
 		val html = receivedIntent.getStringExtra(EXTRA_HTML)

@@ -20,6 +20,8 @@ class LocalRepository(application: Application) : Repository {
 
 	override fun getResumeForId(resumeId: Long): LiveData<Resume> = database.resumeDAO().getResumeForId(resumeId)
 
+	override fun getSingleResumeForId(resumeId: Long) = database.resumeDAO().getSingleResume(resumeId)
+
 	override fun insertResume(resume: Resume): Long {
 		val id : Future<Long> = AppExecutors.diskIO.submit(
 				Callable<Long> {
@@ -45,6 +47,8 @@ class LocalRepository(application: Application) : Repository {
 
 	override fun getAllEducationForResume(resumeId: Long): LiveData<List<Education>> = database.educationDAO().getEducationForResume(resumeId)
 
+	override fun getAllEducationForResumeOnce(resumeId: Long): List<Education> = database.educationDAO().getEducationForResumeOnce(resumeId)
+
 	override fun insertEducation(education: Education): Long {
 		val id : Future<Long> =
 		AppExecutors.diskIO.submit(Callable<Long> {
@@ -63,6 +67,8 @@ class LocalRepository(application: Application) : Repository {
 
 	override fun getAllExperienceForResume(resumeId: Long): LiveData<List<Experience>> = database.experienceDAO().getExperienceForResume(resumeId)
 
+	override fun getAllExperienceForResumeOnce(resumeId: Long): List<Experience> = database.experienceDAO().getExperienceForResumeOnce(resumeId)
+
 	override fun insertExperience(experience: Experience): Long {
 		val id : Future<Long> =
 				AppExecutors.diskIO.submit(Callable<Long> {
@@ -80,6 +86,8 @@ class LocalRepository(application: Application) : Repository {
 	}
 
 	override fun getAllProjectsForResume(resumeId: Long): LiveData<List<Project>> = database.projectsDAO().getProjectsForResume(resumeId)
+
+	override fun getAllProjectsForResumeOnce(resumeId: Long): List<Project> = database.projectsDAO().getProjectsForResumeOnce(resumeId)
 
 	override fun insertProject(project: Project): Long {
 		val id : Future<Long> =

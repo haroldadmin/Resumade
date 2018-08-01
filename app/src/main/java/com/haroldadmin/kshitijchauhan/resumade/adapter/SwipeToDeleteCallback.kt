@@ -11,10 +11,10 @@ import com.haroldadmin.kshitijchauhan.resumade.R
 abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
 	private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_round_delete_24px)
-	private val intrinsicWidth = deleteIcon?.intrinsicWidth ?: 0
-	private val intrinsicHeight = deleteIcon?.intrinsicHeight ?: 0
+	private val printIcon = ContextCompat.getDrawable(context, R.drawable.ic_round_print_24px)
 	private val background = ColorDrawable()
 	private val backgroundColorDelete = ContextCompat.getColor(context, R.color.errorColor)
+	private val backgroundColorPrint = ContextCompat.getColor(context, R.color.primaryDarkColor)
 	private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
 	override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -33,10 +33,13 @@ abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleC
 			return
 		}
 
-		background.color = backgroundColorDelete
 
 		if (dX < 0) {
+			val intrinsicWidth = deleteIcon?.intrinsicWidth ?: 0
+			val intrinsicHeight = deleteIcon?.intrinsicHeight ?: 0
+
 			// Draw the red delete background
+			background.color = backgroundColorDelete
 			background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
 			background.draw(c)
 
@@ -51,17 +54,21 @@ abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleC
 			deleteIcon?.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
 			deleteIcon?.draw(c)
 		} else {
+			val intrinsicWidth = printIcon?.intrinsicWidth ?: 0
+			val intrinsicHeight = printIcon?.intrinsicHeight ?: 0
+
+			background.color = backgroundColorPrint
 			background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
 			background.draw(c)
 
-			val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
-			val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
-			val deleteIconLeft = itemView.left + deleteIconMargin
-			val deleteIconRight = itemView.left + deleteIconMargin + intrinsicWidth
-			val deleteIconBottom = deleteIconTop + intrinsicHeight
+			val printIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
+			val printIconMargin = (itemHeight - intrinsicHeight) / 2
+			val printIconLeft = itemView.left + printIconMargin
+			val printIconRight = itemView.left + printIconMargin + intrinsicWidth
+			val printIconBottom = printIconTop + intrinsicHeight
 
-			deleteIcon?.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-			deleteIcon?.draw(c)
+			printIcon?.setBounds(printIconLeft, printIconTop, printIconRight, printIconBottom)
+			printIcon?.draw(c)
 		}
 		super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 	}

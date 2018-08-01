@@ -4,6 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import com.haroldadmin.kshitijchauhan.resumade.repository.LocalRepository
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
+import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 
 /*
@@ -39,5 +42,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 	fun deleteResume(resume : Resume) {
 		repository.deleteResume(resume)
 	}
+
+	fun getResumeForId(resumeId : Long) : Resume = repository.getSingleResumeForId(resumeId)
+
+	fun getEducationForResume(resumeId : Long) : List<Education> = repository.getAllEducationForResumeOnce(resumeId)
+
+	fun getExperienceForResume(resumeId: Long) : List<Experience> = repository.getAllExperienceForResumeOnce(resumeId)
+
+	fun getProjectForResume(resumeId: Long) : List<Project> = repository.getAllProjectsForResumeOnce(resumeId)
 
 }

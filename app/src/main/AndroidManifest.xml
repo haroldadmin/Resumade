@@ -17,9 +17,7 @@
         </activity>
         <activity android:name=".ui.activities.CreateResumeActivity" />
         <activity android:name=".ui.activities.AboutUsActivity" />
-        <activity android:name=".ui.activities.PreviewActivity"
-            android:parentActivityName=".ui.activities.CreateResumeActivity">
-        </activity>
+        <activity android:name=".ui.activities.PreviewActivity"/>
     </application>
 
 </manifest>
