@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 								webView = WebView(this@MainActivity)
 								webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
 								webView.createPrintJob(this@MainActivity)
+								resumeAdapter.notifyItemChanged(position)
 							}
 						}
 					}
