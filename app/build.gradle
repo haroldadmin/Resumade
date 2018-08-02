@@ -15,8 +15,8 @@ android {
         applicationId "com.haroldadmin.kshitijchauhan.resumade"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "0.5"
+        versionCode 7
+        versionName "0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,6 +31,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0-beta01'
+    implementation 'com.android.support:support-v4:28.0.0-beta01'
+    implementation 'com.android.support:support-media-compat:28.0.0-beta01'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

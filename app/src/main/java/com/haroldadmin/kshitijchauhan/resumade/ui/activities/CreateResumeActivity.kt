@@ -218,12 +218,6 @@ class CreateResumeActivity : AppCompatActivity() {
 		Snackbar.make(rootCoordinatorLayout, text, Snackbar.LENGTH_SHORT).show()
 	}
 
-//	private fun createWebPrintJob(webview: WebView) {
-//		val printManager = this.getSystemService(Context.PRINT_SERVICE) as PrintManager
-//		val printAdapter = webview.createPrintDocumentAdapter("Resume Document")
-//		val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
-//	}
-
 	private fun checkIfDetailsSaved(): Boolean {
 		with(createResumeViewModel) {
 			if (!personalDetailsSaved) {
