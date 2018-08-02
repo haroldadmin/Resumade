@@ -1,12 +1,9 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.print.PrintAttributes
-import android.print.PrintManager
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -14,16 +11,15 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Companion.EXTRA_RESUME_ID
 import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
-import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
 import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
 import com.haroldadmin.kshitijchauhan.resumade.utilities.hideKeyboard
+import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.appcompat.v7.Appcompat

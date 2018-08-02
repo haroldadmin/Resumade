@@ -14,7 +14,10 @@ import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.*
+import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_education.*
 
@@ -36,6 +39,13 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 				.of(it)
 				.get(CreateResumeViewModel::class.java)
 		}
+
+		createResumeViewModel.educationList
+				.observe(this, Observer {
+					educationAdapter.updateEducationList(it ?: emptyList())
+					createResumeViewModel.educationDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
+					toggleNoEducationLayout(it?.size ?: 0)
+				})
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,24 +59,6 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 			adapter = educationAdapter
 			layoutManager = linearLayoutManager
 		}
-	}
-
-	/*
-	While observing the list from the viewmodel,
-	we check if the list is empty to set saved status
-	in the viewmodel. We do this because otherwise
-	the user encounters an unsaved message if he adds
-	items to the list, and deletes them all before
-	saving the resume.
-	 */
-	override fun onStart() {
-		super.onStart()
-		createResumeViewModel.educationList
-				.observe(this, Observer {
-					educationAdapter.updateEducationList(it ?: emptyList())
-					createResumeViewModel.educationDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
-					toggleNoEducationLayout(it?.size ?: 0)
-				})
 	}
 
 	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {

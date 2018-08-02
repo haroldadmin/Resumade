@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
-import com.haroldadmin.kshitijchauhan.resumade.R.id.*
-import com.haroldadmin.kshitijchauhan.resumade.R.string.resumeName
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
@@ -45,6 +43,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 	private var tempDescription = ""
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		super.onCreateView(inflater, container, savedInstanceState)
 		return inflater.inflate(R.layout.fragment_personal, container, false)
 	}
 
@@ -54,6 +53,14 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 		createResumeViewModel = ViewModelProviders
 				.of(activity!!)
 				.get(CreateResumeViewModel::class.java)
+
+		createResumeViewModel.resume
+				.observe(this, Observer {
+					this.resume = it ?: Resume("", "", "", "", "", "", "", "")
+					fillTextFieldsWithData(this.resume)
+					adjustSaveButton(this.resume.saved)
+					createResumeViewModel.personalDetailsSaved = this.resume.saved
+				})
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,18 +74,6 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 		personalDescriptionWrapper = view.findViewById(R.id.personalDescriptionWrapper)
 		resumeNameWrapper = view.findViewById(R.id.resumeNameWrapper)
 		personalSaveButton = view.findViewById(R.id.personalSaveButton)
-
-	}
-
-	override fun onStart() {
-		super.onStart()
-		createResumeViewModel.resume
-				.observe(this, Observer {
-					this.resume = it ?: Resume("", "", "", "", "", "", "", "")
-					fillTextFieldsWithData(this.resume)
-					adjustSaveButton(this.resume.saved)
-					createResumeViewModel.personalDetailsSaved = this.resume.saved
-				})
 	}
 
 	private fun fillTextFieldsWithData(resume: Resume) {

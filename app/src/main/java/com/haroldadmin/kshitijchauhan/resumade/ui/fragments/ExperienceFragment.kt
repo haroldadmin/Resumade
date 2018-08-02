@@ -13,7 +13,10 @@ import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.*
+import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
@@ -33,6 +36,13 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 					.of(it)
 					.get(CreateResumeViewModel::class.java)
 		}
+
+		createResumeViewModel.experienceList
+				.observe(this, Observer {
+					experienceAdapter.updateExperienceList(it ?: emptyList())
+					createResumeViewModel.experienceDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
+					toggleNoExperienceLayout(it?.size ?: 0)
+				})
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,24 +52,6 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 			adapter = experienceAdapter
 			layoutManager = LinearLayoutManager(context)
 		}
-	}
-
-	/*
-	While observing the list from the viewmodel,
-	we check if the list is empty to set saved status
-	in the viewmodel. We do this because otherwise
-	the user encounters an unsaved message if he adds
-	items to the list, and deletes them all before
-	saving the resume.
-	 */
-	override fun onStart() {
-		super.onStart()
-		createResumeViewModel.experienceList
-				.observe(this, Observer {
-					experienceAdapter.updateExperienceList(it ?: emptyList())
-					createResumeViewModel.experienceDetailsSaved = it == null || it.isEmpty() || it.areAllItemsSaved()
-					toggleNoExperienceLayout(it?.size ?: 0)
-				})
 	}
 
 	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {

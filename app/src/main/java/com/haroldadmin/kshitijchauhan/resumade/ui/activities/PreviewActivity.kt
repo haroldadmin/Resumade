@@ -1,7 +1,7 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.webkit.WebView
 import com.haroldadmin.kshitijchauhan.resumade.R
