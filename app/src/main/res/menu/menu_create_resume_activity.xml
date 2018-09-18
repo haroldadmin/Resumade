@@ -15,6 +15,6 @@
     <item
         android:id="@+id/preview"
         android:icon="@drawable/ic_round_preview_24px"
-        android:title="Preview"
+        android:title="@string/preview"
         app:showAsAction="ifRoom" />
 </menu>

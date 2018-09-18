@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".AboutActivity">
+    android:fitsSystemWindows="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +34,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="Created by Kshitij Chauhan"
+                android:text="@string/created_by_kshitij_chauhan"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -98,7 +96,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@null"
                         android:clickable="false"
-                        android:text="App Repository"
+                        android:text="@string/app_repository"
                         android:textAlignment="viewStart"
                         android:textColor="@color/secondaryTextColor" />
                 </TableRow>
@@ -127,7 +125,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@null"
                         android:clickable="false"
-                        android:text="Dev Profile"
+                        android:text="@string/dev_profile"
                         android:textAlignment="viewStart"
                         android:textColor="@color/secondaryTextColor" />
                 </TableRow>
@@ -156,7 +154,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@null"
                         android:clickable="false"
-                        android:text="Standard Resume"
+                        android:text="@string/standard_resume"
                         android:textAlignment="viewStart"
                         android:textColor="@color/secondaryTextColor" />
                 </TableRow>
@@ -185,7 +183,7 @@
                         android:layout_marginStart="8dp"
                         android:background="@null"
                         android:clickable="false"
-                        android:text="Rate the app"
+                        android:text="@string/rate_the_app"
                         android:textAlignment="viewStart"
                         android:textColor="@color/secondaryTextColor" />
                 </TableRow>

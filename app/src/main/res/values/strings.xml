@@ -46,4 +46,11 @@ You should check out Standard Resume if you need something more professional.</s
     <string name="projectLinkHelperText">A website for the project</string>
     <string name="projectDescriptionHelperText">Describe the project</string>
     <string name="editButtonText">Edit</string>
+    <string name="about">About</string>
+    <string name="preview">Preview</string>
+    <string name="created_by_kshitij_chauhan">Created by Kshitij Chauhan</string>
+    <string name="app_repository">App Repository</string>
+    <string name="dev_profile">Dev Profile</string>
+    <string name="standard_resume">Standard Resume</string>
+    <string name="rate_the_app">Rate the app</string>
 </resources>
