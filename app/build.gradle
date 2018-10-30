@@ -25,6 +25,28 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        dev {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def build_param = "${build}";
+
+if (build_param != "dev") {
+    //exclude production build
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('dev')) {
+            variant.setIgnore(true);
+        }
+    }
+} else {
+    //exclude all except production build
+    android.variantFilter { variant ->
+        if (!variant.buildType.name.equals('dev')) {
+            variant.setIgnore(true);
+        }
     }
 }
 
