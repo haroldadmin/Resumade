@@ -8,7 +8,8 @@
 /build
 /captures
 .externalNativeBuild
-.idea
+.idea/vcs.xml
+.idea/misc.xml
 # Built application files
 *.apk
 *.ap_
