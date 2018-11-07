@@ -55,7 +55,7 @@ class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickLis
 				.get(CreateResumeViewModel::class.java)
 
 		createResumeViewModel.resume
-				.observe(this, Observer {
+				.observe(viewLifecycleOwner, Observer {
 					this.resume = it ?: Resume("", "", "", "", "", "", "", "")
 					fillTextFieldsWithData(this.resume)
 					adjustSaveButton(this.resume.saved)
