@@ -66,7 +66,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha01'
-    implementation "org.jetbrains.anko:anko:$anko_version"
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 }

@@ -1,28 +1,26 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ResumeAdapter
 import com.haroldadmin.kshitijchauhan.resumade.adapter.SwipeToDeleteCallback
-import com.haroldadmin.kshitijchauhan.resumade.utilities.*
+import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
+import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
+import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
+import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.appcompat.v7.Appcompat
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
 
 class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
@@ -120,14 +118,17 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 				val position = viewholder.adapterPosition
 				val id: Long = resumeAdapter.getResumeAtPosition(position).id
 				if (direction == ItemTouchHelper.LEFT) {
-					alert(Appcompat, "Are you sure you want to delete this resume?") {
-						yesButton {
-							mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(position))
-						}
-						noButton {
-							resumeAdapter.notifyItemChanged(position)
-						}
-					}.show()
+					AlertDialog.Builder(ContextThemeWrapper(this@MainActivity, R.style.MyAlertDialog))
+							.setMessage("Are you sure you want to delete this resume?")
+							.setPositiveButton("Yes") { _, _ ->
+								mainViewModel.deleteResume(resumeAdapter.getResumeAtPosition(position))
+							}
+							.setNegativeButton("No") { dialog, _ ->
+								resumeAdapter.notifyItemChanged(position)
+                                dialog.dismiss()
+							}
+							.create()
+							.show()
 				} else {
 					AppExecutors.diskIO.execute {
 						val resume = mainViewModel.getResumeForId(id)

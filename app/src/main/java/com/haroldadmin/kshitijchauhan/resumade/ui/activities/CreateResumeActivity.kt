@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,8 +22,6 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
 import com.haroldadmin.kshitijchauhan.resumade.utilities.hideKeyboard
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.activity_create_resume.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.appcompat.v7.Appcompat
 
 class CreateResumeActivity : AppCompatActivity() {
 
@@ -94,15 +94,18 @@ class CreateResumeActivity : AppCompatActivity() {
 		once: while initializing the viewmodel.
 		 */
 		if (!createResumeViewModel.personalDetailsSaved || !createResumeViewModel.educationDetailsSaved || !createResumeViewModel.experienceDetailsSaved || !createResumeViewModel.projectDetailsSaved) {
-			// Using Appcompat to ensure that the dialogs don't look weird
-			alert(Appcompat, "Some details remain unsaved. Stay to view them.") {
-				title = "Unsaved details"
-				positiveButton("Stay") { checkIfDetailsSaved() }
-				negativeButton("Delete") {
-					createResumeViewModel.deleteTempResume()
-					super.onBackPressed()
-				}
-			}.show()
+			AlertDialog.Builder(ContextThemeWrapper(this, R.style.MyAlertDialog))
+					.setTitle("Unsaved Details")
+					.setMessage("Some details remain unsaved. Stay to view them.")
+					.setPositiveButton("Stay") { _, _ ->
+						checkIfDetailsSaved()
+					}
+					.setNegativeButton("Delete") { _, _ ->
+						createResumeViewModel.deleteTempResume()
+						super.onBackPressed()
+					}
+					.create()
+					.show()
 		} else {
 			super.onBackPressed()
 		}

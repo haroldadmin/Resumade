@@ -1,23 +1,20 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.recyclerview.widget.DiffUtil
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.appcompat.v7.Appcompat
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
 
 class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
                         val deleteButtonClickListener: DeleteButtonClickListener,
@@ -135,15 +132,16 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				}
 			}
 			deleteButton.setOnClickListener {
-				/*
-				I love anko-dialogs.
-				 */
-				itemView.context.alert(Appcompat, "Are you sure you want to delete this experience card?") {
-					yesButton {
-						deleteButtonClickListener.onDeleteButtonClick(mExperience)
-					}
-					noButton { /* Do Nothing */ }
-				}.show()
+				AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.MyAlertDialog))
+						.setMessage("Are you sure you want to delete this experience card?")
+						.setPositiveButton("Yes") { _, _ ->
+							deleteButtonClickListener.onDeleteButtonClick(mExperience)
+						}
+						.setNegativeButton("No") { dialog, _ ->
+							dialog.dismiss()
+						}
+						.create()
+						.show()
 			}
 		}
 	}
