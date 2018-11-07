@@ -1,7 +1,7 @@
 package com.haroldadmin.kshitijchauhan.resumade.repository
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.*
 import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
 import java.util.concurrent.Callable

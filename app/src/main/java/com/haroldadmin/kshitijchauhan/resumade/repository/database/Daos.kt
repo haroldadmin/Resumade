@@ -1,7 +1,7 @@
 package com.haroldadmin.kshitijchauhan.resumade.repository.database
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface ResumeDAO {

@@ -1,11 +1,11 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.button.MaterialButton
-import android.support.design.widget.TextInputLayout
-import android.support.v4.app.Fragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputLayout
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +19,7 @@ import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_personal.*
 import java.util.regex.Pattern
 
-class PersonalFragment : Fragment(), SaveButtonClickListener, EditButtonClickListener {
+class PersonalFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, EditButtonClickListener {
 
 	private lateinit var createResumeViewModel: CreateResumeViewModel
 	private lateinit var resume: Resume

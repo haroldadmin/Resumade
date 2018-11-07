@@ -1,14 +1,11 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
@@ -21,12 +18,12 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_education.*
 
-class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
+class EducationFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private lateinit var educationAdapter: EducationAdapter
-	private lateinit var linearLayoutManager: LinearLayoutManager
+	private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
 	private lateinit var createResumeViewModel: CreateResumeViewModel
-	private lateinit var educationRecyclerView: RecyclerView
+	private lateinit var educationRecyclerView: androidx.recyclerview.widget.RecyclerView
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_education, container, false)
@@ -52,7 +49,7 @@ class EducationFragment : Fragment(), SaveButtonClickListener, DeleteButtonClick
 		super.onViewCreated(view, savedInstanceState)
 
 		educationAdapter = EducationAdapter(this, this, this)
-		linearLayoutManager = LinearLayoutManager(context)
+		linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 		educationRecyclerView = view.findViewById(R.id.educationRecyclerView)
 
 		educationRecyclerView.apply {

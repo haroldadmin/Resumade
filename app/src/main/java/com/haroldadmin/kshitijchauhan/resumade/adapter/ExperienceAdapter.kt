@@ -1,10 +1,10 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import android.support.design.button.MaterialButton
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ import org.jetbrains.anko.yesButton
 
 class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
                         val deleteButtonClickListener: DeleteButtonClickListener,
-                        val editButtonClickListener: EditButtonClickListener) : RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
+                        val editButtonClickListener: EditButtonClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
 
 	private var experienceList: List<Experience> = emptyList()
 
@@ -39,7 +39,7 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	inner class ExperienceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+	inner class ExperienceViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
 		private lateinit var mExperience: Experience
 

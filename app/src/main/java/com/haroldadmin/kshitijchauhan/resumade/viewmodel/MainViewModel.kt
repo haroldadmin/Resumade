@@ -1,8 +1,8 @@
 package com.haroldadmin.kshitijchauhan.resumade.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.haroldadmin.kshitijchauhan.resumade.repository.LocalRepository
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience

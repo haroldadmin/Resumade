@@ -1,6 +1,6 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 
 class DiffUtilCallback<T : ResumeEntity> (

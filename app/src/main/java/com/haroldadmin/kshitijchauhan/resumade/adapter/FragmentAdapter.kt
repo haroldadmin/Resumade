@@ -1,16 +1,16 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.haroldadmin.kshitijchauhan.resumade.ui.fragments.*
 
-class FragmentAdapter(manager : FragmentManager) : FragmentPagerAdapter(manager) {
+class FragmentAdapter(manager : androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(manager) {
 
-	private val listOfFragments: List<Fragment> = listOf(PersonalFragment(), EducationFragment(), ExperienceFragment(), ProjectsFragment())
+	private val listOfFragments: List<androidx.fragment.app.Fragment> = listOf(PersonalFragment(), EducationFragment(), ExperienceFragment(), ProjectsFragment())
 	private val listOfTitles: List<String> = listOf("Personal", "Education", "Experience", "Projects")
 
-	override fun getItem(position: Int): Fragment = listOfFragments[position]
+	override fun getItem(position: Int): androidx.fragment.app.Fragment = listOfFragments[position]
 
 	override fun getCount(): Int = listOfFragments.size
 

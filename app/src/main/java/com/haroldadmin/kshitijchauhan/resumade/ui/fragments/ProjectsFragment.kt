@@ -1,11 +1,11 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +21,13 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_projects.*
 
-class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
+class ProjectsFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private val TAG : String = this::class.java.simpleName
 	private lateinit var projectAdapter: ProjectAdapter
-	private lateinit var linearLayoutManager: LinearLayoutManager
+	private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
 	private lateinit var createResumeViewModel: CreateResumeViewModel
-	private lateinit var projectRecyclerView : RecyclerView
+	private lateinit var projectRecyclerView : androidx.recyclerview.widget.RecyclerView
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_projects, container, false)
@@ -53,7 +53,7 @@ class ProjectsFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickL
 		super.onViewCreated(view, savedInstanceState)
 
 		projectAdapter = ProjectAdapter(this, this, this)
-		linearLayoutManager = LinearLayoutManager(context)
+		linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
 		projectRecyclerView = view.findViewById(R.id.projectsRecyclerView)
 		projectRecyclerView.apply {

@@ -1,12 +1,12 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import android.support.design.button.MaterialButton
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +24,7 @@ import org.jetbrains.anko.yesButton
 
 class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
                        val deleteButtonClickListener: DeleteButtonClickListener,
-                       val editButtonClickListener: EditButtonClickListener) : RecyclerView.Adapter<EducationAdapter.EducationViewHolder>() {
+                       val editButtonClickListener: EditButtonClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<EducationAdapter.EducationViewHolder>() {
 
 	private var educationList: List<Education> = emptyList()
 
@@ -42,7 +42,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	inner class EducationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+	inner class EducationViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
 		private lateinit var mEducation: Education
 

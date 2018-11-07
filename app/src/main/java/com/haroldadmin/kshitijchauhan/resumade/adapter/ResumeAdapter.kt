@@ -1,7 +1,7 @@
 package com.haroldadmin.kshitijchauhan.resumade.adapter
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
 
-class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder>() {
+class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder>() {
 
 	private var resumesList : List<Resume> = emptyList()
 
@@ -29,7 +29,7 @@ class ResumeAdapter(val resumeCardClickListener: ResumeCardClickListener) : Recy
 		}
 	}
 
-	inner class ResumeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+	inner class ResumeViewHolder(itemView : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 		val resumeCard : View = itemView.findViewById(R.id.resumeItemView)
 		val resumeNameTextView : TextView = itemView.findViewById(R.id.resumeNameTextView)
 		val personNameTextView : TextView = itemView.findViewById(R.id.personalNameTextView)

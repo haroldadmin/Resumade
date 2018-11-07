@@ -1,10 +1,10 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.fragments
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
-class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
+class ExperienceFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
 
 	private lateinit var experienceAdapter : ExperienceAdapter
 	private lateinit var createResumeViewModel : CreateResumeViewModel
@@ -50,7 +50,7 @@ class ExperienceFragment : Fragment(), SaveButtonClickListener, DeleteButtonClic
 		experienceAdapter = ExperienceAdapter(this, this, this)
 		experienceRecyclerView.apply {
 			adapter = experienceAdapter
-			layoutManager = LinearLayoutManager(context)
+			layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 		}
 	}
 

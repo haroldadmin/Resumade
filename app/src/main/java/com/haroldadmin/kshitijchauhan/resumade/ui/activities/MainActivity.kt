@@ -1,14 +1,14 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 	private val TAG = this::class.java.simpleName
 	private lateinit var mainViewModel: MainViewModel
 	private lateinit var resumeAdapter: ResumeAdapter
-	private lateinit var linearLayoutManager: LinearLayoutManager
-	private lateinit var resumesRecyclerView: RecyclerView
+	private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
+	private lateinit var resumesRecyclerView: androidx.recyclerview.widget.RecyclerView
 	private lateinit var webView: WebView
 
 
@@ -107,8 +107,8 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
 	private fun setupRecyclerView() {
 		resumeAdapter = ResumeAdapter(this)
-		linearLayoutManager = LinearLayoutManager(this)
-		val dividerItemDecoration = DividerItemDecoration(resumesRecyclerView.context, linearLayoutManager.orientation)
+		linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+		val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(resumesRecyclerView.context, linearLayoutManager.orientation)
 		dividerItemDecoration.setDrawable(this.getDrawable(R.drawable.list_divider))
 		resumesRecyclerView.apply {
 			adapter = resumeAdapter
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 			addItemDecoration(dividerItemDecoration)
 		}
 		val itemTouchHelper = ItemTouchHelper(object : SwipeToDeleteCallback(this) {
-			override fun onSwiped(viewholder: RecyclerView.ViewHolder, direction: Int) {
+			override fun onSwiped(viewholder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int) {
 				val position = viewholder.adapterPosition
 				val id: Long = resumeAdapter.getResumeAtPosition(position).id
 				if (direction == ItemTouchHelper.LEFT) {
