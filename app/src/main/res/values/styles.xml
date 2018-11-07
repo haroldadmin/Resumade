@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -12,6 +12,32 @@
         <item name="android:colorForeground">@color/secondaryColor</item>
         <item name="android:colorControlNormal">@color/secondaryDarkColor</item>
         <item name="android:colorControlActivated">@color/secondaryLightColor</item>
+        <item name="android:alertDialogTheme">@style/MyAlertDialog</item>
+    </style>
+
+    <style name="MyTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextColor">@color/primaryTextColor</item>
+        <item name="tabSelectedTextColor">@color/primaryTextColor</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="tabIndicatorColor">@color/primaryTextColor</item>
+        <item name="tabRippleColor">@color/primaryLightColor</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabGravity">fill</item>
+    </style>
+
+    <style name="MyAddFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@android:color/white</item>
+        <item name="backgroundTint">@color/primaryColor</item>
+        <item name="elevation">8dp</item>
+        <item name="rippleColor">@color/primaryLightColor</item>
+    </style>
+    
+    <style name="MyAlertDialog" parent="AlertDialog.MaterialComponents">
+        <item name="android:textColorPrimary">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="MyAlertDialogText" parent="AlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
     <style name="helper_text_appearance" parent="@android:style/TextAppearance">

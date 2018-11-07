@@ -46,14 +46,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/MyAddFab"
         android:id="@+id/addResumeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_round_add_24px"
-        app:backgroundTint="@color/primaryColor"
-        app:elevation="8dp"
+        app:srcCompat="@drawable/ic_round_add_24px"
         app:fabSize="normal"
         app:layout_anchor="@id/resumesListRecyclerView"
         app:layout_anchorGravity="bottom|center"/>

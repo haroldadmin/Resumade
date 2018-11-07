@@ -12,7 +12,7 @@
         android:id="@+id/createResumeToolbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        android:theme="@style/Widget.MaterialComponents.ActionBar.Primary">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/createResumeToolbar"
@@ -21,12 +21,10 @@
             android:background="@color/primaryColor"/>
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/MyTabLayout"
             android:id="@+id/createResumeTabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            app:tabMode="scrollable"
-            app:tabGravity="fill"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -37,19 +35,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        style="@style/MyAddFab"
         android:id="@+id/createResumeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_round_add_24px"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/primaryColor"
-        app:elevation="8dp"
+        app:srcCompat="@drawable/ic_round_add_24px"
         app:layout_anchor="@id/createResumeViewpager"
         app:layout_anchorGravity="bottom|center"
-        app:rippleColor="@color/primaryLightColor"
         android:animateLayoutChanges="true"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
