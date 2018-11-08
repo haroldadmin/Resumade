@@ -30,8 +30,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="8dp"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:theme="@style/ThemeOverlay.AppCompat" />
+                app:layout_scrollFlags="scroll|enterAlways" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,7 +42,7 @@
         android:id="@+id/resumesListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         style="@style/MyAddFab"

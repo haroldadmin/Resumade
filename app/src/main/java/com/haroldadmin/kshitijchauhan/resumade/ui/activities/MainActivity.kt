@@ -1,7 +1,10 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -68,6 +71,9 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener {
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 		menuInflater.inflate(R.menu.menu_main_activity, menu)
+		val span = SpannableString("About")
+		span.setSpan(ForegroundColorSpan(Color.BLACK), 0, span.length, 0)
+		menu?.getItem(0)?.title = span
 		return true
 	}
 
