@@ -3,9 +3,8 @@ package com.haroldadmin.kshitijchauhan.resumade.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.*
-import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
-import java.util.concurrent.Callable
-import java.util.concurrent.Future
+import com.haroldadmin.kshitijchauhan.resumade.utilities.AppDispatchers
+import kotlinx.coroutines.withContext
 
 
 /*
@@ -14,94 +13,79 @@ interacts with the database.
  */
 class LocalRepository(application: Application) : Repository {
 
-	val database : ResumeDatabase = ResumeDatabase.getInstance(application)
+    val database: ResumeDatabase = ResumeDatabase.getInstance(application)
 
-	override fun getAllResume(): LiveData<List<Resume>> = database.resumeDAO().getAllResume()
+    override fun getAllResume(): LiveData<List<Resume>> = database.resumeDAO().getAllResume()
 
-	override fun getResumeForId(resumeId: Long): LiveData<Resume> = database.resumeDAO().getResumeForId(resumeId)
+    override fun getResumeForId(resumeId: Long): LiveData<Resume> = database.resumeDAO().getResumeForId(resumeId)
 
-	override fun getSingleResumeForId(resumeId: Long) = database.resumeDAO().getSingleResume(resumeId)
+    override fun getSingleResumeForId(resumeId: Long) = database.resumeDAO().getSingleResume(resumeId)
 
-	override fun insertResume(resume: Resume): Long {
-		val id : Future<Long> = AppExecutors.diskIO.submit(
-				Callable<Long> {
-					database.resumeDAO().insertResume(resume)
-				}
-		)
-		return id.get()
-	}
+    override suspend fun insertResume(resume: Resume): Long = withContext(AppDispatchers.diskDispatcher) {
+        database.resumeDAO().insertResume(resume)
+    }
 
-	override fun deleteResume(resume: Resume) = AppExecutors.diskIO.execute {
-		database.resumeDAO().deleteResume(resume)
-	}
+    override suspend fun deleteResume(resume: Resume) = withContext(AppDispatchers.diskDispatcher) {
+        database.resumeDAO().deleteResume(resume)
+    }
 
-	override fun deleteResumeForId(resumeId: Long)  = AppExecutors.diskIO.execute {
-		database.resumeDAO().deleteResumeForId(resumeId)
-	}
+    override suspend fun deleteResumeForId(resumeId: Long) = withContext(AppDispatchers.diskDispatcher) {
+        database.resumeDAO().deleteResumeForId(resumeId)
+    }
 
-	override fun updateResume(resume: Resume) = AppExecutors.diskIO.execute {
-		database.resumeDAO().updateResume(resume)
-	}
+    override suspend fun updateResume(resume: Resume) = withContext(AppDispatchers.diskDispatcher) {
+        database.resumeDAO().updateResume(resume)
+    }
 
-	override fun getLastResumeId(): LiveData<Long> = database.resumeDAO().getLastResumeId()
+    override fun getLastResumeId(): LiveData<Long> = database.resumeDAO().getLastResumeId()
 
-	override fun getAllEducationForResume(resumeId: Long): LiveData<List<Education>> = database.educationDAO().getEducationForResume(resumeId)
+    override fun getAllEducationForResume(resumeId: Long): LiveData<List<Education>> = database.educationDAO().getEducationForResume(resumeId)
 
-	override fun getAllEducationForResumeOnce(resumeId: Long): List<Education> = database.educationDAO().getEducationForResumeOnce(resumeId)
+    override fun getAllEducationForResumeOnce(resumeId: Long): List<Education> = database.educationDAO().getEducationForResumeOnce(resumeId)
 
-	override fun insertEducation(education: Education): Long {
-		val id : Future<Long> =
-		AppExecutors.diskIO.submit(Callable<Long> {
-			database.educationDAO().insertEducation(education)
-		})
-		return id.get()
-	}
+    override suspend fun insertEducation(education: Education): Long =
+            withContext(AppDispatchers.diskDispatcher) {
+                database.educationDAO().insertEducation(education)
+            }
 
-	override fun deleteEducation(education: Education) = AppExecutors.diskIO.execute {
-		database.educationDAO().deleteEducation(education)
-	}
+    override suspend fun deleteEducation(education: Education) = withContext(AppDispatchers.diskDispatcher) {
+        database.educationDAO().deleteEducation(education)
+    }
 
-	override fun updateEducation(education: Education) = AppExecutors.diskIO.execute {
-		database.educationDAO().updateEducation(education)
-	}
+    override suspend fun updateEducation(education: Education) = withContext(AppDispatchers.diskDispatcher) {
+        database.educationDAO().updateEducation(education)
+    }
 
-	override fun getAllExperienceForResume(resumeId: Long): LiveData<List<Experience>> = database.experienceDAO().getExperienceForResume(resumeId)
+    override fun getAllExperienceForResume(resumeId: Long): LiveData<List<Experience>> = database.experienceDAO().getExperienceForResume(resumeId)
 
-	override fun getAllExperienceForResumeOnce(resumeId: Long): List<Experience> = database.experienceDAO().getExperienceForResumeOnce(resumeId)
+    override fun getAllExperienceForResumeOnce(resumeId: Long): List<Experience> = database.experienceDAO().getExperienceForResumeOnce(resumeId)
 
-	override fun insertExperience(experience: Experience): Long {
-		val id : Future<Long> =
-				AppExecutors.diskIO.submit(Callable<Long> {
-					database.experienceDAO().insertExperience(experience)
-				})
-		return id.get()
-	}
+    override suspend fun insertExperience(experience: Experience): Long =
+            withContext(AppDispatchers.diskDispatcher) {
+                database.experienceDAO().insertExperience(experience)
+            }
 
-	override fun deleteExperience(experience: Experience) = AppExecutors.diskIO.execute {
-		database.experienceDAO().deleteExperience(experience)
-	}
+    override suspend fun deleteExperience(experience: Experience) = withContext(AppDispatchers.diskDispatcher) {
+        database.experienceDAO().deleteExperience(experience)
+    }
 
-	override fun updateExperience(experience: Experience) = AppExecutors.diskIO.execute {
-		database.experienceDAO().updateExperience(experience)
-	}
+    override suspend fun updateExperience(experience: Experience) = withContext(AppDispatchers.diskDispatcher) {
+        database.experienceDAO().updateExperience(experience)
+    }
 
-	override fun getAllProjectsForResume(resumeId: Long): LiveData<List<Project>> = database.projectsDAO().getProjectsForResume(resumeId)
+    override fun getAllProjectsForResume(resumeId: Long): LiveData<List<Project>> = database.projectsDAO().getProjectsForResume(resumeId)
 
-	override fun getAllProjectsForResumeOnce(resumeId: Long): List<Project> = database.projectsDAO().getProjectsForResumeOnce(resumeId)
+    override fun getAllProjectsForResumeOnce(resumeId: Long): List<Project> = database.projectsDAO().getProjectsForResumeOnce(resumeId)
 
-	override fun insertProject(project: Project): Long {
-		val id : Future<Long> =
-				AppExecutors.diskIO.submit(Callable<Long> {
-					database.projectsDAO().insertProject(project)
-				})
-		return id.get()
-	}
+    override suspend fun insertProject(project: Project): Long = withContext(AppDispatchers.diskDispatcher) {
+        database.projectsDAO().insertProject(project)
+    }
 
-	override fun deleteProject(project: Project) = AppExecutors.diskIO.execute {
-		database.projectsDAO().deleteProject(project)
-	}
+    override suspend fun deleteProject(project: Project) = withContext(AppDispatchers.diskDispatcher) {
+        database.projectsDAO().deleteProject(project)
+    }
 
-	override fun updateProject(project: Project) = AppExecutors.diskIO.execute {
-		database.projectsDAO().updateProject(project)
-	}
+    override suspend fun updateProject(project: Project) = withContext(AppDispatchers.diskDispatcher) {
+        database.projectsDAO().updateProject(project)
+    }
 }

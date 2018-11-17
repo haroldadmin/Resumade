@@ -1,11 +1,13 @@
 package com.haroldadmin.kshitijchauhan.resumade.repository.database
 
-import androidx.sqlite.db.SupportSQLiteDatabase
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
-import com.haroldadmin.kshitijchauhan.resumade.utilities.AppExecutors
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.haroldadmin.kshitijchauhan.resumade.utilities.AppDispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Database(entities = [(Resume::class), (Education::class), (Experience::class), (Project::class)], version = 1)
 abstract class ResumeDatabase : RoomDatabase() {
@@ -23,7 +25,7 @@ abstract class ResumeDatabase : RoomDatabase() {
 						.addCallback(object : Callback() {
 							override fun onCreate(db: SupportSQLiteDatabase) {
 								super.onCreate(db)
-								AppExecutors.diskIO.execute {
+								GlobalScope.launch (AppDispatchers.diskDispatcher) {
 									val resume = Resume(
 											"Example Resume",
 											"John Doe",

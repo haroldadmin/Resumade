@@ -8,6 +8,10 @@ import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /*
 This ViewModel serves as the ViewModel for
@@ -15,40 +19,42 @@ the main activity. The CreateResumeActivity has a
 separate viewmodel.
 */
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
-	private val TAG : String = this::class.java.simpleName
+    private val mainViewModelJob = Job()
 
-	/*
-	Cached list of resume with a private setter
-	so that it can only be read from other classes,
-	but not modified.
-	 */
-	var resumesList: LiveData<List<Resume>>
-		private set
+    override val coroutineContext = Dispatchers.Main + mainViewModelJob
 
-	/*
-	The main view model extends AndroidViewModel,
-	so it gets an instance of application in its constructor.
-	We use this to initialize the repository,
-	which in turn initializes the database.
-	 */
-	private var repository : LocalRepository = LocalRepository(getApplication())
+    private val TAG: String = this::class.java.simpleName
 
-	init {
-		resumesList = repository.getAllResume()
-	}
+    /*
+    Cached list of resume with a private setter
+    so that it can only be read from other classes,
+    but not modified.
+     */
+    val resumesList: LiveData<List<Resume>>
+    /*
+    The main view model extends AndroidViewModel,
+    so it gets an instance of application in its constructor.
+    We use this to initialize the repository,
+    which in turn initializes the database.
+     */
+    private var repository: LocalRepository = LocalRepository(getApplication())
 
-	fun deleteResume(resume : Resume) {
-		repository.deleteResume(resume)
-	}
+    init {
+        resumesList = repository.getAllResume()
+    }
 
-	fun getResumeForId(resumeId : Long) : Resume = repository.getSingleResumeForId(resumeId)
+    fun deleteResume(resume: Resume) = launch {
+        repository.deleteResume(resume)
+    }
 
-	fun getEducationForResume(resumeId : Long) : List<Education> = repository.getAllEducationForResumeOnce(resumeId)
+    fun getResumeForId(resumeId: Long): Resume = repository.getSingleResumeForId(resumeId)
 
-	fun getExperienceForResume(resumeId: Long) : List<Experience> = repository.getAllExperienceForResumeOnce(resumeId)
+    fun getEducationForResume(resumeId: Long): List<Education> = repository.getAllEducationForResumeOnce(resumeId)
 
-	fun getProjectForResume(resumeId: Long) : List<Project> = repository.getAllProjectsForResumeOnce(resumeId)
+    fun getExperienceForResume(resumeId: Long): List<Experience> = repository.getAllExperienceForResumeOnce(resumeId)
+
+    fun getProjectForResume(resumeId: Long): List<Project> = repository.getAllProjectsForResumeOnce(resumeId)
 
 }
