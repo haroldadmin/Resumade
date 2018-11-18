@@ -6,19 +6,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
 
-class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
-                       val deleteButtonClickListener: DeleteButtonClickListener,
-                       val editButtonClickListener: EditButtonClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<EducationAdapter.EducationViewHolder>() {
+class EducationAdapter(val onSaveButtonClick: (Education) -> Unit,
+					   val onDeleteButtonClick: (Education) -> Unit,
+					   val onEditButtonClick: (Education) -> Unit) : RecyclerView.Adapter<EducationAdapter.EducationViewHolder>() {
 
 	private var educationList: List<Education> = emptyList()
 
@@ -36,7 +34,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	inner class EducationViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+	inner class EducationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 		private lateinit var mEducation: Education
 
@@ -77,7 +75,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				setOnClickListener {
 					if (mEducation.saved) {
 						// Edit Mode
-						editButtonClickListener.onEditButtonClicked(mEducation)
+						onEditButtonClick(mEducation)
 						instituteNameWrapper.apply {
 							isEnabled = true
 							requestFocus()
@@ -131,7 +129,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 							mEducation.degree = tempDegree.trim()
 							mEducation.performance = tempPerformance.trim()
 							mEducation.year = tempYear.trim()
-							saveButtonClickListener.onSaveButtonClick(mEducation)
+							onSaveButtonClick(mEducation)
 
 							text = this.context.getString(R.string.editButtonText)
 
@@ -149,7 +147,7 @@ class EducationAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.MyAlertDialog))
 						.setMessage("Are you sure you want to delete this education card?")
 						.setPositiveButton("Yes") { _, _ ->
-							deleteButtonClickListener.onDeleteButtonClick(mEducation)
+							onDeleteButtonClick(mEducation)
 						}
 						.setNegativeButton("No") { dialog, _ ->
 							dialog.dismiss()

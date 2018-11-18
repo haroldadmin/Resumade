@@ -5,21 +5,19 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_personal.*
 import java.util.regex.Pattern
 
-class PersonalFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, EditButtonClickListener {
+class PersonalFragment : Fragment() {
 
 	private lateinit var createResumeViewModel: CreateResumeViewModel
 	private lateinit var resume: Resume
@@ -125,14 +123,14 @@ class PersonalFragment : androidx.fragment.app.Fragment(), SaveButtonClickListen
 	}
 
 
-	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
+	private fun <T : ResumeEntity> onSaveButtonClick(item: T) {
 		item.saved = true
 		createResumeViewModel.apply {
 			updateResume(item as Resume)
 		}
 	}
 
-	override fun <T : ResumeEntity> onEditButtonClicked(item: T) {
+	private fun <T : ResumeEntity> onEditButtonClicked(item: T) {
 		item.saved = false
 		createResumeViewModel.apply {
 			updateResume(item as Resume)

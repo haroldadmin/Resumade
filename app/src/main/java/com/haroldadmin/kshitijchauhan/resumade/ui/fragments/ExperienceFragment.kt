@@ -11,19 +11,41 @@ import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
-import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.fragment_experience.*
 
-class ExperienceFragment : androidx.fragment.app.Fragment(), SaveButtonClickListener, DeleteButtonClickListener, EditButtonClickListener {
+class ExperienceFragment : Fragment() {
 
 	private lateinit var experienceAdapter : ExperienceAdapter
+	private lateinit var linearLayoutManager : LinearLayoutManager
 	private lateinit var createResumeViewModel : CreateResumeViewModel
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		experienceAdapter = ExperienceAdapter(
+				{ item: Experience ->
+					// On Save Button Click
+					item.saved = true
+					createResumeViewModel.apply {
+						updateExperience(item)
+					}
+				},
+				{ item: Experience ->
+					// On Delete Button Click
+					createResumeViewModel.deleteExperience(item)
+					(activity as CreateResumeActivity).displaySnackbar("Experience deleted.")
+				},
+				{ item: Experience ->
+					// On Edit Button Click
+					item.saved = false
+					createResumeViewModel.apply {
+						updateExperience(item)
+					}
+				})
+		linearLayoutManager = LinearLayoutManager(context)
+	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_experience, container, false)
@@ -47,39 +69,19 @@ class ExperienceFragment : androidx.fragment.app.Fragment(), SaveButtonClickList
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		experienceAdapter = ExperienceAdapter(this, this, this)
 		experienceRecyclerView.apply {
 			adapter = experienceAdapter
-			layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
-		}
-	}
-
-	override fun <T : ResumeEntity> onSaveButtonClick(item: T) {
-		item.saved = true
-		createResumeViewModel.apply {
-			updateExperience(item as Experience)
-		}
-	}
-
-	override fun <T : ResumeEntity> onDeleteButtonClick(item: T) {
-		createResumeViewModel.deleteExperience(item as Experience)
-		(activity as CreateResumeActivity).displaySnackbar("Experience deleted.")
-	}
-
-	override fun <T : ResumeEntity> onEditButtonClicked(item: T) {
-		item.saved = false
-		createResumeViewModel.apply {
-			updateExperience(item as Experience)
+			layoutManager = linearLayoutManager
 		}
 	}
 
 	private fun toggleNoExperienceLayout(size : Int) {
 		if (size > 0) {
-			experienceRecyclerView.visibility = View.VISIBLE
-			noExperienceView.visibility = View.INVISIBLE
+			experienceRecyclerView.visible()
+			noExperienceView.invisible()
 		} else {
-			experienceRecyclerView.visibility = View.INVISIBLE
-			noExperienceView.visibility = View.VISIBLE
+			experienceRecyclerView.invisible()
+			noExperienceView.visible()
 		}
 	}
 }

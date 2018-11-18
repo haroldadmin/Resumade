@@ -7,7 +7,6 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,15 +21,12 @@ import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
-import com.haroldadmin.kshitijchauhan.resumade.utilities.AppDispatchers
-import com.haroldadmin.kshitijchauhan.resumade.utilities.ResumeCardClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
-import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity(), ResumeCardClickListener, CoroutineScope {
+class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private val mainActivityJob = Job()
     override val coroutineContext = Dispatchers.Main + mainActivityJob
@@ -96,29 +92,23 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener, CoroutineScop
 
     }
 
-    override fun onResumeCardClick(resumeId: Long) {
-        /*
-        This method would be invoked by the adapter, which
-        would know the resumeId of the resume being clicked on
-         */
-        val intent = Intent(this, CreateResumeActivity::class.java)
-        intent.putExtra(EXTRA_RESUME_ID, resumeId)
-        startActivity(intent)
-    }
-
     private fun toggleNoResumesLayout(size: Int) {
         if (size > 0) {
-            resumesListRecyclerView.visibility = View.VISIBLE
-            noResumesView.visibility = View.INVISIBLE
+            resumesListRecyclerView.visible()
+            noResumesView.invisible()
         } else {
-            resumesListRecyclerView.visibility = View.INVISIBLE
-            noResumesView.visibility = View.VISIBLE
+            resumesListRecyclerView.invisible()
+            noResumesView.visible()
             mainActivityAppbarLayout.setExpanded(true, true)
         }
     }
 
     private fun setupRecyclerView() {
-        resumeAdapter = ResumeAdapter(this)
+        resumeAdapter = ResumeAdapter { resumeId: Long ->
+            val intent = Intent(this, CreateResumeActivity::class.java)
+            intent.putExtra(EXTRA_RESUME_ID, resumeId)
+            startActivity(intent)
+        }
         linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(resumesRecyclerView.context, linearLayoutManager.orientation)
         dividerItemDecoration.setDrawable(this.getDrawable(R.drawable.list_divider))
@@ -168,7 +158,7 @@ class MainActivity : AppCompatActivity(), ResumeCardClickListener, CoroutineScop
                     }
                 }
             }
-    })
-    itemTouchHelper.attachToRecyclerView(resumesRecyclerView)
-}
+        })
+        itemTouchHelper.attachToRecyclerView(resumesRecyclerView)
+    }
 }

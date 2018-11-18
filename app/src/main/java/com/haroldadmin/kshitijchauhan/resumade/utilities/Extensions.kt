@@ -42,3 +42,15 @@ fun WebView.createPrintJob(context: Context) {
 	val printAdapter = this.createPrintDocumentAdapter("Resumade document")
 	val printJob = printManager.print("Resumade Job", printAdapter, PrintAttributes.Builder().build())
 }
+
+fun View.gone() {
+	this.visibility = View.GONE
+}
+
+fun View.visible() {
+	this.visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+	this.visibility = View.INVISIBLE
+}

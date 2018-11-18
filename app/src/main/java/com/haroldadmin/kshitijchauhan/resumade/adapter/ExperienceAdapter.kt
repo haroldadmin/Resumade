@@ -6,19 +6,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
 
-class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
-                        val deleteButtonClickListener: DeleteButtonClickListener,
-                        val editButtonClickListener: EditButtonClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
+class ExperienceAdapter(val onSaveButtonClick: (Experience) -> Unit,
+						val onDeleteButtonClick: (Experience) -> Unit,
+						val onEditButtonClick: (Experience) -> Unit) : RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder>() {
 
 	private var experienceList: List<Experience> = emptyList()
 
@@ -36,7 +34,7 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	inner class ExperienceViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+	inner class ExperienceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 		private lateinit var mExperience: Experience
 
@@ -73,7 +71,7 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				setOnClickListener {
 					if (mExperience.saved) {
 						// Edit Mode
-						editButtonClickListener.onEditButtonClicked(mExperience)
+						onEditButtonClick(mExperience)
 
 						// Enable text fields
 						companyNameWrapper.apply {
@@ -118,7 +116,7 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 							mExperience.companyName = tempCompanyName.trim()
 							mExperience.duration = tempDuration.trim()
 							mExperience.jobTitle = tempJobTitle.trim()
-							saveButtonClickListener.onSaveButtonClick(mExperience)
+							onSaveButtonClick(mExperience)
 
 							this.text = this.context.getString(R.string.editButtonText)
 
@@ -135,7 +133,7 @@ class ExperienceAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.MyAlertDialog))
 						.setMessage("Are you sure you want to delete this experience card?")
 						.setPositiveButton("Yes") { _, _ ->
-							deleteButtonClickListener.onDeleteButtonClick(mExperience)
+							onDeleteButtonClick(mExperience)
 						}
 						.setNegativeButton("No") { dialog, _ ->
 							dialog.dismiss()

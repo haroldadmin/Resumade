@@ -6,19 +6,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
-import com.haroldadmin.kshitijchauhan.resumade.utilities.DeleteButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.EditButtonClickListener
-import com.haroldadmin.kshitijchauhan.resumade.utilities.SaveButtonClickListener
 import com.haroldadmin.kshitijchauhan.resumade.utilities.showKeyboard
 
-class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
-                     val deleteButtonClickListener: DeleteButtonClickListener,
-                     val editButtonClickListener: EditButtonClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
+class ProjectAdapter(val onSaveButtonClick: (Project) -> Unit,
+					 val onDeleteButtonClick: (Project) -> Unit,
+					 val onEditButtonClick: (Project) -> Unit) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
 
 	private var projectList: List<Project> = emptyList()
 
@@ -36,7 +34,7 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 		}
 	}
 
-	inner class ProjectViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+	inner class ProjectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 		private lateinit var mProject: Project
 
@@ -78,7 +76,7 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 					if (mProject.saved) {
 						// Edit Mode
 
-						editButtonClickListener.onEditButtonClicked(mProject)
+						onEditButtonClick(mProject)
 
 						// Enable text fields
 						projectNameWrapper.apply {
@@ -128,7 +126,7 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 							mProject.role = tempProjectRole
 							mProject.link = tempProjectLink
 							mProject.description = tempProjectDescription
-							saveButtonClickListener.onSaveButtonClick(mProject)
+							onSaveButtonClick(mProject)
 
 							this.text = this.context.getString(R.string.editButtonText)
 
@@ -145,7 +143,7 @@ class ProjectAdapter(val saveButtonClickListener: SaveButtonClickListener,
 				AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.MyAlertDialog))
 						.setMessage("Are you sure you want to delete this project card?")
 						.setPositiveButton("Yes") { _, _ ->
-							deleteButtonClickListener.onDeleteButtonClick(mProject)
+							onDeleteButtonClick(mProject)
 						}
 						.setNegativeButton("No") { dialog, _ ->
 							dialog.dismiss()
