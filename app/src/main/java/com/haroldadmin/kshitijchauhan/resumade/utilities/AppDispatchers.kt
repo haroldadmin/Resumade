@@ -1,5 +1,6 @@
 package com.haroldadmin.kshitijchauhan.resumade.utilities
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -13,9 +14,7 @@ object AppDispatchers {
 	 */
 	private val diskIO : ExecutorService = Executors.newSingleThreadExecutor()
 
-	val backgroundProcessor : ExecutorService = Executors.newFixedThreadPool(4)
-
 	val diskDispatcher = diskIO.asCoroutineDispatcher()
-	val computationDispatcher = backgroundProcessor.asCoroutineDispatcher()
+	val computationDispatcher = Dispatchers.Default
 }
 

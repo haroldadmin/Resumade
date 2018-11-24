@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.haroldadmin.kshitijchauhan.resumade.R
@@ -37,7 +38,7 @@ class CreateResumeActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var createResumeViewModel: CreateResumeViewModel
     private lateinit var resumeFragmentAdapter: FragmentAdapter
     private lateinit var createResumeFab: FloatingActionButton
-    private lateinit var viewPager: androidx.viewpager.widget.ViewPager
+    private lateinit var viewPager: ViewPager
     private lateinit var webView: WebView
     private var addIcon: Drawable? = null
     private var doneIcon: Drawable? = null
@@ -77,7 +78,7 @@ class CreateResumeActivity : AppCompatActivity(), CoroutineScope {
         createResumeTabs.setupWithViewPager(createResumeViewpager)
         createResumeFab.hide()
 
-        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 // Do nothing
             }
