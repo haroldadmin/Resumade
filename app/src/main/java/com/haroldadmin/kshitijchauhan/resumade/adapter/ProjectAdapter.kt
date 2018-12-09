@@ -57,23 +57,23 @@ class ProjectAdapter(val onSaveButtonClick: (Project) -> Unit,
 				projectLink.setText(mProject.link)
 				projectDescription.setText(mProject.description)
 				saveButton.apply {
-					text = if (mProject.saved) {
+					text = if (mProject.saved.get()) {
 						this.context.getString(R.string.editButtonText)
 					} else {
 						this.context.getString(R.string.saveButtonText)
 					}
 				}
-				projectNameWrapper.isEnabled = !mProject.saved
-				projectRoleWrapper.isEnabled = !mProject.saved
-				projectLinkWrapper.isEnabled = !mProject.saved
-				projectDescriptionWrapper.isEnabled = !mProject.saved
+				projectNameWrapper.isEnabled = !mProject.saved.get()
+				projectRoleWrapper.isEnabled = !mProject.saved.get()
+				projectLinkWrapper.isEnabled = !mProject.saved.get()
+				projectDescriptionWrapper.isEnabled = !mProject.saved.get()
 			}
 		}
 
 		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					if (mProject.saved) {
+					if (mProject.saved.get()) {
 						// Edit Mode
 
 						onEditButtonClick(mProject)

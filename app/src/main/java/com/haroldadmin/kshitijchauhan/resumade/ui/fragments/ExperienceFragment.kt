@@ -27,7 +27,7 @@ class ExperienceFragment : Fragment() {
 		experienceAdapter = ExperienceAdapter(
 				{ item: Experience ->
 					// On Save Button Click
-					item.saved = true
+					item.saved.set(true)
 					createResumeViewModel.apply {
 						updateExperience(item)
 					}
@@ -39,7 +39,7 @@ class ExperienceFragment : Fragment() {
 				},
 				{ item: Experience ->
 					// On Edit Button Click
-					item.saved = false
+					item.saved.set(false)
 					createResumeViewModel.apply {
 						updateExperience(item)
 					}

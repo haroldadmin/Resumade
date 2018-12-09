@@ -30,7 +30,7 @@ class ProjectsFragment : Fragment() {
 		super.onCreate(savedInstanceState)
 		projectAdapter = ProjectAdapter(
 				{ item: Project ->
-					item.saved = true
+					item.saved.set(true)
 					createResumeViewModel.apply {
 						updateProject(item)
 						projectDetailsSaved = true
@@ -41,7 +41,7 @@ class ProjectsFragment : Fragment() {
 					(activity as CreateResumeActivity).displaySnackbar("Project deleted.")
 				},
 				{ item: Project ->
-					item.saved = false
+					item.saved.set(false)
 					createResumeViewModel.apply {
 						updateProject(item)
 						projectDetailsSaved = false

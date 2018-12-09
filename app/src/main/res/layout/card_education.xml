@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/secondaryLightColor"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="education"
+            type="com.haroldadmin.kshitijchauhan.resumade.repository.database.Education"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/secondaryLightColor"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/educationInstituteNameWrapper"
@@ -29,135 +37,144 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:helperText="@string/instituteNameHelperText"
-            app:helperTextTextAppearance="@style/helper_text_appearance">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/educationInstituteName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/educationDegreeWrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:hint="@string/educationDegree"
-            android:textColorHint="@color/secondaryDarkColor"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:helperText="@string/qualificationHelperText"
             app:helperTextTextAppearance="@style/helper_text_appearance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/educationInstituteNameWrapper">
+            android:enabled="@{education.saved ? false : true }">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/educationDegree"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/educationInstituteName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textCursorDrawable="@color/secondaryTextColor"
+                    android:textSize="18sp"
+                    android:text="@{education.instituteName}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/educationDegreeWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/educationDegree"
+                android:textColorHint="@color/secondaryDarkColor"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:helperText="@string/qualificationHelperText"
+                app:helperTextTextAppearance="@style/helper_text_appearance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/educationInstituteNameWrapper"
+                android:enabled="@{education.saved ? false : true }">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/educationPerformanceWrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:hint="@string/educationPerformance"
-            android:textColorHint="@color/secondaryDarkColor"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:helperText="@string/performanceHelperText"
-            app:helperTextTextAppearance="@style/helper_text_appearance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/educationDegreeWrapper">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/educationDegree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textCursorDrawable="@color/secondaryTextColor"
+                    android:textSize="18sp"
+                    android:text="@{education.degree}"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/educationPerformance"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/educationPerformanceWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"
-                android:textSize="18sp" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/educationPerformance"
+                android:textColorHint="@color/secondaryDarkColor"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:helperText="@string/performanceHelperText"
+                app:helperTextTextAppearance="@style/helper_text_appearance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/educationDegreeWrapper"
+                android:enabled="@{education.saved ? false : true }">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/educationPerformance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textCursorDrawable="@color/secondaryTextColor"
+                    android:textSize="18sp"
+                    android:text="@{education.performance}"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/educationYearWrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:hint="@string/educationYearOfGraduation"
-            android:textColorHint="@color/secondaryDarkColor"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusTopStart="4dp"
-            app:helperText="@string/educationYearHelperText"
-            app:helperTextTextAppearance="@style/helper_text_appearance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/educationPerformanceWrapper">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/educationYear"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/educationYearWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:singleLine="true"
-                android:textColor="@color/secondaryTextColor"
-                android:textCursorDrawable="@color/secondaryTextColor"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/educationYearOfGraduation"
+                android:textColorHint="@color/secondaryDarkColor"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:helperText="@string/educationYearHelperText"
+                app:helperTextTextAppearance="@style/helper_text_appearance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/educationPerformanceWrapper"
+                android:enabled="@{education.saved ? false : true }">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/educationSaveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/primaryColor"
-            android:elevation="4dp"
-            android:text="@string/saveButtonText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/educationYearWrapper"
-            app:layout_constraintVertical_bias="0.0" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/educationYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textCursorDrawable="@color/secondaryTextColor"
+                    android:textSize="18sp"
+                    android:text="@{education.year}"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/educationDeleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/errorColor"
-            android:elevation="4dp"
-            android:text="@string/deleteButtonText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/educationYearWrapper"
-            app:layout_constraintVertical_bias="0.0" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/educationSaveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/primaryColor"
+                android:elevation="4dp"
+                android:text="@{education.saved ? @string/editButtonText : @string/saveButtonText }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/educationYearWrapper"
+                app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/educationDeleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/errorColor"
+                android:elevation="4dp"
+                android:text="@string/deleteButtonText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/educationYearWrapper"
+                app:layout_constraintVertical_bias="0.0" />
 
-</com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

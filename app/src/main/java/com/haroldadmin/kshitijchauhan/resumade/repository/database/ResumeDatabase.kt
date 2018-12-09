@@ -9,7 +9,7 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.AppDispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [(Resume::class), (Education::class), (Experience::class), (Project::class)], version = 1)
+@Database(entities = [(Resume::class), (Education::class), (Experience::class), (Project::class)], version = 2)
 abstract class ResumeDatabase : RoomDatabase() {
 
 	abstract fun resumeDAO() : ResumeDAO
@@ -35,7 +35,7 @@ abstract class ResumeDatabase : RoomDatabase() {
 											"The most average guy on this planet. Will do any task you throw at me, and I'll do it in an average manner.",
 											"Business Management, Average-anything",
 											"Guitar, Biking, Cooking")
-									resume.saved = true
+									resume.saved.set(true)
 									ResumeDatabase.getInstance(it).resumeDAO().insertResume(resume)
 								}
 							}

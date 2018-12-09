@@ -28,7 +28,7 @@ fun AppCompatActivity.hideKeyboard() {
 
 fun <T : ResumeEntity> List<T>.isAnyItemUnsaved() : Boolean {
 	for (entity in this) {
-		if (!entity.saved) {
+		if (!entity.saved.get()) {
 			return true
 		}
 	}

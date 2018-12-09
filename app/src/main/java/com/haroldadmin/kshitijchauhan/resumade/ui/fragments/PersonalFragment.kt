@@ -56,8 +56,8 @@ class PersonalFragment : Fragment() {
 				.observe(viewLifecycleOwner, Observer {
 					this.resume = it ?: Resume("", "", "", "", "", "", "", "")
 					fillTextFieldsWithData(this.resume)
-					adjustSaveButton(this.resume.saved)
-					createResumeViewModel.personalDetailsSaved = this.resume.saved
+					adjustSaveButton(this.resume.saved.get())
+					createResumeViewModel.personalDetailsSaved = this.resume.saved.get()
 				})
 	}
 
@@ -124,14 +124,14 @@ class PersonalFragment : Fragment() {
 
 
 	private fun <T : ResumeEntity> onSaveButtonClick(item: T) {
-		item.saved = true
+		item.saved.set(true)
 		createResumeViewModel.apply {
 			updateResume(item as Resume)
 		}
 	}
 
 	private fun <T : ResumeEntity> onEditButtonClicked(item: T) {
-		item.saved = false
+		item.saved.set(false)
 		createResumeViewModel.apply {
 			updateResume(item as Resume)
 		}

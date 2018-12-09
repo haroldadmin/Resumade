@@ -31,7 +31,7 @@ class EducationFragment : Fragment() {
         educationAdapter = EducationAdapter(
                 { item: Education ->
                     // On Save Button Clicked
-                    item.saved = true
+                    item.saved.set(true)
                     createResumeViewModel.updateEducation(item)
                 },
                 { item: Education ->
@@ -41,7 +41,7 @@ class EducationFragment : Fragment() {
                 },
                 { item: Education ->
                     // On Edit Button Clicked
-                    item.saved = false
+                    item.saved.set(false)
                     createResumeViewModel.updateEducation(item)
                 })
 

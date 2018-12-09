@@ -1,16 +1,15 @@
 package com.haroldadmin.kshitijchauhan.resumade.repository.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.databinding.ObservableBoolean
+import androidx.room.*
 
 abstract class ResumeEntity {
 	@PrimaryKey(autoGenerate = true)
 	var id : Long = 0L
 
 	@ColumnInfo(name = "saved")
-	var saved : Boolean = false
+	@Ignore
+	var saved : ObservableBoolean = ObservableBoolean()
 
 	abstract fun isEmpty() : Boolean
 

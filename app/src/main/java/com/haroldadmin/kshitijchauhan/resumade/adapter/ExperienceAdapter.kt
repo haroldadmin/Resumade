@@ -54,22 +54,22 @@ class ExperienceAdapter(val onSaveButtonClick: (Experience) -> Unit,
 				jobTitle.setText(mExperience.jobTitle)
 				duration.setText(mExperience.duration)
 				saveButton.apply {
-					this.text = if (mExperience.saved) {
+					this.text = if (mExperience.saved.get()) {
 						this.context.getString(R.string.editButtonText)
 					} else {
 						this.context.getString(R.string.saveButtonText)
 					}
 				}
-				companyNameWrapper.isEnabled = !mExperience.saved
-				jobTitleWrapper.isEnabled = !mExperience.saved
-				durationWrapper.isEnabled = !mExperience.saved
+				companyNameWrapper.isEnabled = !mExperience.saved.get()
+				jobTitleWrapper.isEnabled = !mExperience.saved.get()
+				durationWrapper.isEnabled = !mExperience.saved.get()
 			}
 		}
 
 		fun bindClick() {
 			saveButton.apply {
 				setOnClickListener {
-					if (mExperience.saved) {
+					if (mExperience.saved.get()) {
 						// Edit Mode
 						onEditButtonClick(mExperience)
 
