@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ProjectAdapter
+import com.haroldadmin.kshitijchauhan.resumade.databinding.FragmentProjectsBinding
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
@@ -22,9 +23,9 @@ class ProjectsFragment : Fragment() {
 
 	private val TAG : String = this::class.java.simpleName
 	private lateinit var projectAdapter: ProjectAdapter
-	private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
+	private lateinit var linearLayoutManager: LinearLayoutManager
 	private lateinit var createResumeViewModel: CreateResumeViewModel
-	private lateinit var projectRecyclerView : androidx.recyclerview.widget.RecyclerView
+	private lateinit var binding: FragmentProjectsBinding
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -51,7 +52,8 @@ class ProjectsFragment : Fragment() {
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_projects, container, false)
+		binding = FragmentProjectsBinding.inflate(inflater, container, false)
+		return binding.root
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -72,20 +74,21 @@ class ProjectsFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		projectRecyclerView = view.findViewById(R.id.projectsRecyclerView)
-		projectRecyclerView.apply {
+		binding.projectsRecyclerView.apply {
 			adapter = projectAdapter
 			layoutManager = linearLayoutManager
 		}
 	}
 
 	private fun toggleNoProjectsLayout(size : Int) {
-		if (size > 0) {
-			projectRecyclerView.visible()
-			noProjectsView.invisible()
-		} else {
-			projectRecyclerView.invisible()
-			noProjectsView.visible()
+		binding.apply {
+			if (size > 0) {
+				projectsRecyclerView.visible()
+				noProjectsView.invisible()
+			} else {
+				projectsRecyclerView.invisible()
+				noProjectsView.visible()
+			}
 		}
 	}
 }
