@@ -8,23 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.EducationAdapter
+import com.haroldadmin.kshitijchauhan.resumade.databinding.FragmentEducationBinding
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.areAllItemsSaved
 import com.haroldadmin.kshitijchauhan.resumade.utilities.invisible
 import com.haroldadmin.kshitijchauhan.resumade.utilities.visible
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
-import kotlinx.android.synthetic.main.fragment_education.*
 
 class EducationFragment : Fragment() {
 
     private lateinit var educationAdapter: EducationAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var createResumeViewModel: CreateResumeViewModel
-    private lateinit var educationRecyclerView: RecyclerView
+    private lateinit var binding: FragmentEducationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +47,8 @@ class EducationFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_education, container, false)
+        binding = FragmentEducationBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,9 +70,7 @@ class EducationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        educationRecyclerView = view.findViewById(R.id.educationRecyclerView)
-
-        educationRecyclerView.apply {
+        binding.educationRecyclerView.apply {
             adapter = educationAdapter
             layoutManager = linearLayoutManager
         }
@@ -81,11 +78,15 @@ class EducationFragment : Fragment() {
 
     private fun toggleNoEducationLayout(size: Int) {
         if (size > 0) {
-            educationRecyclerView.visible()
-            noEducationView.invisible()
+            binding.apply {
+                educationRecyclerView.visible()
+                noEducationView.invisible()
+            }
         } else {
-            educationRecyclerView.invisible()
-            noEducationView.visible()
+            binding.apply {
+                educationRecyclerView.invisible()
+                noEducationView.visible()
+            }
         }
     }
 }
