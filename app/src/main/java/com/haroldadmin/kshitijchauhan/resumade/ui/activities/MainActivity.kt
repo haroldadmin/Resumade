@@ -11,19 +11,23 @@ import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ResumeAdapter
 import com.haroldadmin.kshitijchauhan.resumade.adapter.SwipeToDeleteCallback
+import com.haroldadmin.kshitijchauhan.resumade.databinding.ActivityMainBinding
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Education
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Project
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume
 import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -35,26 +39,20 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var resumeAdapter: ResumeAdapter
     private lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager
-    private lateinit var resumesRecyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var webView: WebView
-
-
-    companion object {
-        const val EXTRA_RESUME_ID: String = "resumeId"
-    }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        setSupportActionBar(mainActivityToolbar)
-        collapsingToolbarLayout.title = resources.getString(R.string.app_name)
+        setSupportActionBar(binding.mainActivityToolbar)
+        binding.collapsingToolbarLayout.title = resources.getString(R.string.app_name)
 
         mainViewModel = ViewModelProviders
                 .of(this)
                 .get(MainViewModel::class.java)
 
-        resumesRecyclerView = findViewById(R.id.resumesListRecyclerView)
         webView = WebView(this)
 
         setupRecyclerView()
@@ -65,8 +63,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     toggleNoResumesLayout(it?.size ?: 0)
                 })
 
-        addResumeFab.setOnClickListener {
-            val newResumeId: Long = -1
+        binding.addResumeFab.setOnClickListener {
+            val newResumeId: Long = NEW_RESUME_ID
             val intent = Intent(this, CreateResumeActivity::class.java)
             intent.putExtra(EXTRA_RESUME_ID, newResumeId)
             startActivity(intent)
@@ -89,17 +87,20 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
     }
 
     private fun toggleNoResumesLayout(size: Int) {
         if (size > 0) {
-            resumesListRecyclerView.visible()
-            noResumesView.invisible()
+            binding.apply {
+                resumesListRecyclerView.visible()
+                noResumesView.invisible()
+            }
         } else {
-            resumesListRecyclerView.invisible()
-            noResumesView.visible()
-            mainActivityAppbarLayout.setExpanded(true, true)
+            binding.apply {
+                resumesListRecyclerView.invisible()
+                noResumesView.visible()
+                mainActivityAppbarLayout.setExpanded(true, true)
+            }
         }
     }
 
@@ -109,16 +110,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             intent.putExtra(EXTRA_RESUME_ID, resumeId)
             startActivity(intent)
         }
-        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(resumesRecyclerView.context, linearLayoutManager.orientation)
+        linearLayoutManager = LinearLayoutManager(this)
+        val dividerItemDecoration = DividerItemDecoration(binding.resumesListRecyclerView.context, linearLayoutManager.orientation)
         dividerItemDecoration.setDrawable(this.getDrawable(R.drawable.list_divider))
-        resumesRecyclerView.apply {
+        binding.resumesListRecyclerView.apply {
             adapter = resumeAdapter
             layoutManager = linearLayoutManager
             addItemDecoration(dividerItemDecoration)
         }
         val itemTouchHelper = ItemTouchHelper(object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewholder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int) {
+            override fun onSwiped(viewholder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewholder.adapterPosition
                 val id: Long = resumeAdapter.getResumeAtPosition(position).id
                 if (direction == ItemTouchHelper.LEFT) {
@@ -159,6 +160,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 }
             }
         })
-        itemTouchHelper.attachToRecyclerView(resumesRecyclerView)
+        itemTouchHelper.attachToRecyclerView(binding.resumesListRecyclerView)
     }
 }

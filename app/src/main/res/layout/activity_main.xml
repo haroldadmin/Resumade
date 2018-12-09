@@ -1,59 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/mainActivityAppbarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <data>
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="24dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@id/mainActivityToolbar">
+        <variable
+            name="resume"
+            type="com.haroldadmin.kshitijchauhan.resumade.repository.database.Resume" />
+    </data>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/mainActivityToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:elevation="8dp"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/no_items_view"
-        android:id="@+id/noResumesView"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/resumesListRecyclerView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:fitsSystemWindows="true">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/MyAddFab"
-        android:id="@+id/addResumeFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/ic_round_add_24px"
-        app:fabSize="normal"
-        app:layout_anchor="@id/resumesListRecyclerView"
-        app:layout_anchorGravity="bottom|center"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/mainActivityAppbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="24dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@id/mainActivityToolbar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/mainActivityToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="8dp"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            android:id="@+id/noResumesView"
+            layout="@layout/no_items_view" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resumesListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addResumeFab"
+            style="@style/MyAddFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="16dp"
+            app:fabSize="normal"
+            app:layout_anchor="@id/resumesListRecyclerView"
+            app:layout_anchorGravity="bottom|center"
+            app:srcCompat="@drawable/ic_round_add_24px" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

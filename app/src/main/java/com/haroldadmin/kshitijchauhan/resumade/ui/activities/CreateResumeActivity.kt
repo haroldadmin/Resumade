@@ -16,11 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.FragmentAdapter
-import com.haroldadmin.kshitijchauhan.resumade.ui.activities.MainActivity.Companion.EXTRA_RESUME_ID
-import com.haroldadmin.kshitijchauhan.resumade.utilities.AppDispatchers
-import com.haroldadmin.kshitijchauhan.resumade.utilities.buildHtml
-import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
-import com.haroldadmin.kshitijchauhan.resumade.utilities.hideKeyboard
+import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.activity_create_resume.*
 import kotlinx.coroutines.CoroutineScope
@@ -44,7 +40,7 @@ class CreateResumeActivity : AppCompatActivity(), CoroutineScope {
     private var doneIcon: Drawable? = null
 
     companion object {
-        var currentResumeId: Long = -1L
+        var currentResumeId: Long = NEW_RESUME_ID
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
