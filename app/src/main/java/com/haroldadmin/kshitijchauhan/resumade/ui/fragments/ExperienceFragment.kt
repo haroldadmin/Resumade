@@ -10,17 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.haroldadmin.kshitijchauhan.resumade.R
 import com.haroldadmin.kshitijchauhan.resumade.adapter.ExperienceAdapter
+import com.haroldadmin.kshitijchauhan.resumade.databinding.FragmentExperienceBinding
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.Experience
 import com.haroldadmin.kshitijchauhan.resumade.ui.activities.CreateResumeActivity
 import com.haroldadmin.kshitijchauhan.resumade.utilities.*
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
-import kotlinx.android.synthetic.main.fragment_experience.*
 
 class ExperienceFragment : Fragment() {
 
 	private lateinit var experienceAdapter : ExperienceAdapter
 	private lateinit var linearLayoutManager : LinearLayoutManager
 	private lateinit var createResumeViewModel : CreateResumeViewModel
+	private lateinit var binding: FragmentExperienceBinding
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -48,7 +49,8 @@ class ExperienceFragment : Fragment() {
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_experience, container, false)
+		binding = FragmentExperienceBinding.inflate(inflater, container, false)
+		return binding.root
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -69,19 +71,21 @@ class ExperienceFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		experienceRecyclerView.apply {
+		binding.experienceRecyclerView.apply {
 			adapter = experienceAdapter
 			layoutManager = linearLayoutManager
 		}
 	}
 
 	private fun toggleNoExperienceLayout(size : Int) {
-		if (size > 0) {
-			experienceRecyclerView.visible()
-			noExperienceView.invisible()
-		} else {
-			experienceRecyclerView.invisible()
-			noExperienceView.visible()
+		binding.apply {
+			if (size > 0) {
+				experienceRecyclerView.visible()
+				noExperienceView.invisible()
+			} else {
+				experienceRecyclerView.invisible()
+				noExperienceView.visible()
+			}
 		}
 	}
 }
