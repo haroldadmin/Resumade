@@ -38,7 +38,7 @@ You should check out Standard Resume if you need something more professional.</s
     <string name="qualificationHelperText">Your degree, branch, or class from this institute</string>
     <string name="performanceHelperText">GPA, percentage, or grade</string>
     <string name="educationYearHelperText">Year of graduation</string>
-    <string name="companyNameHelperText">Name of the copmany where you worked</string>
+    <string name="companyNameHelperText">Name of the company where you worked</string>
     <string name="jobTitleHelperText">Eg. Backend Web Developer</string>
     <string name="experienceDurationHelperText">Time period of this job</string>
     <string name="projectNameHelperText">Name of the project</string>
