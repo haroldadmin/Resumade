@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
+import android.widget.EditText
 import com.haroldadmin.kshitijchauhan.resumade.repository.database.ResumeEntity
+import com.haroldadmin.kshitijchauhan.resumade.utilities.inputvalidator.Text
+import com.haroldadmin.kshitijchauhan.resumade.utilities.inputvalidator.validators.TextValidator
 
 
 fun View.showKeyboard(context: Context?) {
