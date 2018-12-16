@@ -27,6 +27,10 @@ data class Resume(@ColumnInfo(name = "resumeName") var resumeName: String = "My 
              @ColumnInfo(name = "skills") var skills: String,
              @ColumnInfo(name = "hobbies") var hobbies: String) : ResumeEntity() {
 
+	companion object {
+	    fun emptyResume() = Resume("", "", "", "", "", "", "", "")
+	}
+
 	override fun isEmpty() : Boolean {
 		if (name.isBlank() &&
 				phone.isBlank() &&
