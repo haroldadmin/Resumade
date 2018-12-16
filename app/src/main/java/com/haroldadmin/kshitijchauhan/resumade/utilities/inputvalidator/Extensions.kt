@@ -51,9 +51,11 @@ fun <T: InputType> Array<Pair<InputValidator<T>, TextInputLayout>>.validateAll()
     }.map { (validatedInput, til) ->
         validatedInput.errors.firstOrNull()?.let {
             til.error = it.second
+            til.isHelperTextEnabled = true
             passed = false
         } ?: run {
             til.isErrorEnabled = false
+            til.isHelperTextEnabled = false
         }
     }
     return passed
