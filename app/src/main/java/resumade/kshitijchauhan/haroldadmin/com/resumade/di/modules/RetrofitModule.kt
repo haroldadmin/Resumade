@@ -11,10 +11,12 @@ import resumade.kshitijchauhan.haroldadmin.com.resumade.remote.Config
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module(includes = [ContextModule::class])
 class RetrofitModule {
 
+    @Singleton
     @Provides
     fun provideRetrofit(httpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
@@ -24,6 +26,7 @@ class RetrofitModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 
+    @Singleton
     @Provides
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
         OkHttpClient.Builder()
@@ -31,12 +34,14 @@ class RetrofitModule {
             .cache(cache)
             .build()
 
+    @Singleton
     @Provides
     fun provideInterceptor(): Interceptor =
         HttpLoggingInterceptor()
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
             .also { return it }
 
+    @Singleton
     @Provides
     fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 1024 * 1024)
 }
