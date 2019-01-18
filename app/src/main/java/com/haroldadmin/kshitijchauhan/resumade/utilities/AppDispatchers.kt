@@ -16,5 +16,6 @@ object AppDispatchers {
 
 	val diskDispatcher = diskIO.asCoroutineDispatcher()
 	val computationDispatcher = Dispatchers.Default
+	val mainThreadDispatcher = Dispatchers.Main
 }
 

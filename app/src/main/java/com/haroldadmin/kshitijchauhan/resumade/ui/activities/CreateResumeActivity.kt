@@ -1,5 +1,6 @@
 package com.haroldadmin.kshitijchauhan.resumade.ui.activities
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -23,10 +24,7 @@ import com.haroldadmin.kshitijchauhan.resumade.utilities.createPrintJob
 import com.haroldadmin.kshitijchauhan.resumade.utilities.hideKeyboard
 import com.haroldadmin.kshitijchauhan.resumade.viewmodel.CreateResumeViewModel
 import kotlinx.android.synthetic.main.activity_create_resume.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class CreateResumeActivity : AppCompatActivity(), CoroutineScope {
 
@@ -138,9 +136,11 @@ class CreateResumeActivity : AppCompatActivity(), CoroutineScope {
                 if (checkIfDetailsSaved()) {
                     launch(AppDispatchers.computationDispatcher) {
                         val html = buildHtml(createResumeViewModel.resume.value!!, createResumeViewModel.educationList.value!!, createResumeViewModel.experienceList.value!!, createResumeViewModel.projectsList.value!!)
-                        webView = WebView(this@CreateResumeActivity)
-                        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
-                        webView.createPrintJob(this@CreateResumeActivity)
+                        withContext(AppDispatchers.mainThreadDispatcher) {
+                            webView = WebView(this@CreateResumeActivity)
+                            webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
+                            webView.createPrintJob(this@CreateResumeActivity)
+                        }
                     }
                 }
                 true
